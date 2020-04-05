@@ -4,27 +4,32 @@ pipeline {
     }
     agent {
         docker {
-          image 'mhart/alpine-node:10'
+          image 'mhart/alpine-node:12'
           args '-u root'
         }
     }
     stages {
-        stage('Install') { 
+        stage('INSTALL - prev tools') { 
             steps {
-                sh "apk update && apk upgrade"
-                sh "apk add --no-cache bash git openssh"
-                sh "npm install -g yarn"
-                sh "apk add --no-cache --virtual python"
-                sh "rm -rf node_modules"
-                sh 'yarn install' 
+              sh "apk update && apk upgrade"
+              sh "apk add --no-cache bash git openssh"
+              sh "npm install -g yarn"
+              sh "apk add --no-cache --virtual python"
+              sh "rm -rf node_modules"
+               
             }
         }
-        stage('test') { 
+        stage('INSTALL PROJECT MODULES') { 
+            steps {
+              sh 'yarn install' 
+            }
+        }
+        stage('TEST') { 
             steps {
                 sh 'yarn test:coverage' 
             }
         }
-        stage('deploy dev - GitHub Pages') { 
+        stage('DEPLOY DEV - GitHub Pages') { 
           steps {   
             // withCredentials([string(credentialsId: 'GH_TOKEN', variable: 'GH_TOKEN'), string(credentialsId: 'GH_USER', variable: 'GH_USER'), string(credentialsId: 'GH_MAIL', variable: 'GH_MAIL')]) { 
             //   sh "git config --global user.email '${GH_MAIL}'"
