@@ -42,7 +42,9 @@ pipeline {
           //     sh "yarn deploy"
           //   }           
           // }
-          sh "yarn deploy"
+          steps {   
+            sh "yarn deploy"
+          }
       }
     }
 }
