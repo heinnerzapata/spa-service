@@ -70,7 +70,7 @@
     "test": "node scripts/test.js --env=jsdom",
     "test:coverage": "CI=true npm test -- --coverage",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -b develop -d build",
+    "deploy": "gh-pages -d build",
     "coverage": "node scripts/test.js --env=jsdom --coverage"
   },
   "eslintConfig": {
