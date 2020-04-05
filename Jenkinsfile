@@ -30,21 +30,23 @@ pipeline {
             }
         }
         stage('DEPLOY DEV - GitHub Pages') { 
-          // steps {   
-          //   withCredentials([string(credentialsId: 'GH_TOKEN', variable: 'GH_TOKEN'), string(credentialsId: 'GH_USER', variable: 'GH_USER'), string(credentialsId: 'GH_MAIL', variable: 'GH_MAIL')]) { 
-          //     sh "git config --global user.email '${GH_MAIL}'"
-          //     sh "git config --global user.name '${GH_USER}'"
-          //     sh "git remote rm origin"
-          //     sh "git remote add origin https://vol7er-spa-3:'${GH_TOKEN}'@github.com/VOL7ER/vol7er-spa-3.git"
-          //     //sh 'git add -A'
-          //     //sh 'git commit -m"merge since bitBucket jenkins"'
-          //     //sh "git push --force -u origin develop"
-          //     sh "yarn deploy"
-          //   }           
-          // }
           steps {   
             sh "yarn deploy"
           }
       }
     }
 }
+
+
+   // steps {   
+  //   withCredentials([string(credentialsId: 'GH_TOKEN', variable: 'GH_TOKEN'), string(credentialsId: 'GH_USER', variable: 'GH_USER'), string(credentialsId: 'GH_MAIL', variable: 'GH_MAIL')]) { 
+  //     sh "git config --global user.email '${GH_MAIL}'"
+  //     sh "git config --global user.name '${GH_USER}'"
+  //     sh "git remote rm origin"
+  //     sh "git remote add origin https://vol7er-spa-3:'${GH_TOKEN}'@github.com/VOL7ER/vol7er-spa-3.git"
+  //     //sh 'git add -A'
+  //     //sh 'git commit -m"merge since bitBucket jenkins"'
+  //     //sh "git push --force -u origin develop"
+  //     sh "yarn deploy"
+  //   }           
+  // }
