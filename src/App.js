@@ -16,7 +16,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React HZ 7
+          Learn React HZ 8
         </a>
       </header>
     </div>
