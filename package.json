@@ -20,7 +20,7 @@
     "eject": "react-scripts eject",
     "test:coverage": "npm test -- --coverage",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -b master -d build",
     "coverage": "node scripts/test.js --env=jsdom --coverage"
   },
   "eslintConfig": {
