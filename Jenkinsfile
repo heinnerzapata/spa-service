@@ -15,8 +15,6 @@ pipeline {
               sh "apk add --no-cache bash git openssh"
               sh "npm install -g yarn"
               sh "apk add --no-cache --virtual python"
-              sh "rm -rf node_modules"
-               
             }
         }
         stage('INSTALL PROJECT MODULES') { 
