@@ -1,0 +1,101 @@
+{
+  "languages": {
+    "en": "Ingles",
+    "es": "Español"
+  },
+  "pages": {
+    "home": {
+      "join": "Únete!"
+    },
+    "dashboard": {
+      "title": "Tablero de control",
+      "machinesList": "Maquinas"
+    },
+    "machines": {
+      "title": "Maquinas"
+    },
+    "machine": {
+      "title": "Maquina"
+    },
+    "about": {
+      "title": "Acerca"
+    },
+    "signin": {
+      "title": "Ingresar",
+      "welcome": "Bienvenido !!",
+      "invalidCredentials": "Credenciales invalidas"
+    },
+    "signup": {
+      "title": "Registrarse",
+      "welcome": "Bienvenido !!",
+      "errorOnUserCreation": "Error en la creacion del usuario"
+    },
+    "recover": {
+      "title": "Recuperar contraseña"
+    },
+    "profile": {
+      "title": "Perfil",
+      "tabs": {
+        "userData": "Datos del usuario",
+        "subscription": "Suscripción"
+      },
+      "subscriptionTypes": {
+        "free": "Gratis",
+        "monthly": "Mensual",
+        "annual": "Anual",
+        "basic": "Basica",
+        "intermediate": "Intermedia",
+        "pro": "Avanzada",
+        "plan": "Plan",
+        "companyDetails": "Detalles de la compañia",
+        "payment": "Pago"
+      },
+      "get": "Obtener"
+    }
+  },
+  "components": {
+    "header": {
+      "menu": {
+        "about": "Acerca",
+        "signup": "Registrarse",
+        "signin": "Ingresar",
+        "profile": "Perfil",
+        "closeSession": "Cerrar sesion",
+        "dashboard": "Tablero"
+      }
+    }
+  },
+  "errors": {
+    "forms": {
+      "notValidEmail": "Esta no es una direccion de correo valida",
+      "notValidPassword": "Esta no es una contraseña valida",
+      "notValidFirstName": "Este no es un nombre valido",
+      "notValidLastName": "Este no es un apellido valido",
+      "notValidPasswordConf": "La confirmacion de la contraseña no es valida",
+      "notValidPhoneContact": "Este telefono de contacto no es valido",
+      "notValidCompanyName": "Este no es un nombre valido para una compañia"
+    }
+  },
+  "labels": {
+    "forms": {
+      "email": "Email",
+      "password": "Contraseña",
+      "newPassword": "Nueva contraseña",
+      "submit": "Enviar",
+      "save": "Guardar",
+      "pay": "Pagar",
+      "recoverPassword": "Recuperar contraseña",
+      "dontHaveAccount": "¿ No tienes una cuenta ?",
+      "firstName": "Nombre",
+      "companyName": "Nombre de la compañia",
+      "lastName": "Apellido",
+      "phoneContact": "Telefono de contacto",
+      "passwordConf": "Confirmar contraseña",
+      "emailRecoverSent": "Un link de confirmacion ha sido enviado a su Email para restablecer la contraseña",
+      "emailRecoverTokenError": "Este codigo de restablecimiento es invalido o ha expirado",
+      "emailRecoverSuccess": "La contraseña de la cuenta ha sido cambiada exitosamente",
+      "userInfo": "Informacion del usuario",
+      "return": "Retornar"
+    }
+  }
+}

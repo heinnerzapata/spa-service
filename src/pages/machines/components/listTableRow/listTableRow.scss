@@ -1,0 +1,15 @@
+@import "../../../../variables/sass/variables.scss";
+@import "../../../../mixins/index.scss";
+
+.vol7er-list-table-row {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: $white;
+  padding: 10px;
+  border-radius: 6px;
+  @include card-shadow();
+  border: solid 2px transparent;
+  &__description {
+    font-size: 25px !important;
+  }
+}

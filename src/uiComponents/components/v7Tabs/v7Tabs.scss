@@ -1,0 +1,24 @@
+@import '../../../variables/sass/variables.scss';
+
+.vol7er-tabs {
+  .tabs .tab a:hover,
+  .tabs .tab a.active {
+    color: $vol7er-main-dark !important;
+  }
+  .tabs .tab a {
+    color: $vol7er-main-dark !important;
+  }
+  .tabs .indicator {
+    background-color: $vol7er-main-dark !important;
+  }
+  &__backGray {
+    background-color: $background;
+  }
+  &__backTransparent {
+    background-color: transparent;
+  }
+
+  ul {
+    background-color: transparent;
+  }
+}

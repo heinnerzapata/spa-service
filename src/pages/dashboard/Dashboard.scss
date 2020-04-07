@@ -1,0 +1,20 @@
+@import "../../variables/sass/variables.scss";
+
+.my-masonry-grid {
+  display: -webkit-box; /* Not needed if autoprefixing */
+  display: -ms-flexbox; /* Not needed if autoprefixing */
+  display: flex;
+
+ /* gutter size offset */
+  width: 100%;
+}
+.my-masonry-grid_column {
+  /* gutter size */
+  background-clip: padding-box;
+  padding: 5px;
+}
+ 
+/* Style your items */
+.my-masonry-grid_column > div { /* change div to reference your elements you put in <Masonry> */
+  background: grey;
+}

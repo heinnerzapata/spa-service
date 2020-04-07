@@ -1,0 +1,100 @@
+{
+  "languages": {
+    "en": "English",
+    "es": "Spanish"
+  },
+  "pages": {
+    "home": {
+      "join": "Join!"
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "machinesList": "Machines"
+    },
+    "machines": {
+      "title": "Machines"
+    },
+    "machine": {
+      "title": "Machine"
+    },
+    "about": {
+      "title": "About"
+    },
+    "signin": {
+      "title": "Sign In",
+      "welcome": "Welcome !!",
+      "invalidCredentials": "Invalid credentials"
+    },
+    "signup": {
+      "title": "Sign Up",
+      "welcome": "Welcome !!",
+      "errorOnUserCreation": "Error on user creation"
+    },
+    "recover": {
+      "title": "Recover password"
+    },
+    "profile": {
+      "title": "Profile",
+      "tabs": {
+        "userData": "User data",
+        "subscription": "Subscription"
+      },
+      "subscriptionTypes": {
+        "free": "Free",
+        "monthly": "Monthly",
+        "annual": "Annual",
+        "basic": "Basic",
+        "intermediate": "Intermediate",
+        "pro": "Pro",
+        "plan": "Plan",
+        "companyDetails": "Company details",
+        "payment": "Payment"
+      },
+      "get": "Get"
+    }
+  },
+  "components": {
+    "header": {
+      "menu": {
+        "about": "About",
+        "signup": "SignUp",
+        "signin": "SignIn",
+        "profile": "Profile",
+        "closeSession": "Close session",
+        "dashboard": "Dashboard"
+      }
+    }
+  },
+  "errors": {
+    "forms": {
+      "notValidEmail": "This is not a valid email",
+      "notValidPassword": "This is not a valid password",
+      "notValidFirstName": "This is not a valid first name",
+      "notValidPasswordConf": "Password confirmation is not valid",
+      "notValidPhoneContact": "This phone contact is not valid",
+      "notValidCompanyName": "This is not a valid name for a company"
+    }
+  },
+  "labels": {
+    "forms": {
+      "email": "Email",
+      "password": "Password",
+      "newPassword": "New Password",
+      "submit": "Submit",
+      "save": "Save",
+      "pay": "Pay",
+      "recoverPassword": "Recover password",
+      "dontHaveAccount": "Don't Have an Account ?",
+      "firstName": "First name",
+      "companyName": "Company name",
+      "lastName": "Last name",
+      "phoneContact": "Phone contact",
+      "passwordConf": "Confirm password",
+      "emailRecoverSent": "An message confirmation has been sent to your email with a link to reset your password",
+      "emailRecoverTokenError": "Password reset token is invalid or has expired",
+      "emailRecoverSuccess": "Account password has been changed successfully",
+      "userInfo": "User info",
+      "return": "Return"
+    }
+  }
+}

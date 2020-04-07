@@ -1,0 +1,23 @@
+@import '../../variables/sass/variables.scss';
+
+.vol7er-logo {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: bold;
+  margin: 0px;
+  padding: 0px;
+  padding: 5px;
+}
+
+.vol7er-logo-text{
+  color: $white !important;
+}
+
+.vol7er-logo-7--grey {
+  color: $white;
+  font-weight: bold;
+}
+
+.vol7er-logo-7--orange {
+  color: $vol7er-main-light;
+  font-weight: bold;
+}

@@ -1,0 +1,43 @@
+@import "../../variables/sass/variables.scss";
+
+.video-cover {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -100;
+
+  &__children {
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .video-react-control-bar {
+    display: none;
+  }
+  &__back {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: $vol7er-main-t1;
+  }
+  @media screen and (max-width: 650px) {
+    height: 50vh;
+    &__back {
+      height: 50vh;
+    }
+  }
+  @media screen and (min-width: 651px) and (max-width: 991px) {
+    height: 75vh;
+    &__back {
+      height: 75vh;
+    }
+  }
+}

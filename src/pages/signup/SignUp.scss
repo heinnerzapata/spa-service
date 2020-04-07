@@ -1,0 +1,16 @@
+@import "../../variables/sass/variables.scss";
+
+.vol7er-sign-up {
+  &__form-container {
+    padding: 10px;
+    &__recover {
+      padding: 10px;
+    }
+    &__recover:first-of-type {
+      border-top: solid 1px $border;
+    }
+    &__button {
+        margin-bottom: 10px;
+    }
+  }
+}

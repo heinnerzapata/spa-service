@@ -1,0 +1,26 @@
+@import "../../variables/sass/variables.scss";
+.vol7er-message {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  &__text {
+    border-radius: 6px;
+    padding: 5px;
+    font-style: italic;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    &-alert {
+      border: solid 1px $alert-message;
+      color: $alert-message;
+    }
+    &-error {
+      border: solid 1px $error-message;
+      color: $error-message;
+    }
+    &-confirm {
+      border: solid 1px $confirm-message;
+      color: $confirm-message;
+    }
+  }
+}

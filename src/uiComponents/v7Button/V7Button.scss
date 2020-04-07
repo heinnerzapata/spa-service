@@ -1,0 +1,20 @@
+@import "../../variables/sass/variables.scss";
+
+.btn {
+  background-color: $vol7er-main;
+}
+.btn:visited {
+  background-color: $vol7er-main;
+}
+.btn:hover {
+  background-color: $vol7er-main-light;
+}
+.btn:active {
+  background-color: $vol7er-main;
+}
+
+.btn:focus,
+.btn-large:focus,
+.btn-floating:focus {
+  background-color: $vol7er-main !important;
+}

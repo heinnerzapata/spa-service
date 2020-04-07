@@ -1,0 +1,71 @@
+@import "../../../variables/sass/variables.scss";
+
+.vol7er-card-link-image {
+  &__parent {
+    overflow: hidden;
+    position: relative;
+    float: left;
+    display: inline-block;
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+
+  &__child {
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+  }
+
+  &__parent:hover &__child,
+  &__parent:focus &__child {
+    -ms-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+    -o-transform: scale(1.2);
+    transform: scale(1.2);
+  }
+
+  &__parent:hover &__child:before,
+  &__parent:focus &__child:before {
+    display: block;
+  }
+
+  &__parent:hover a,
+  &__parent:focus a {
+    display: block;
+  }
+
+  &__child:before {
+    content: "";
+    display: none;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba($vol7er-main, 0.75);
+  }
+
+  &__text {
+    background-color: rgba(black, 0.5);
+    -webkit-backdrop-filter: blur(1.5px);
+    backdrop-filter: blur(1.5px);
+    font-size: 35px;
+    color: #ffffff !important;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+}
