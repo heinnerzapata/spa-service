@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Router, Route, Switch } from "react-router-dom";
-//import { BrowserRouter } from "react-router-dom";
-import createHistory from "history/createBrowserHistory";
+import { createBrowserHistory } from 'history'
 import "./App.scss";
 
 import Home from "./pages/home/Home";
@@ -22,7 +21,7 @@ class App extends Component {
     return (
       <section>
         {/*<BrowserRouter> */}
-        <Router history={createHistory({ basename: process.env.PUBLIC_URL })}>
+        <Router history={createBrowserHistory({ basename: process.env.PUBLIC_URL })}>
           <section>
             <Header />
             <Switch>

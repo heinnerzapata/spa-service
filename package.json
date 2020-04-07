@@ -41,7 +41,7 @@
     "formsy-react": "^1.1.4",
     "fs-extra": "8.1.0",
     "gh-pages": "2.2.0",
-    "history": "^4.10.1",
+    "history": "^4.7.2",
     "html-webpack-plugin": "4.0.0-beta.11",
     "i18next": "^19.3.4",
     "identity-obj-proxy": "3.0.0",
