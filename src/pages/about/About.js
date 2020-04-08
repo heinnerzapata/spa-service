@@ -10,7 +10,7 @@ class About extends Component {
       <Session>
         <PageTitle title={this.props.t('pages.about.title')}></PageTitle>
         <PageContainer isMarginTopActivated={false}>
-          About Content HZ
+          About Content HZ 2
         </PageContainer>
       </Session>
     );
