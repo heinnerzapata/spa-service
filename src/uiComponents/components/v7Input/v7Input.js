@@ -9,18 +9,16 @@ const V7Input = props => {
     props.setValue(event.currentTarget.value);
   };
 
-  const updateValue = () => {
+  useEffect(() => {
     if (props.defaultValue) {
       props.setValue(props.defaultValue);
     }
-  };
-
-  useEffect(() => {
-    updateValue();
     return () => {
-      updateValue();
+      if (props.defaultValue) {
+        props.setValue(props.defaultValue);
+      }
     };
-  }, []);
+  }, [props]);
 
   return (
     <div className="vol7er-input">
@@ -29,15 +27,15 @@ const V7Input = props => {
           {props.icon}
         </Col>
         <Col xs={props.icon ? 11 : 12}>
-          {/* <Input
+          <Input
             name={props.name}
             s={props.s}
             label={props.label}
             onChange={onChange}
             type={props.type}
             defaultValue={props.defaultValue}
-            error={props.getErrorMessage()} /> */}
-          <input type="text" />
+            error={props.getErrorMessage()}
+          />
         </Col>
       </Row>
     </div>

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Row, Col } from 'react-flexbox-grid';
 import V7Button from './../../v7Button/V7Button';
-import PropTypes from 'prop-types';
 import './v7StepButtons.scss';
 
 const V7StepComponent = (props) => {
