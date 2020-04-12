@@ -33,7 +33,7 @@ pipeline {
               sh "git config --global user.email '${GH_MAIL}'"
               sh "git config --global user.name '${GH_USER}'"
               sh "git remote rm origin"
-              sh "git remote add origin https://vol7er-spa-3:'${GH_TOKEN}'@github.com/VOL7ER/vol7er-spa-3.git"
+              sh "git remote add origin https://vol7er:'${GH_TOKEN}'@github.com/vol7er/vol7er.git"
               sh "yarn deploy"
             }           
           }
