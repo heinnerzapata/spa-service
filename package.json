@@ -1,7 +1,7 @@
 {
   "name": "vol7er-spa-3",
   "version": "0.1.0",
-  "homepage": "https://vol7er.com",
+  "homepage": "https://dev.vol7er.com",
   "private": true,
   "dependencies": {
     "@babel/core": "7.9.0",
