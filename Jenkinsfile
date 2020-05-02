@@ -5,7 +5,7 @@ pipeline {
     agent {
         docker {
           image 'mhart/alpine-node:12'
-          args '-u root'
+          args '-u jenkins'
         }
     }
     stages {
