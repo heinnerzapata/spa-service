@@ -78,11 +78,11 @@ class Header extends Component {
           ].join(" ")}
         >
           <ul className="vol7er-header__options-mobile__menu">
-            <li className="vol7er-header__options-mobile__menu__item vol7er-header__options-mobile-whitef">
+            {/* <li className="vol7er-header__options-mobile__menu__item vol7er-header__options-mobile-whitef">
               <Link to="/about" onClick={this.closeMobileMenu}>
                 {t("components.header.menu.about")}
               </Link>
-            </li>
+            </li> */}
             {!!!this.props.userReducer.userInfo.hexId && (
               <li className="vol7er-header__options-mobile__menu__item vol7er-header__options-mobile-whitef">
                 <Link to="/signup" onClick={this.closeMobileMenu}>
@@ -140,11 +140,11 @@ class Header extends Component {
             </Col>
             <Col xs={12} lg={8} className="vol7er-header__options">
               <Row end="lg" center="xs" middle="xs">
-                <Col>
+                {/* <Col>
                   <V7Chip className="vol7er-header__options__menu--option">
                     <Link to="/about">{t("components.header.menu.about")}</Link>
                   </V7Chip>
-                </Col>
+                </Col> */}
                 {!!this.props.userReducer.userInfo.hexId && (
                   <Col>
                     <V7Chip className="vol7er-header__options__menu--option">
