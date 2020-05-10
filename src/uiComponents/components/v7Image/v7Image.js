@@ -2,8 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./v7Image.scss";
 
-const V7Image = props => {
-  const getImageTypeClass = type => {
+const V7Image = (props) => {
+  const getImageTypeClass = (type) => {
     let result = "";
     switch (type) {
       case "round": {
@@ -28,7 +28,7 @@ const V7Image = props => {
         "vol7er-image",
         getImageTypeClass(props.type),
         props.noShadow ? "" : "vol7er-image__shadow",
-        props.flip ? "vol7er-image__flip" : ""
+        props.flip ? "vol7er-image__flip" : "",
       ].join(" ")}
       width={props.width}
       height={props.height}
@@ -40,8 +40,8 @@ const V7Image = props => {
 V7Image.propTypes = {
   type: PropTypes.string,
   src: PropTypes.string,
-  width: PropTypes.string,
-  height: PropTypes.string
+  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 export default V7Image;

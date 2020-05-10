@@ -2,11 +2,6 @@
 
 .vol7er-page-container {
   background-color: $app-empty;
-  min-height: 400px;
-
-  &__grid {
-    padding-top: 10px;
-  }
 
   &--margin-variable {
     margin-top: 100vh;

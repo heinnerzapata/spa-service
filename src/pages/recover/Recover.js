@@ -1,15 +1,15 @@
 import React, { Component } from "react";
-import { withRouter } from 'react-router-dom';
+import { withRouter } from "react-router-dom";
 import PageContainer from "../../uiComponents/pageContainer/PageContainer";
 import PageTitle from "../../uiComponents/pageTitle/PageTitle";
 import V7Message from "../../uiComponents/v7Message/V7Message";
 import UserService from "../../services/user.service";
 import { connect } from "react-redux";
-import { translate } from 'react-i18next';
+import { translate } from "react-i18next";
 import RequestChange from "./components/RequestChange/RequestChange";
 import PasswordChange from "./components/PasswordChange/PasswordChange";
 import Session from "../../uiComponents/containers/session/Session";
-import _ from 'lodash';
+import _ from "lodash";
 import "./Recover.scss";
 
 class Recover extends Component {
@@ -19,7 +19,7 @@ class Recover extends Component {
     this.state = {
       showConfirmMessage: false,
       showInvalidTokenMessage: false,
-      showRequestChange: false
+      showRequestChange: false,
     };
 
     this.checkParamToken = this.checkParamToken.bind(this);
@@ -28,7 +28,6 @@ class Recover extends Component {
     this.userService = UserService;
 
     this.checkParamToken();
-
   }
 
   checkParamToken() {
@@ -38,14 +37,21 @@ class Recover extends Component {
   }
 
   checkRecoverToken(token) {
-    this.userService.checkRecoverToken(token)
-      .then(result => {
+    this.userService
+      .checkRecoverToken(token)
+      .then((result) => {
         console.log(result);
-        this.setState({ showInvalidTokenMessage: false, showRequestChange: true });
+        this.setState({
+          showInvalidTokenMessage: false,
+          showRequestChange: true,
+        });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
-        this.setState({ showInvalidTokenMessage: true, showRequestChange: false });
+        this.setState({
+          showInvalidTokenMessage: true,
+          showRequestChange: false,
+        });
       });
   }
 
@@ -54,23 +60,26 @@ class Recover extends Component {
     return (
       <Session>
         <div className="vol7er-recover">
-          <PageTitle title={t('pages.recover.title')} />
+          <PageTitle title={t("pages.recover.title")} />
           <PageContainer isMarginTopActivated={false}>
-            {!this.state.showInvalidTokenMessage ?
-              <div>
-                {this.state.showRequestChange ?
-                  <PasswordChange
-                    token={this.props.match.params.token}>
-                  </PasswordChange>
-                  :
-                  <RequestChange></RequestChange>
-                }
-              </div>
-              :
-              <V7Message
-                text={t('labels.forms.emailRecoverTokenError')}
-                type={"error"}></V7Message>
-            }
+            <div className="vol7er-recover__form-container">
+              {!this.state.showInvalidTokenMessage ? (
+                <div>
+                  {this.state.showRequestChange ? (
+                    <PasswordChange
+                      token={this.props.match.params.token}
+                    ></PasswordChange>
+                  ) : (
+                    <RequestChange></RequestChange>
+                  )}
+                </div>
+              ) : (
+                <V7Message
+                  text={t("labels.forms.emailRecoverTokenError")}
+                  type={"error"}
+                ></V7Message>
+              )}
+            </div>
           </PageContainer>
         </div>
       </Session>
@@ -78,5 +87,6 @@ class Recover extends Component {
   }
 }
 
-export default connect(state => state)(withRouter(translate('common')(Recover)));
-
+export default connect((state) => state)(
+  withRouter(translate("common")(Recover))
+);
