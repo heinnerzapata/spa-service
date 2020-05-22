@@ -1,13 +1,22 @@
 $vol7er-grey: rgba(#212121,1);
 $white: rgba(white,1);
-$app-empty: #F2F2F2;
+$black: #000000;
 
-$vol7er-main: rgba(#0D003F , 1);
-$vol7er-main-t1: rgba(#0D003F, 0.75);
-$vol7er-main-dark: rgba(#06001B,1);
-$vol7er-main-light: rgba(#E01CE0,1);
+// $vol7er-main: rgba(#0D003F , 1);
+// $vol7er-main-t1: rgba(#0D003F, 0.75);
+// $vol7er-main-dark: rgba(#06001B,1);
+// $vol7er-main-light: rgba(#E01CE0,1);
+// $background: rgba(#f0f0f0,1);
+// $app-empty: #F2F2F2;
 
-$background: rgba(#f0f0f0,1);
+$vol7er-main: rgba(#e2ca13 , 1);
+$vol7er-main-t1: rgba(#fee315, 0.75);
+$vol7er-main-t2: rgba(#2d2d2d, 0.75);
+$vol7er-main-dark: rgba(#2d2d2d,1);
+$vol7er-main-light: rgba(#ffee6b,1);
+$background: rgba(#2d2d2d,1);
+$app-empty: #2d2d2d;
+
 $border: rgba(#E6E6E6,1);
 $alert-message: rgba(#cc9900,1);
 $confirm-message: rgba(#009933,1);

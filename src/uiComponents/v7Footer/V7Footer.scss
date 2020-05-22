@@ -1,5 +1,11 @@
-.vol7er-footer{
-    color: white;
-    background-color: #2d2d2d;
-    min-height: 200px;
+@import "../../variables/sass/variables.scss";
+
+.vol7er-footer {
+  color: white;
+  background-color: #161616;
+  min-height: 200px;
+}
+
+.footer-copyright {
+  background-color: transparent !important;
 }

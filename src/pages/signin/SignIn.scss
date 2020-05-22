@@ -3,13 +3,12 @@
 .vol7er-sign-in {
   &__form-container {
     padding: 10px;
+
     &__recover {
       padding: 10px;
     }
-    &__recover:first-of-type {
-      border-bottom: solid 1px $border;
-    }
   }
+
   &__loader-container {
     padding-top: 50px;
   }
