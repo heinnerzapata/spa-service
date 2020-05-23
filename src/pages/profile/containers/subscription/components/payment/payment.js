@@ -1,6 +1,6 @@
 import React from 'react';
 import { V7StepButtons, V7Title } from 'uiComponents/components';
-import { translate } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { Row, Col, Grid } from 'react-flexbox-grid';
 
 const Payment = (props) => {
@@ -32,4 +32,4 @@ const Payment = (props) => {
   )
 }
 
-export default translate('common')(Payment);
+export default withTranslation('common')(Payment);

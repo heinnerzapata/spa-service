@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Formsy , { addValidationRule } from 'formsy-react';
 import { Row, Col } from "react-flexbox-grid";
-import { translate } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import V7Button from "../../../../uiComponents/v7Button/V7Button";
 import { V7Input } from "uiComponents/components";
 import V7Preloader from "../../../../uiComponents/v7Preloader/V7Preloader";
@@ -152,4 +152,4 @@ PasswordChange.propTypes = {
   token: PropTypes.string
 }
 
-export default connect(state => state)(withRouter(translate('common')(PasswordChange)));
+export default connect(state => state)(withRouter(withTranslation('common')(PasswordChange)));

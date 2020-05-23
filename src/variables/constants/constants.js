@@ -18,7 +18,8 @@ export const COLORS = {
 
   vol7erMainDark: '#06001B',
   vol7erMainLight: '#E01CE0',
-  vol7erMain: '#0D003F'
+  vol7erMain: '#0D003F',
+  vol7erOrange: '#2aa726',
 };
 
 export const DEFAULT_CONFIG =  {

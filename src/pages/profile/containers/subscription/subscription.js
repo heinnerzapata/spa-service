@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Row, Col, Grid } from 'react-flexbox-grid';
 import UserService from './../../../../services/user.service';
 import CompanyService from "../../../../services/company.service";
-import { translate } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { V7Stepper } from 'uiComponents/components';
 import { SUBSCRIPTION_STEPS } from './subscription.constants';
@@ -197,4 +197,4 @@ class Subscription extends Component {
   }
 }
 
-export default connect(state => state)(translate('common')(withRouter(Subscription)));
+export default connect(state => state)(withTranslation('common')(withRouter(Subscription)));

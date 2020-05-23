@@ -1,5 +1,5 @@
 import React from 'react';
-import { translate } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { Row, Col, Grid } from 'react-flexbox-grid';
 import { V7Padding, V7StepButtons, V7Title } from 'uiComponents/components';
 import Formsy from 'formsy-react';
@@ -98,4 +98,4 @@ const CompanyDetails = (props) => {
   )
 }
 
-export default translate('common')(CompanyDetails);
+export default withTranslation('common')(CompanyDetails);

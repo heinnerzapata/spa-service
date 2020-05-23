@@ -16,7 +16,7 @@ import UserService from "../../services/user.service";
 import { connect } from "react-redux";
 import { setToken } from "../../store/actions/user.action";
 import { setUserInfo } from "../../store/actions/user.action";
-import { translate } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import queryString from 'query-string';
 import _ from 'lodash';
 import base64 from 'base-64';
@@ -190,5 +190,5 @@ class SignIn extends Component {
   }
 }
 
-export default connect(state => state)(withRouter(translate('common')(SignIn)));
+export default connect(state => state)(withRouter(withTranslation('common')(SignIn)));
 

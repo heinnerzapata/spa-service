@@ -17,7 +17,7 @@ import UserService from "../../services/user.service";
 import { connect } from "react-redux";
 import { setToken } from "../../store/actions/user.action";
 import { setUserInfo } from "../../store/actions/user.action";
-import { translate } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import Session from "../../uiComponents/containers/session/Session";
 import './SignUp.scss';
 
@@ -258,4 +258,4 @@ class SignUp extends Component {
   }
 }
 
-export default connect(state => state)(withRouter(translate('common')(SignUp)));
+export default connect(state => state)(withRouter(withTranslation('common')(SignUp)));

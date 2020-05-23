@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Formsy from 'formsy-react';
 import { Row, Col } from "react-flexbox-grid";
-import { translate } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import V7Button from "../../../../uiComponents/v7Button/V7Button";
 import V7Message from "../../../../uiComponents/v7Message/V7Message";
 import { V7Input } from "uiComponents/components";
@@ -104,4 +104,4 @@ class RequestChange extends Component {
   }
 }
 
-export default withRouter(translate('common')(RequestChange));
+export default withRouter(withTranslation('common')(RequestChange));

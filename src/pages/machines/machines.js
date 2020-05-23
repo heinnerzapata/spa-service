@@ -3,7 +3,7 @@ import PageTitle from "../../uiComponents/pageTitle/PageTitle";
 import Session from "../../uiComponents/containers/session/Session";
 import PageContainer from "../../uiComponents/pageContainer/PageContainer";
 import MachinesList from "./containers/machinesList/machinesList";
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 
 class Machines extends Component {
   state = {
@@ -29,4 +29,4 @@ class Machines extends Component {
   }
 }
 
-export default translate("common")(Machines);
+export default withTranslation("common")(Machines);

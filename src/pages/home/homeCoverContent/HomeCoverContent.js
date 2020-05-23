@@ -4,7 +4,7 @@ import { V7Card } from "uiComponents/components";
 import V7Chip from "uiComponents/v7Chip/V7Chip";
 import V7Link from "uiComponents/v7Link/V7Link";
 import Logo from "uiComponents/logo/Logo";
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 import { COLORS } from "../../../variables/constants/constants";
 import { V7Image } from "uiComponents/components";
 import "./HomeCoverContent.scss";
@@ -22,7 +22,7 @@ const HomeCoverComponent = props => {
     <Grid className="vol7er-home-cover">
       <Row center="xs" middle="xs" className="vol7er-home-cover__main-row">
         <Col xs={12} lg={8}>
-          <div style={{ transform: `translate(-${window.innerWidth/4}px, ${window.innerWidth/40}px)` }}>
+          <div style={{ transform: `withTranslation(-${window.innerWidth/4}px, ${window.innerWidth/40}px)` }}>
             <V7Image
               noShadow
               flip
@@ -53,4 +53,4 @@ const HomeCoverComponent = props => {
   );
 };
 
-export default translate("common")(HomeCoverComponent);
+export default withTranslation("common")(HomeCoverComponent);

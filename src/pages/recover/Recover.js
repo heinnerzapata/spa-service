@@ -5,7 +5,7 @@ import PageTitle from "../../uiComponents/pageTitle/PageTitle";
 import V7Message from "../../uiComponents/v7Message/V7Message";
 import UserService from "../../services/user.service";
 import { connect } from "react-redux";
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 import RequestChange from "./components/RequestChange/RequestChange";
 import PasswordChange from "./components/PasswordChange/PasswordChange";
 import Session from "../../uiComponents/containers/session/Session";
@@ -88,5 +88,5 @@ class Recover extends Component {
 }
 
 export default connect((state) => state)(
-  withRouter(translate("common")(Recover))
+  withRouter(withTranslation("common")(Recover))
 );

@@ -9,7 +9,7 @@ import Language from "../containers/language/language";
 import { connect } from "react-redux";
 import "./Header.scss";
 import "font-awesome/css/font-awesome.min.css";
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 import { DEFAULT_CONFIG } from "../../variables/constants/constants";
 
 class Header extends Component {
@@ -189,4 +189,4 @@ class Header extends Component {
   }
 }
 
-export default connect(state => state)(translate("common")(Header));
+export default connect(state => state)(withTranslation("common")(Header));

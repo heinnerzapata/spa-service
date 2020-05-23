@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Col } from 'react-flexbox-grid';
 import { V7Switch } from 'uiComponents/components';
-import { translate } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import faFlask from "@fortawesome/fontawesome-free-solid/faFlask";
 import faLightbulb from "@fortawesome/fontawesome-free-solid/faLightbulb";
 import SubscriptionType from './../subscriptionType/subscriptionType';
@@ -54,4 +54,4 @@ const Plan = (props) => {
   )
 }
 
-export default translate('common')(Plan);
+export default withTranslation('common')(Plan);

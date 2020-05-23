@@ -3,7 +3,7 @@ import { V7Dropdown, V7FlagIcon } from 'uiComponents/components';
 import { Row, Col } from 'react-flexbox-grid';
 import { NavItem } from 'react-materialize';
 import { LANGUAGES } from './../../../variables/constants/constants';
-import { translate } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import LanguageLayout from './ components/languageLayout/languageLayout';
 import { DEFAULT_CONFIG } from "./../../../variables/constants/constants";
 
@@ -52,4 +52,4 @@ class Language extends Component {
   }
 }
 
-export default translate('common')(Language);
+export default withTranslation('common')(Language);

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PageTitle from "../../uiComponents/pageTitle/PageTitle";
 import Session from "../../uiComponents/containers/session/Session";
 import PageContainer from "../../uiComponents/pageContainer/PageContainer";
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 import { V7CardLinkImage } from "uiComponents/components";
 import Masonry from "react-masonry-css";
 import "./Dashboard.scss";
@@ -63,4 +63,4 @@ class Dasboard extends Component {
   }
 }
 
-export default translate("common")(Dasboard);
+export default withTranslation("common")(Dasboard);

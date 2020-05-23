@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import MachineService from "../../../../services/machine.service";
 import { Grid, Row, Col } from "react-flexbox-grid";
 import { V7Spinner } from "uiComponents/components";
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 import ListTableRow from "./../../components/listTableRow/listTableRow";
 
 class MachinesList extends Component {
@@ -110,4 +110,4 @@ class MachinesList extends Component {
   }
 }
 
-export default translate("common")(MachinesList);
+export default withTranslation("common")(MachinesList);

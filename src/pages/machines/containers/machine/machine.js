@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PageTitle from "./../../../../uiComponents/pageTitle/PageTitle";
 import Session from "./../../../../uiComponents/containers/session/Session";
 import PageContainer from "./../../../../uiComponents/pageContainer/PageContainer";
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 import MachineInfo from "../machineInfo/machineInfo";
 
 class Machine extends Component {
@@ -29,4 +29,4 @@ class Machine extends Component {
   }
 }
 
-export default translate("common")(Machine);
+export default withTranslation("common")(Machine);

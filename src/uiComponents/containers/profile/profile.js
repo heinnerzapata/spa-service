@@ -4,7 +4,7 @@ import { Row, Col } from 'react-flexbox-grid';
 import { NavItem } from 'react-materialize';
 import { V7Dropdown, V7Image } from 'uiComponents/components';
 import { connect } from 'react-redux';
-import { translate } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { withRouter } from 'react-router-dom';
 import { cleanToken, cleanUserInfo } from '../../../store/actions/user.action';
 import _ from 'lodash';
@@ -76,4 +76,4 @@ class Profile extends Component {
   }
 }
 
-export default connect(state => state)(translate('common')(withRouter(Profile)));
+export default connect(state => state)(withTranslation('common')(withRouter(Profile)));

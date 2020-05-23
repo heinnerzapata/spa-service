@@ -5,7 +5,7 @@ import './subscriptionType.scss';
 import { COLORS } from './../../../../../../variables/constants/constants';
 import { V7Title } from 'uiComponents/components';
 import V7Button from '../../../../../../uiComponents/v7Button/V7Button';
-import { translate } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import CurrencyFormat from 'react-currency-format';
 
 const SubscriptionType = (props) => {
@@ -59,4 +59,4 @@ const SubscriptionType = (props) => {
   );
 };
 
-export default translate('common')(SubscriptionType);
+export default withTranslation('common')(SubscriptionType);

@@ -12,7 +12,7 @@ const ListTableRow = props => {
     <Row key={props.key} className="vol7er-list-table-row" middle="xs">
       <Col xs={3} md={1}>
         <V7Image
-          style={{ transform: "translate(-30px)" }}
+          style={{ transform: "translation(-30px)" }}
           src={
             "http://gravatar.com/avatar/d1cd00cba00e5027e308372e2e43da91?s=200&d=retro"
           }

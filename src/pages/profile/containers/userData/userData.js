@@ -17,7 +17,7 @@ import M from 'materialize-css';
 import base64 from 'base-64';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { translate } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 class UserData extends Component {
   constructor(props) {
@@ -276,4 +276,4 @@ class UserData extends Component {
   }
 }
 
-export default connect(state => state)(withRouter(translate('common')(UserData)));;
+export default connect(state => state)(withRouter(withTranslation('common')(UserData)));;

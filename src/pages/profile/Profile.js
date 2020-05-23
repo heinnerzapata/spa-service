@@ -6,7 +6,7 @@ import Session from '../../uiComponents/containers/session/Session';
 import UserData from './containers/userData/userData';
 import Subscription from './containers/subscription/subscription';
 import { V7Tabs } from 'uiComponents/components';
-import { translate } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 class Profile extends Component {
   render() {
@@ -40,4 +40,4 @@ class Profile extends Component {
   }
 }
 
-export default translate('common')(Profile);
+export default withTranslation('common')(Profile);
