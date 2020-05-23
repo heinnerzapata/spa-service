@@ -22,7 +22,7 @@ const HomeCoverComponent = props => {
     <Grid className="vol7er-home-cover">
       <Row center="xs" middle="xs" className="vol7er-home-cover__main-row">
         <Col xs={12} lg={8}>
-          <div style={{ transform: `withTranslation(-${window.innerWidth/4}px, ${window.innerWidth/40}px)` }}>
+          <div style={{ transform: `translate(-${window.innerWidth/4}px, ${window.innerWidth/40}px)` }}>
             <V7Image
               noShadow
               flip
