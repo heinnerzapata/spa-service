@@ -1,8 +1,19 @@
 import React from "react";
 import "./v7Image.scss";
+import cx from "classnames";
 
-const V7Image = (props) => {
-  const getImageTypeClass = (type) => {
+interface v7ImageProps {
+  style?: React.CSSProperties;
+  src: string;
+  type?: string;
+  noShadow: boolean;
+  flip: boolean;
+  width: number;
+  height: number;
+}
+
+const V7Image: React.SFC<v7ImageProps> = (props) => {
+  const getImageTypeClass = (type: string) => {
     let result = "";
     switch (type) {
       case "round": {
@@ -23,12 +34,12 @@ const V7Image = (props) => {
     <img
       src={props.src}
       alt="render"
-      className={[
+      className={cx(
         "vol7er-image",
-        getImageTypeClass(props.type),
+        getImageTypeClass(props.type ? props.type : ""),
         props.noShadow ? "" : "vol7er-image__shadow",
-        props.flip ? "vol7er-image__flip" : "",
-      ].join(" ")}
+        props.flip ? "vol7er-image__flip" : ""
+      )}
       width={props.width}
       height={props.height}
       style={props.style}

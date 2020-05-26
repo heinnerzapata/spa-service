@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Router, Route, Switch } from "react-router-dom";
-import { createBrowserHistory } from 'history'
+import { createBrowserHistory } from "history";
 import "./App.scss";
 
-import Home from "./pages/home/Home";
+import { HomeWrapper } from "wrappers";
 import About from "./pages/about/About";
 import SignIn from "./pages/signin/SignIn";
 import SignUp from "./pages/signup/SignUp";
@@ -21,11 +21,13 @@ class App extends Component {
     return (
       <section>
         {/*<BrowserRouter> */}
-        <Router history={createBrowserHistory({ basename: process.env.PUBLIC_URL })}>
+        <Router
+          history={createBrowserHistory({ basename: process.env.PUBLIC_URL })}
+        >
           <section>
             <Header />
             <Switch>
-              <Route exact path="/" component={Home} />
+              <Route exact path="/" component={HomeWrapper} />
               <Route path="/about" component={About} />
               <Route path="/signin" component={SignIn} />
               <Route path="/signup" component={SignUp} />

@@ -1,21 +1,23 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { setMessage } from "../../store/actions/message";
 import { Row, Col } from "react-flexbox-grid";
 import VideoCover from "../../uiComponents/videoCover/VideoCover";
 import PageContainer from "../../uiComponents/pageContainer/PageContainer";
 import Session from "../../uiComponents/containers/session/Session";
-import HomeCoverComponent from "./homeCoverContent/HomeCoverContent";
+import HomeCoverComponent from "./homeCoverContent";
+import { WithTranslation } from "react-i18next";
+import "./home.scss";
 
-import "./Home.scss";
+interface homeProps extends WithTranslation {
+  t: any;
+}
 
-class Home extends Component {
+interface homeState {
+  width: number;
+}
+
+class Home extends Component<homeProps, homeState, {}> {
   state = {
-    width: window.innerWidth
-  };
-
-  _onChange = value => {
-    this.props.dispatch(setMessage(value));
+    width: window.innerWidth,
   };
 
   handleWindowSizeChange = () => {
@@ -33,7 +35,7 @@ class Home extends Component {
       <Session>
         {!isMobile && (
           <VideoCover>
-            <HomeCoverComponent />
+            <HomeCoverComponent t={this.props.t} />
           </VideoCover>
         )}
         <PageContainer isMarginTopActivated={true}>
@@ -46,4 +48,4 @@ class Home extends Component {
   }
 }
 
-export default connect(state => state)(Home);
+export default Home;

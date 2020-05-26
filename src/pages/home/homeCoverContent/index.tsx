@@ -1,19 +1,20 @@
 import React from "react";
 import { Row, Col, Grid } from "react-flexbox-grid";
-import { V7Card } from "uiComponents/components";
-import V7Chip from "uiComponents/v7Chip/V7Chip";
-import V7Link from "uiComponents/v7Link/V7Link";
-import Logo from "uiComponents/logo/Logo";
-import { withTranslation } from "react-i18next";
 import { COLORS } from "../../../variables/constants/constants";
-import { V7Image } from "uiComponents/components";
+import { V7Image, V7Link, V7Card, V7Logo, V7Chip } from "components";
 import "./HomeCoverContent.scss";
 
-import machine_01 from "../../../static/media/images/machine_01.png";
+import machine_01 from "static/media/images/machine_01.png";
 
-const HomeCoverComponent = props => {
+interface homeCoverContentProps {
+  t: any;
+}
+
+const HomeCoverComponent: React.SFC<homeCoverContentProps> = (props) => {
   const cardStyle = {
-    backgroundColor: `rgba(0, 0, 0, 0.5)`
+    backgroundColor: `rgba(0, 0, 0, 0.5)`,
+    paddingTop: `20px`,
+    paddingBottom: `20px`,
   };
 
   const { t } = props;
@@ -22,7 +23,13 @@ const HomeCoverComponent = props => {
     <Grid className="vol7er-home-cover">
       <Row center="xs" middle="xs" className="vol7er-home-cover__main-row">
         <Col xs={12} lg={8}>
-          <div style={{ transform: `translate(-${window.innerWidth/4}px, ${window.innerWidth/40}px)` }}>
+          <div
+            style={{
+              transform: `translate(-${window.innerWidth / 4}px, ${
+                window.innerWidth / 40
+              }px)`,
+            }}
+          >
             <V7Image
               noShadow
               flip
@@ -36,7 +43,7 @@ const HomeCoverComponent = props => {
           <V7Card style={cardStyle}>
             <Row>
               <Col xs={12}>
-                <Logo isStrollTop={false} fontSize={28} />
+                <V7Logo isStrollTop={false} fontSize={28} />
               </Col>
             </Row>
             <Row center="xs">
@@ -53,4 +60,4 @@ const HomeCoverComponent = props => {
   );
 };
 
-export default withTranslation("common")(HomeCoverComponent);
+export default HomeCoverComponent;
