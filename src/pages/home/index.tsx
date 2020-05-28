@@ -6,6 +6,7 @@ import { Session } from "containers";
 import HomeCoverComponent from "./homeCoverContent";
 import { WithTranslation } from "react-i18next";
 import "./home.scss";
+import { RouteComponentProps } from "react-router-dom";
 
 interface homeProps extends WithTranslation {
   t: any;
@@ -15,7 +16,7 @@ interface homeState {
   width: number;
 }
 
-class Home extends Component<homeProps, homeState, {}> {
+class Home extends Component<homeProps, homeState, RouteComponentProps> {
   state = {
     width: window.innerWidth,
   };
