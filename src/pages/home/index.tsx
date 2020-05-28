@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Row, Col } from "react-flexbox-grid";
 import VideoCover from "../../uiComponents/videoCover/VideoCover";
 import PageContainer from "../../uiComponents/pageContainer/PageContainer";
-import Session from "../../uiComponents/containers/session/Session";
+import { Session } from "containers";
 import HomeCoverComponent from "./homeCoverContent";
 import { WithTranslation } from "react-i18next";
 import "./home.scss";

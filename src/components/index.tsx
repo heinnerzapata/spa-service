@@ -3,5 +3,6 @@ import V7Link from "components/v7Link";
 import V7Card from "components/v7Card";
 import V7Logo from "components/v7Logo";
 import V7Chip from "components/v7Chip";
+import V7Preloader from "components/v7Preloader";
 
-export { V7Image, V7Link, V7Card, V7Logo, V7Chip };
+export { V7Image, V7Link, V7Card, V7Logo, V7Chip, V7Preloader };
