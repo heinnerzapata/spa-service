@@ -12,7 +12,7 @@ import "materialize-css/dist/css/materialize.min.css";
 // import registerServiceWorker from "./registerServiceWorker";
 // import * as serviceWorker from './serviceWorker';
 
-import store from "./store/store";
+import store from "./store";
 
 import App from "./App";
 

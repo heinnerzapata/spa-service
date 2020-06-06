@@ -2,8 +2,7 @@ import { connect } from "react-redux";
 import { ThunkDispatch } from "redux-thunk";
 import Home from "pages/home";
 import { withTranslation } from "react-i18next";
-import { setToken } from "store/actions/user.action";
-import { setUserInfo } from "store/actions/user.action";
+import { setToken, setUserInfo } from "store/user/actions";
 
 const mapStateToProps = (state: any) => ({});
 

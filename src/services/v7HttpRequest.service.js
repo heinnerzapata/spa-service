@@ -1,6 +1,6 @@
 import axios from 'axios';
 import config from './../config/config';
-import store from './../store/store';
+import store from '../store';
 import _ from 'lodash';
 
 class V7HttpRequest {

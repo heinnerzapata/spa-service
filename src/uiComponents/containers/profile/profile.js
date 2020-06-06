@@ -6,7 +6,7 @@ import { V7Dropdown, V7Image } from 'uiComponents/components';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { withRouter } from 'react-router-dom';
-import { cleanToken, cleanUserInfo } from '../../../store/actions/user.action';
+import { cleanToken, cleanUserInfo } from 'store/user/actions';
 import _ from 'lodash';
 
 class Profile extends Component {

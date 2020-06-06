@@ -6,7 +6,7 @@ const initState = {
    paymentType: null
  }
 }
-export default (state = initState, action) => {
+export default (state = initState, action: any) => {
 switch(action.type) {
  case SET_SUBSCRIPTION :
  return {...state, subscription: action.payload}

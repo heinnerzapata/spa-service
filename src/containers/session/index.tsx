@@ -6,8 +6,7 @@ import _ from "lodash";
 import { withRouter } from "react-router-dom";
 import queryString from "query-string";
 import { V7Preloader } from "components";
-import { setToken } from "store/actions/user.action";
-import { setUserInfo } from "store/actions/user.action";
+import { setToken, setUserInfo } from "store/user/actions";
 
 interface sessionProps {
   next?: string;
