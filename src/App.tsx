@@ -1,8 +1,10 @@
-import React, { Component } from "react";
+import React from "react";
+import { connect } from "react-redux";
 import { Router, Route, Switch } from "react-router-dom";
 import { createBrowserHistory } from "history";
+import { ThunkDispatch } from "redux-thunk";
+import { IAppState } from "./store";
 import "./App.scss";
-
 import { HomeWrapper } from "wrappers";
 import About from "./pages/about/About";
 import SignIn from "./pages/signin/SignIn";
@@ -12,11 +14,24 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import Machines from "./pages/machines/machines";
 import Machine from "./pages/machines/containers/machine/machine";
 import Profile from "./pages/profile/Profile";
+import { getToken } from "utilities/token";
+import { loginFromToken } from "store/user/actions";
 
 import Header from "./uiComponents/header/Header";
 import V7Footer from "./uiComponents/v7Footer/V7Footer";
 
-class App extends Component {
+interface IAppProps {
+  onLoginFromToken: (token: string) => void;
+}
+
+class App extends React.PureComponent<IAppProps, any> {
+  componentDidMount() {
+    const currentToken = getToken();
+    if (currentToken !== null) {
+      this.props.onLoginFromToken(currentToken);
+    }
+  }
+
   render() {
     return (
       <section>
@@ -45,4 +60,11 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state: IAppState) => ({});
+function mapDispatchToProps(dispatch: ThunkDispatch<any, any, any>) {
+  return {
+    onLoginFromToken: (token: string) => dispatch(loginFromToken(token)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

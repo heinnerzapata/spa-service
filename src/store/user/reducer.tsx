@@ -1,12 +1,19 @@
-import {
-  SET_TOKEN,
-  SET_USER_INFO,
-  CLEAN_TOKEN,
-  CLEAN_USER_INFO,
-} from "./types";
+import { userActionType } from "./types";
+import { IAction } from "./actions";
 
-const initState = {
+export interface IUserState {
+  isFetching: boolean;
+  authenticated: boolean;
+  token: string;
+  userInfo: any;
+  error: any;
+}
+
+const initState: IUserState = {
+  isFetching: false,
+  authenticated: false,
   token: "",
+  error: {},
   userInfo: {
     hexId: "",
     email: "",
@@ -18,15 +25,36 @@ const initState = {
     company: "",
   },
 };
-const userReducer = (state = initState, action: any) => {
+
+const userReducer = (
+  state: IUserState = initState,
+  action: IAction
+): IUserState => {
   switch (action.type) {
-    case SET_TOKEN:
-      return { ...state, token: action.payload.token };
-    case CLEAN_TOKEN:
+    case userActionType.LOGIN_STARTED:
+      return { ...state, authenticated: false, isFetching: true };
+    case userActionType.LOGIN_SUCCESS:
+      return {
+        ...state,
+        userInfo: action.userInfo,
+        authenticated: true,
+        isFetching: false,
+      };
+    case userActionType.LOGIN_ERROR:
+      return {
+        ...state,
+        userInfo: initState.userInfo,
+        authenticated: false,
+        error: initState.error,
+        isFetching: false,
+      };
+    case userActionType.SET_TOKEN:
+      return { ...state, token: action.token };
+    case userActionType.CLEAN_TOKEN:
       return { ...state, token: initState.token };
-    case SET_USER_INFO:
-      return { ...state, userInfo: action.payload.userInfo };
-    case CLEAN_USER_INFO:
+    case userActionType.SET_USER_INFO:
+      return { ...state, userInfo: action.userInfo };
+    case userActionType.CLEAN_USER_INFO:
       return { ...state, userInfo: initState.userInfo };
     default:
       return state;

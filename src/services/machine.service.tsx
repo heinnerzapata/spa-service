@@ -1,4 +1,4 @@
-import V7HttpRequest from './v7HttpRequest.service';
+import V7HttpRequest from "./v7HttpRequest.service";
 
 class MachineService {
   getMachines() {
@@ -6,7 +6,7 @@ class MachineService {
     return V7HttpRequest.get(urlMachines);
   }
 
-  getMachine(hexId) {
+  getMachine(hexId: any) {
     const urlMachine = `machine/${hexId}`;
     return V7HttpRequest.get(urlMachine);
   }
