@@ -43,7 +43,7 @@ const HomeCoverComponent: React.SFC<homeCoverContentProps> = (props) => {
           <V7Card style={cardStyle}>
             <Row>
               <Col xs={12}>
-                <V7Logo isStrollTop={false} fontSize={28} />
+                <V7Logo isScrollTop={false} fontSize={28} />
               </Col>
             </Row>
             <Row center="xs">

@@ -6,7 +6,7 @@ import "fonts/orbitron/orbitron.scss";
 interface v7LogoProps {
   className?: string;
   fontSize: number;
-  isStrollTop: boolean;
+  isScrollTop: boolean;
 }
 
 const V7Logo: React.SFC<v7LogoProps> = (props) => {
@@ -18,7 +18,7 @@ const V7Logo: React.SFC<v7LogoProps> = (props) => {
       <span className="vol7er-logo-text">VOL</span>
       <span
         className={
-          props.isStrollTop ? "vol7er-logo-7--grey" : "vol7er-logo-7--orange"
+          props.isScrollTop ? "vol7er-logo-7--grey" : "vol7er-logo-7--orange"
         }
       >
         7

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Row, Col } from "react-flexbox-grid";
 import VideoCover from "../../uiComponents/videoCover/VideoCover";
 import PageContainer from "../../uiComponents/pageContainer/PageContainer";
-import { Session } from "containers";
 import HomeCoverComponent from "./homeCoverContent";
 import { WithTranslation } from "react-i18next";
 import "./home.scss";
@@ -33,7 +32,7 @@ class Home extends Component<homeProps, homeState, RouteComponentProps> {
     const { width } = this.state;
     const isMobile = width < 992;
     return (
-      <Session>
+      <React.Fragment>
         {!isMobile && (
           <VideoCover>
             <HomeCoverComponent t={this.props.t} />
@@ -44,7 +43,7 @@ class Home extends Component<homeProps, homeState, RouteComponentProps> {
             <Col xs={12} lg={3}></Col>
           </Row>
         </PageContainer>
-      </Session>
+      </React.Fragment>
     );
   }
 }

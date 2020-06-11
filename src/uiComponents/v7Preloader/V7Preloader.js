@@ -10,7 +10,7 @@ class V7Preloader extends Component {
         <Preloader flashing />
         <Logo
           className="vol7er-preloader__logo"
-          isStrollTop={false}
+          isScrollTop={false}
           fontSize={26} />
       </div>
     );

@@ -11,7 +11,7 @@ const V7Preloader: React.SFC<v7PreloaderProps> = (props) => {
       {/* <Preloader flashing /> */}
       <V7Logo
         className="vol7er-preloader__logo"
-        isStrollTop={false}
+        isScrollTop={false}
         fontSize={26}
       />
     </div>

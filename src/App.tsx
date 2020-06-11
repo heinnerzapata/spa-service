@@ -16,11 +16,11 @@ import Machine from "./pages/machines/containers/machine/machine";
 import Profile from "./pages/profile/Profile";
 import { getToken } from "utilities/token";
 import { loginFromToken } from "store/user/actions";
-
-import Header from "./uiComponents/header/Header";
-import V7Footer from "./uiComponents/v7Footer/V7Footer";
+import { V7Footer, V7Header } from "components";
+import { IUserState } from "store/user/reducer";
 
 interface IAppProps {
+  userReducer: IUserState;
   onLoginFromToken: (token: string) => void;
 }
 
@@ -40,17 +40,17 @@ class App extends React.PureComponent<IAppProps, any> {
           history={createBrowserHistory({ basename: process.env.PUBLIC_URL })}
         >
           <section>
-            <Header />
+            <V7Header userReducer={this.props.userReducer} />
             <Switch>
               <Route exact path="/" component={HomeWrapper} />
-              <Route path="/about" component={About} />
+              {/* <Route path="/about" component={About} />
               <Route path="/signin" component={SignIn} />
               <Route path="/signup" component={SignUp} />
-              <Route path="/recover/:token?" component={Recover} />
+              <Route path="/recover/:token?" component={Recover} /> */}
               <Route path="/profile" component={Profile} />
-              <Route path="/dashboard" component={Dashboard} />
+              {/* <Route path="/dashboard" component={Dashboard} />
               <Route path="/machines/:hexId" component={Machine} />
-              <Route path="/machines" component={Machines} />
+              <Route path="/machines" component={Machines} /> */}
             </Switch>
             <V7Footer />
           </section>
@@ -60,7 +60,9 @@ class App extends React.PureComponent<IAppProps, any> {
   }
 }
 
-const mapStateToProps = (state: IAppState) => ({});
+const mapStateToProps = (state: IAppState) => ({
+  userReducer: state.userReducer,
+});
 function mapDispatchToProps(dispatch: ThunkDispatch<any, any, any>) {
   return {
     onLoginFromToken: (token: string) => dispatch(loginFromToken(token)),
