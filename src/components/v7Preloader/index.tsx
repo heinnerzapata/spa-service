@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import "./V7Preloader.scss";
 import { V7Logo } from "components";
 // import { Preloader } from "react-materialize";

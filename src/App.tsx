@@ -35,26 +35,20 @@ class App extends React.PureComponent<IAppProps, any> {
   render() {
     return (
       <section>
-        {/*<BrowserRouter> */}
-        <Router
-          history={createBrowserHistory({ basename: process.env.PUBLIC_URL })}
-        >
-          <section>
-            <V7Header userReducer={this.props.userReducer} />
-            <Switch>
-              <Route exact path="/" component={HomeWrapper} />
-              {/* <Route path="/about" component={About} />
+        <V7Header userReducer={this.props.userReducer} />
+        <Switch>
+          <Route exact path="/" component={HomeWrapper} />
+          <Route path="/signin" component={SignIn} />
+          {/* <Route path="/about" component={About} />
               <Route path="/signin" component={SignIn} />
               <Route path="/signup" component={SignUp} />
               <Route path="/recover/:token?" component={Recover} /> */}
-              <Route path="/profile" component={Profile} />
-              {/* <Route path="/dashboard" component={Dashboard} />
+          {/* <Route path="/profile" component={Profile} /> */}
+          {/* <Route path="/dashboard" component={Dashboard} />
               <Route path="/machines/:hexId" component={Machine} />
-              <Route path="/machines" component={Machines} /> */}
-            </Switch>
-            <V7Footer />
-          </section>
-        </Router>
+              <Route path="/machiness" component={Machines} /> */}
+        </Switch>
+        <V7Footer />
       </section>
     );
   }

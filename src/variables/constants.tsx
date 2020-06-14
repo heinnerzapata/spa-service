@@ -1,4 +1,9 @@
-export const LANGUAGES = [{ language: "en" }, { language: "es" }];
+import { LANGUAGES } from "models";
+
+export const LANGUAGES_OPTIONS = [
+  { language: LANGUAGES.EN },
+  { language: LANGUAGES.ES },
+];
 
 export const COLORS = {
   white: "#FFFFFF",
