@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 import { COLORS } from "../../variables/constants/constants";
 
 interface v7LinkProps {
-  color: string;
-  size: number;
+  color?: string;
+  size?: number;
   text?: string;
   to: string;
-  children: any;
+  children?: any;
 }
 
 const V7Link: React.SFC<v7LinkProps> = (props) => {

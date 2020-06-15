@@ -3276,7 +3276,7 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
-classnames@^2.2.5, classnames@^2.2.6:
+classnames@^2.2.6:
   version "2.2.6"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.6.tgz#43935bffdd291f326dad0a205309b38d00f650ce"
   integrity sha512-JR/iSQOSt+LQIWwrwEzJ9uk0xfN3mTVYMwt1Ir5mUcSN6pU+V4zQFFaJsclJbPuAUQH+yfWef6tm7l1quW3C8Q==
@@ -5223,11 +5223,6 @@ fork-ts-checker-webpack-plugin@3.1.1:
     tapable "^1.0.0"
     worker-rpc "^0.1.0"
 
-form-data-to-object@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/form-data-to-object/-/form-data-to-object-0.2.0.tgz#f7a8e68ddd910a1100a65e25ac6a484143ff8168"
-  integrity sha1-96jmjd2RChEApl4lrGpIQUP/gWg=
-
 form-data@~2.3.2:
   version "2.3.3"
   resolved "https://registry.yarnpkg.com/form-data/-/form-data-2.3.3.tgz#dcce52c05f644f298c6a7ab936bd724ceffbf3a6"
@@ -5237,13 +5232,16 @@ form-data@~2.3.2:
     combined-stream "^1.0.6"
     mime-types "^2.1.12"
 
-formsy-react@^1.1.4:
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/formsy-react/-/formsy-react-1.1.5.tgz#ee0911bb70712eb6fb9924d56fdb974a19006955"
-  integrity sha512-nNWe4Vbp6aDQ/zSxJ7gVQgD5+avFRVbydcjA2Om42flxpQFrKE54AAbuyEj3Jvv+2b9LVl+WLMAPalyvLjwNcQ==
+formsy-react@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/formsy-react/-/formsy-react-2.0.3.tgz#76858ae2c3553d2a5df50c7d666a8044aa42ab07"
+  integrity sha512-cjD6mMLy2Jx/tTVhofx6rISjNW/TJzm04O05H0Ro3OOTQKC7eDC4ApH6t/StJ7ApYV0FTqOUhj5WbaQGMH+htw==
   dependencies:
-    form-data-to-object "^0.2.0"
-    prop-types "^15.5.10"
+    lodash.get "^4.4.2"
+    lodash.has "^4.5.2"
+    lodash.isplainobject "^4.0.6"
+    lodash.set "^4.3.2"
+    prop-types "^15.7.2"
 
 forwarded@~0.1.2:
   version "0.1.2"
@@ -5532,11 +5530,6 @@ gzip-size@5.1.1:
   dependencies:
     duplexer "^0.1.1"
     pify "^4.0.1"
-
-hammerjs@^2.0.8:
-  version "2.0.8"
-  resolved "https://registry.yarnpkg.com/hammerjs/-/hammerjs-2.0.8.tgz#04ef77862cff2bb79d30f7692095930222bf60f1"
-  integrity sha1-BO93hiz/K7edMPdpIJWTAiK/YPE=
 
 handle-thing@^2.0.0:
   version "2.0.1"
@@ -6910,11 +6903,6 @@ jest@24.9.0:
     import-local "^2.0.0"
     jest-cli "^24.9.0"
 
-"jquery@^3.0.0 || ^2.1.4":
-  version "3.5.1"
-  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.5.1.tgz#d7b4d08e1bfdb86ad2f1a3d039ea17304717abb5"
-  integrity sha512-XwIBPqcMn57FxfT+Go5pzySnm4KWkT1Tv7gjrpT1srtf8Weynl6R273VJ5GjkRb51IzMp5nbaPjJXMWeju2MKg==
-
 js-base64@^2.1.8:
   version "2.5.2"
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.5.2.tgz#313b6274dda718f714d00b3330bbae6e38e90209"
@@ -7499,10 +7487,30 @@ lodash._reinterpolate@^3.0.0:
   resolved "https://registry.yarnpkg.com/lodash._reinterpolate/-/lodash._reinterpolate-3.0.0.tgz#0ccf2d89166af03b3663c796538b75ac6e114d9d"
   integrity sha1-DM8tiRZq8Ds2Y8eWU4t1rG4RTZ0=
 
+lodash.get@^4.4.2:
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/lodash.get/-/lodash.get-4.4.2.tgz#2d177f652fa31e939b4438d5341499dfa3825e99"
+  integrity sha1-LRd/ZS+jHpObRDjVNBSZ36OCXpk=
+
+lodash.has@^4.5.2:
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/lodash.has/-/lodash.has-4.5.2.tgz#d19f4dc1095058cccbe2b0cdf4ee0fe4aa37c862"
+  integrity sha1-0Z9NwQlQWMzL4rDN9O4P5Ko3yGI=
+
+lodash.isplainobject@^4.0.6:
+  version "4.0.6"
+  resolved "https://registry.yarnpkg.com/lodash.isplainobject/-/lodash.isplainobject-4.0.6.tgz#7c526a52d89b45c45cc690b88163be0497f550cb"
+  integrity sha1-fFJqUtibRcRcxpC4gWO+BJf1UMs=
+
 lodash.memoize@^4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/lodash.memoize/-/lodash.memoize-4.1.2.tgz#bcc6c49a42a2840ed997f323eada5ecd182e0bfe"
   integrity sha1-vMbEmkKihA7Zl/Mj6tpezRguC/4=
+
+lodash.set@^4.3.2:
+  version "4.3.2"
+  resolved "https://registry.yarnpkg.com/lodash.set/-/lodash.set-4.3.2.tgz#d8757b1da807dde24816b0d6a84bea1a76230b23"
+  integrity sha1-2HV7HagH3eJIFrDWqEvqGnYjCyM=
 
 lodash.sortby@^4.7.0:
   version "4.7.0"
@@ -7626,14 +7634,6 @@ map-visit@^1.0.0:
   integrity sha1-7Nyo8TFE5mDxtb1B8S80edmN+48=
   dependencies:
     object-visit "^1.0.0"
-
-materialize-css@^0.100.2:
-  version "0.100.2"
-  resolved "https://registry.yarnpkg.com/materialize-css/-/materialize-css-0.100.2.tgz#9ca32b24904c9a04491fc7d0a2e9402e7b1dae07"
-  integrity sha512-Bf4YeoJCIdk4dlpnmVX+DIOJBbqOKwfBPD+tT5bxwXNFMLk649CGbldqtnctkkfMp+fGgSAsdYu9lo1ZolZqgA==
-  dependencies:
-    hammerjs "^2.0.8"
-    jquery "^3.0.0 || ^2.1.4"
 
 md5.js@^1.3.4:
   version "1.3.5"
@@ -9806,7 +9806,7 @@ react-display-name@^0.2.4:
   resolved "https://registry.yarnpkg.com/react-display-name/-/react-display-name-0.2.5.tgz#304c7cbfb59ee40389d436e1a822c17fe27936c6"
   integrity sha512-I+vcaK9t4+kypiSgaiVWAipqHRXYmZIuAiS8vzFvXHHXVigg/sMKwlRgLy6LH2i3rmP+0Vzfl5lFsFRwF1r3pg==
 
-react-dom@16.13.1, react-dom@^16.2.0:
+react-dom@16.13.1:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.13.1.tgz#c1bd37331a0486c078ee54c4740720993b2e0e7f"
   integrity sha512-81PIMmVLnCNLO/fFOQxdQkvEq/+Hfpv24XNJfpyZhTRfO0QcmQIF/PgCa1zCOj2w1hrn12MFLyaJ/G0+Mxtfag==
@@ -9889,15 +9889,6 @@ react-masonry-css@^1.0.14:
   resolved "https://registry.yarnpkg.com/react-masonry-css/-/react-masonry-css-1.0.14.tgz#2ac1ca7bb2c7e96826f7da3accc9e95ae12b2f65"
   integrity sha512-oAPVOCMApTT0HkxZJy84yU1EWaaQNZnJE0DjDMy/L+LxZoJEph4RRXsT9ppPKbFSo/tCzj+cCLwiBHjZmZ2eXA==
 
-react-materialize@^2.4.7:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/react-materialize/-/react-materialize-2.6.0.tgz#656c511599c547a879c9f97e87727b5376fdfaf2"
-  integrity sha512-bBxYogT/aX3WhBR9KJj6mhRTDIv3NFqnZbugShqjNC0cWc9BpeoCpLGxZ37/Rs2ca43IJBHapQIpZOUTQZM5ig==
-  dependencies:
-    classnames "^2.2.5"
-    react "^16.2.0"
-    react-dom "^16.2.0"
-
 react-redux@^7.2.0:
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-7.2.0.tgz#f970f62192b3981642fec46fd0db18a074fe879d"
@@ -9978,7 +9969,7 @@ react-transition-group@^4.3.0, react-transition-group@^4.4.0:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
-react@16.13.1, react@^16.2.0:
+react@16.13.1:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react/-/react-16.13.1.tgz#2e818822f1a9743122c063d6410d85c1e3afe48e"
   integrity sha512-YMZQQq32xHLX0bz5Mnibv1/LHb3Sqzngu7xstSM+vrkE5Kzr9xE0yMByK5kMoTK30YVJE61WfbxIFFvfeDKT1w==

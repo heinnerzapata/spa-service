@@ -1,0 +1,70 @@
+@import "../../variables/sass/variables.scss";
+
+$height-sm: 100px;
+$height-md: 150px;
+
+.vol7erPageTitle {
+  .back {
+    background-color: $vol7er-title;
+    width: 100%;
+    height: 50px;
+    background-image: url('../../static/media/images/gears2.jpg');
+    -webkit-background-size: cover;
+    /* For WebKit*/
+    -moz-background-size: cover;
+    /* Mozilla*/
+    -o-background-size: cover;
+    /* Opera*/
+    background-size: cover;
+
+    /* Generic*/
+    @media screen and (max-width: 650px) {
+      height: $height-sm;
+    }
+
+    @media screen and (min-width: 651px) and (max-width: 991px) {
+      height: $height-md;
+    }
+  }
+
+  .cover {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    height: 50px;
+    width: 100%;
+    background-color: $vol7er-main-t2;
+
+    @media screen and (max-width: 650px) {
+      height: $height-sm;
+    }
+
+    @media screen and (min-width: 651px) and (max-width: 991px) {
+      height: $height-md;
+    }
+  }
+
+  .content {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    height: 50px;
+    width: 100%;
+    color: $white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 400;
+
+    @media screen and (max-width: 650px) {
+      height: $height-sm;
+      top: 20px;
+    }
+
+    @media screen and (min-width: 651px) and (max-width: 991px) {
+      height: $height-md;
+      align-items: flex-end;
+    }
+  }
+}

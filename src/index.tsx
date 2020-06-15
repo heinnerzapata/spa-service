@@ -7,7 +7,6 @@ import "./i18n";
 import "./index.scss";
 import "./fonts/roboto/roboto.scss";
 import "./fonts/orbitron/orbitron.scss";
-import "materialize-css/dist/css/materialize.min.css";
 
 import store from "./store";
 import App from "./App";

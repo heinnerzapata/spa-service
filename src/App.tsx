@@ -5,7 +5,7 @@ import { createBrowserHistory } from "history";
 import { ThunkDispatch } from "redux-thunk";
 import { IAppState } from "./store";
 import "./App.scss";
-import { HomeWrapper } from "wrappers";
+import { HomeWrapper, SignInWrapper } from "wrappers";
 import About from "./pages/about/About";
 import SignIn from "./pages/signin/SignIn";
 import SignUp from "./pages/signup/SignUp";
@@ -38,7 +38,7 @@ class App extends React.PureComponent<IAppProps, any> {
         <V7Header userReducer={this.props.userReducer} />
         <Switch>
           <Route exact path="/" component={HomeWrapper} />
-          <Route path="/signin" component={SignIn} />
+          <Route path="/signin" component={SignInWrapper} />
           {/* <Route path="/about" component={About} />
               <Route path="/signin" component={SignIn} />
               <Route path="/signup" component={SignUp} />
