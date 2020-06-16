@@ -78,7 +78,7 @@
   },
   "labels": {
     "forms": {
-      "email": "Email",
+      "email": "Correo electrónico",
       "password": "Contraseña",
       "newPassword": "Nueva contraseña",
       "submit": "Enviar",

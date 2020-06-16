@@ -15,39 +15,43 @@ import faKey from "@fortawesome/fontawesome-free-solid/faKey";
 import queryString from "query-string";
 import { RouteComponentProps } from "react-router-dom";
 import _ from "lodash";
-
+import { ICredentials } from "models";
+import { IUserState } from "store/user/reducer";
 import styles from "./signIn.module.scss";
 
-interface signInProps extends WithTranslation, RouteComponentProps {
+interface ISignInProps extends WithTranslation, RouteComponentProps {
   t: any;
+  userReducer: IUserState;
+  onloginFromCredentials?: (Credentials: ICredentials) => void;
 }
 
-interface signInState {
-  isLoading: boolean;
+interface ISignInState {
   canSubmit: boolean;
   nextPage: string;
 }
 
+interface IFormModel extends ICredentials {}
+
 const defaultSignInRedirectionUrl = "/dashboard";
 
-class SignIn extends React.PureComponent<signInProps, signInState> {
-  constructor(props: signInProps) {
+class SignIn extends React.PureComponent<ISignInProps, ISignInState> {
+  constructor(props: ISignInProps) {
     super(props);
 
     this.state = {
-      isLoading: false,
       canSubmit: false,
       nextPage: "",
     };
-
-    this.disableButton = this.disableButton.bind(this);
-    this.enableButton = this.enableButton.bind(this);
-
-    //this.userService = UserService;
   }
 
   componentDidMount() {
     this.setState({ nextPage: this.getNextPage() });
+  }
+
+  componentDidUpdate(nextProps: ISignInProps) {
+    if (nextProps.userReducer.authenticated) {
+      this.validCredentials();
+    }
   }
 
   getNextPage = () => {
@@ -57,53 +61,26 @@ class SignIn extends React.PureComponent<signInProps, signInState> {
       : defaultSignInRedirectionUrl;
   };
 
-  disableButton() {
+  disableButton = () => {
     this.setState({ canSubmit: false });
-  }
+  };
 
-  enableButton() {
+  enableButton = () => {
     this.setState({ canSubmit: true });
+  };
+
+  submit(model: IFormModel, props: ISignInProps) {
+    if (props.onloginFromCredentials) {
+      props.onloginFromCredentials(model);
+    }
   }
 
-  submit(model: any) {
-    // this.setState({ isLoading: true });
-    // this.userService
-    //   .logInRequest({
-    //     email: model.email,
-    //     password: model.password,
-    //   })
-    //   .then((result) => {
-    //     this.validCredentials(result);
-    //   })
-    //   .catch((error) => {
-    //     this.invalidCredentials();
-    //   });
-
-    debugger;
-  }
-
-  validCredentials = (result: any) => {
-    // M.toast(this.props.t("pages.signin.welcome"), 1000);
-    // let userInfo = {
-    //   hexId: result.account.hexId,
-    //   email: result.account.email,
-    //   displayName: result.account.displayName,
-    //   avatar: result.account.avatar,
-    //   firstName: result.account.firstName,
-    //   lastName: result.account.lastName,
-    //   phoneContact: result.account.phoneContact,
-    // };
-    // this.props.dispatch(setToken(result.token));
-    // this.props.dispatch(setUserInfo(userInfo));
-    // localStorage.setItem("token", result.token);
-    // localStorage.setItem("userInfo", base64.encode(JSON.stringify(userInfo)));
-    // this.setState({ isLoading: false });
-    // this.props.history.push(this.state.nextPage);
+  validCredentials = () => {
+    this.props.history.push(this.state.nextPage);
   };
 
   invalidCredentials = () => {
     // M.toast(this.props.t("pages.signin.invalidCredentials"), 1000);
-    this.setState({ isLoading: false });
   };
 
   render() {
@@ -111,9 +88,14 @@ class SignIn extends React.PureComponent<signInProps, signInState> {
     return (
       <section className={styles.vol7erSignIn}>
         <V7PageTitle title={t("pages.signin.title")} />
-        <V7PageContainer marginTop={150}>
+        <V7PageContainer
+          marginTop={150}
+          showPreloader={this.props.userReducer.isFetching}
+        >
           <Formsy
-            onValidSubmit={this.submit}
+            onValidSubmit={(model: ICredentials) => {
+              this.submit(model, this.props);
+            }}
             onValid={this.enableButton}
             onInvalid={this.disableButton}
           >
@@ -153,6 +135,7 @@ class SignIn extends React.PureComponent<signInProps, signInState> {
                       text={t("labels.forms.submit")}
                       type="submit"
                       disabled={!this.state.canSubmit}
+                      size="large"
                     />
                   </Col>
                 </Row>

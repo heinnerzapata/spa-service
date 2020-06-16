@@ -5,6 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import styles from "./v7Input.module.scss";
 import { COLORS } from "variables/constants";
 import { withStyles } from "@material-ui/core/styles";
+import InputAdornment from "@material-ui/core/InputAdornment";
 
 const StyledInput = withStyles({
   root: {
@@ -35,6 +36,11 @@ const StyledInput = withStyles({
     "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
       borderColor: `${COLORS.vol7erMain}`,
     },
+    "& .MuiOutlinedInput-root": {
+      "&:hover fieldset": {
+        borderColor: `${COLORS.vol7erTitleGray}`,
+      },
+    },
   },
 })(TextField);
 
@@ -60,12 +66,7 @@ const V7Input = (props) => {
   return (
     <div className={styles.vol7erInput}>
       <Row middle="xs">
-        {props.icon && (
-          <Col className={styles.icon} xs={1}>
-            {props.icon}
-          </Col>
-        )}
-        <Col xs={props.icon ? 11 : 12}>
+        <Col xs={12}>
           <StyledInput
             error={isError}
             onChange={onChange}
@@ -74,6 +75,13 @@ const V7Input = (props) => {
             helperText={isError && props.errorMessage}
             variant="outlined"
             type={props.type}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  {props.icon ? props.icon : null}
+                </InputAdornment>
+              ),
+            }}
           />
         </Col>
       </Row>

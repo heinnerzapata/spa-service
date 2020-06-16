@@ -22,9 +22,9 @@ $height-md: 150px;
       height: $height-sm;
     }
 
-    @media screen and (min-width: 651px) and (max-width: 991px) {
-      height: $height-md;
-    }
+    // @media screen and (min-width: 651px) and (max-width: 991px) {
+    //   height: $height-md;
+    // }
   }
 
   .cover {
@@ -39,9 +39,9 @@ $height-md: 150px;
       height: $height-sm;
     }
 
-    @media screen and (min-width: 651px) and (max-width: 991px) {
-      height: $height-md;
-    }
+    // @media screen and (min-width: 651px) and (max-width: 991px) {
+    //   height: $height-md;
+    // }
   }
 
   .content {
@@ -62,9 +62,9 @@ $height-md: 150px;
       top: 20px;
     }
 
-    @media screen and (min-width: 651px) and (max-width: 991px) {
-      height: $height-md;
-      align-items: flex-end;
-    }
+    // @media screen and (min-width: 651px) and (max-width: 991px) {
+    //   height: $height-md;
+    //   align-items: flex-end;
+    // }
   }
 }

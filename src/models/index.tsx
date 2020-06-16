@@ -6,3 +6,8 @@ export enum LANGUAGES {
 export interface ILanguagesOptions {
   language: LANGUAGES;
 }
+
+export interface ICredentials {
+  email: string;
+  password: string;
+}

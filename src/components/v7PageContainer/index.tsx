@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./v7PageContainer.module.scss";
 import { Grid } from "react-flexbox-grid";
 import { createUseStyles } from "react-jss";
+import { V7Preloader } from "components";
 
 interface v7PageContainerProps {
   isFull?: boolean;
@@ -9,6 +10,7 @@ interface v7PageContainerProps {
   showTools?: boolean;
   marginTop?: number;
   marginBotton?: number;
+  showPreloader?: boolean;
 }
 
 const useStyles = createUseStyles({
@@ -24,6 +26,7 @@ const V7PageContainer: React.SFC<v7PageContainerProps> = (props) => {
   const classes = useStyles(props);
   return (
     <section className={styles.vol7erPageContainer}>
+      {props.showPreloader && <V7Preloader />}
       {!props.isFull && (
         <Grid
           fluid={true}

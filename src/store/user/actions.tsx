@@ -1,6 +1,7 @@
 import { userActionType } from "./types";
 import { Dispatch } from "redux";
 import services from "services";
+import { ICredentials } from "models";
 
 export interface ILoginStarted {
   type: userActionType.LOGIN_STARTED;
@@ -91,6 +92,7 @@ export const loginFromToken = (token: string) => {
   return async (dispatch: Dispatch) => {
     dispatch(loginStarted());
     try {
+      debugger;
       const userInfo = (await services.user.checkUserToken(token)) as any;
 
       dispatch(loginSuccess(userInfo.account));
@@ -100,6 +102,25 @@ export const loginFromToken = (token: string) => {
     } catch (error) {
       dispatch(loginError(error));
       return error;
+    }
+  };
+};
+
+export const loginFromCredentials = (credentials: ICredentials) => {
+  return async (dispatch: Dispatch) => {
+    dispatch(loginStarted());
+    try {
+      debugger;
+      const userInfo = (await services.user.login(credentials)) as any;
+
+      setTimeout(() => {
+        dispatch(loginSuccess(userInfo.account));
+        dispatch(setToken(userInfo.token));
+      }, 1500);
+
+      return userInfo;
+    } catch (error) {
+      dispatch(loginError(error));
     }
   };
 };

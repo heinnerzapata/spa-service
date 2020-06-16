@@ -9,6 +9,7 @@ interface v7ButtonProps {
   text: string;
   type: string;
   onClick?: (e: any) => void;
+  size?: "small" | "medium" | "large";
 }
 
 const StyledButton = withStyles({
@@ -31,13 +32,19 @@ const V7Button: React.SFC<v7ButtonProps> = (props) => {
   };
 
   return (
-    <StyledButton
-      disabled={props.disabled}
-      onClick={(e) => onClick(e)}
-      variant="contained"
+    <button
+      className={styles.v7Button}
+      type={props.type === "submit" ? "submit" : "button"}
     >
-      {props.text}
-    </StyledButton>
+      <StyledButton
+        disabled={props.disabled}
+        onClick={(e) => onClick(e)}
+        variant="contained"
+        size={props.size ? props.size : "medium"}
+      >
+        {props.text}
+      </StyledButton>
+    </button>
   );
 };
 

@@ -34,7 +34,7 @@ class App extends React.PureComponent<IAppProps, any> {
 
   render() {
     return (
-      <section>
+      <>
         <V7Header userReducer={this.props.userReducer} />
         <Switch>
           <Route exact path="/" component={HomeWrapper} />
@@ -48,8 +48,7 @@ class App extends React.PureComponent<IAppProps, any> {
               <Route path="/machines/:hexId" component={Machine} />
               <Route path="/machiness" component={Machines} /> */}
         </Switch>
-        <V7Footer />
-      </section>
+      </>
     );
   }
 }

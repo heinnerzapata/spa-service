@@ -17,7 +17,7 @@ const V7LanguageSelector: React.SFC<v7LanguageSelectorProps> = (props) => {
   const { t, i18n } = useTranslation();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [language, setLanguage] = React.useState<any>(
-    DEFAULT_CONFIG.defaultLanguage
+    i18n.language
   );
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {

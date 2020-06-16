@@ -31,11 +31,13 @@ const V7Header: React.SFC<v7HeaderProps> = (props) => {
       <Grid>
         <Row className={isScroll ? styles.maxHeight : ""} middle="xs">
           <Col xs={4}>
-            <V7Logo isScrollTop={false} fontSize={28} />
+            <Link to="/">
+              <V7Logo isScrollTop={false} fontSize={28} />
+            </Link>
           </Col>
           <Col xs={8}>
             <Row end="xs">
-              {props.userReducer.authenticated && (
+              {!props.userReducer.authenticated && (
                 <Col>
                   <V7Chip lighBack>
                     <Link to="/signup">
@@ -44,7 +46,7 @@ const V7Header: React.SFC<v7HeaderProps> = (props) => {
                   </V7Chip>
                 </Col>
               )}
-              {props.userReducer.authenticated && (
+              {!props.userReducer.authenticated && (
                 <Col>
                   <V7Chip lighBack>
                     <Link to="/signin">
