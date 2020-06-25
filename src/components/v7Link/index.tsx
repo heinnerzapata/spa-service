@@ -1,5 +1,5 @@
 import React from "react";
-import "./V7Link.scss";
+import styles from "./V7Link.module.scss";
 import { Link } from "react-router-dom";
 import { COLORS } from "../../variables/constants/constants";
 
@@ -22,7 +22,11 @@ const V7Link: React.SFC<v7LinkProps> = (props) => {
   };
 
   return (
-    <Link className="vol7er-link" to={props.to} style={linkStyle}>
+    <Link
+      className={props.color ? "" : styles.vol7erLink}
+      to={props.to}
+      style={props.color ? linkStyle : {}}
+    >
       {getContent(props)}
     </Link>
   );

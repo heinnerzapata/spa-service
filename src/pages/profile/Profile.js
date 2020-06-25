@@ -10,7 +10,7 @@ import { withTranslation } from 'react-i18next';
 
 class Profile extends Component {
   componentDidMount() {
-    debugger;
+
   }
   render() {
     const { t } = this.props;

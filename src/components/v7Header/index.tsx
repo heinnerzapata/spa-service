@@ -3,17 +3,27 @@ import styles from "./v7Header.module.scss";
 import cx from "classnames";
 import { Row, Col, Grid } from "react-flexbox-grid";
 import { Link } from "react-router-dom";
-import { V7Logo, V7Avatar, V7LanguageSelector, V7Chip } from "components";
+import { COLORS } from "variables/constants";
+import {
+  V7Logo,
+  V7LanguageSelector,
+  V7Button,
+  V7Link,
+  V7UserOptions,
+} from "components";
 import { IUserState } from "store/user/reducer";
 import { useTranslation } from "react-i18next";
+import { useHistory } from "react-router-dom";
 
 interface v7HeaderProps {
   userReducer: IUserState;
+  onLogOut?: () => void;
 }
 
 const V7Header: React.SFC<v7HeaderProps> = (props) => {
   const { t } = useTranslation();
   const [isScroll, setIsScroll] = React.useState<boolean>(false);
+  const history = useHistory();
 
   const validateScrollPosition = () => {
     setIsScroll(window.scrollY > 0);
@@ -37,35 +47,45 @@ const V7Header: React.SFC<v7HeaderProps> = (props) => {
           </Col>
           <Col xs={8}>
             <Row end="xs">
-              {!props.userReducer.authenticated && (
-                <Col>
-                  <V7Chip lighBack>
-                    <Link to="/signup">
-                      {t("components.header.menu.signup")}
-                    </Link>
-                  </V7Chip>
-                </Col>
-              )}
-              {!props.userReducer.authenticated && (
-                <Col>
-                  <V7Chip lighBack>
-                    <Link to="/signin">
-                      {t("components.header.menu.signin")}
-                    </Link>
-                  </V7Chip>
-                </Col>
+              {!props.userReducer.isFetching && (
+                <React.Fragment>
+                  {props.userReducer.authenticated && (
+                    <V7Link to={"/dashboard"} color={COLORS.white} size={12}>
+                      <V7Button type="submit" visualType="outlined">
+                        {t("components.header.menu.dashboard")}
+                      </V7Button>
+                    </V7Link>
+                  )}
+                  {!props.userReducer.authenticated && (
+                    <V7Link to={"/signup"} color={COLORS.white} size={12}>
+                      <V7Button type="submit" visualType="outlined">
+                        {t("components.header.menu.signup")}
+                      </V7Button>
+                    </V7Link>
+                  )}
+                  {!props.userReducer.authenticated && (
+                    <V7Link to={"/signin"} color={COLORS.white} size={12}>
+                      <V7Button type="submit" visualType="outlined">
+                        {t("components.header.menu.signin")}
+                      </V7Button>
+                    </V7Link>
+                  )}
+                  {props.userReducer.authenticated && (
+                    <V7UserOptions
+                      imgUrl={props.userReducer.userInfo.avatar}
+                      onLogOutClick={() => {
+                        if (props.onLogOut) {
+                          props.onLogOut();
+                        }
+                        history.push("/");
+                      }}
+                    />
+                  )}
+                </React.Fragment>
               )}
               <Col>
                 <V7LanguageSelector />
               </Col>
-              {props.userReducer.authenticated && (
-                <Col>
-                  <V7Avatar
-                    alt="Remy Sharp"
-                    src={props.userReducer.userInfo.avatar}
-                  />
-                </Col>
-              )}
             </Row>
           </Col>
         </Row>

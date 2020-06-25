@@ -49,19 +49,18 @@ const V7Input = (props) => {
 
   const onChange = (event) => {
     props.setValue(event.currentTarget.value);
-    setIsError(shouldShowError);
   };
 
+  const shouldShowError = React.useCallback(() => {
+    return props.errorMessage && props.value !== undefined;
+  }, [props.errorMessage, props.value]);
+
   useEffect(() => {
-    if (props.defaultValue) {
+    if (props.reset || props.defaultValue) {
       props.setValue(props.defaultValue);
     }
     setIsError(shouldShowError);
-  }, [props]);
-
-  const shouldShowError = () => {
-    return props.errorMessage && props.value !== undefined;
-  };
+  }, [props, shouldShowError]);
 
   return (
     <div className={styles.vol7erInput}>
@@ -70,9 +69,10 @@ const V7Input = (props) => {
           <StyledInput
             error={isError}
             onChange={onChange}
+            value={props.value}
             label={props.label}
             defaultValue={props.defaultValue}
-            helperText={isError && props.errorMessage}
+            helperText={isError && props.validationError}
             variant="outlined"
             type={props.type}
             InputProps={{

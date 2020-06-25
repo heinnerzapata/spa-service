@@ -7,6 +7,7 @@ import "./i18n";
 import "./index.scss";
 import "./fonts/roboto/roboto.scss";
 import "./fonts/orbitron/orbitron.scss";
+import "react-toastify/dist/ReactToastify.css";
 
 import store from "./store";
 import App from "./App";

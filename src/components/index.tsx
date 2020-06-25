@@ -9,10 +9,10 @@ import V7Header from "components/v7Header";
 import V7Avatar, { AVATAR_SIZES } from "components/v7Avatar";
 import V7Icon from "components/v7Icon";
 import V7LanguageSelector from "components/v7LanguageSelector";
-import V7PageContainer from "components/v7PageContainer";
 import V7PageTitle from "components/v7PageTitle";
 import V7Input from "components/v7Input";
 import V7Button from "components/v7Button";
+import V7UserOptions, { MENU_OPTIONS_TYPE } from "components/v7UserOptions";
 
 export {
   V7Image,
@@ -27,8 +27,9 @@ export {
   V7Icon,
   V7LanguageSelector,
   V7PageTitle,
-  V7PageContainer,
   V7Input,
   V7Button,
+  V7UserOptions,
   AVATAR_SIZES,
+  MENU_OPTIONS_TYPE
 };

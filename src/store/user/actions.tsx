@@ -12,6 +12,10 @@ export interface ILoginSuccess {
   userInfo: any;
 }
 
+export interface ILogOutSuccess {
+  type: userActionType.LOGOUT_SUCCESS;
+}
+
 export interface ILoginError {
   type: userActionType.LOGIN_ERROR;
   error: any;
@@ -42,7 +46,8 @@ export type IAction =
   | ICleanUserInfo
   | ILoginStarted
   | ILoginSuccess
-  | ILoginError;
+  | ILoginError
+  | ILogOutSuccess;
 
 export const cleanToken = () => {
   return (dispatch: Dispatch) => {
@@ -78,6 +83,10 @@ export const loginSuccess = (userInfo: any): ILoginSuccess => ({
   userInfo,
 });
 
+export const logOutSuccess = (): ILogOutSuccess => ({
+  type: userActionType.LOGOUT_SUCCESS,
+});
+
 export const loginError = (error: any): ILoginError => ({
   type: userActionType.LOGIN_ERROR,
   error,
@@ -88,11 +97,24 @@ export const setToken = (token: string): ISetToken => ({
   token,
 });
 
+export const userLogOut = (email: string) => {
+  return async (dispatch: Dispatch) => {
+    dispatch(loginStarted());
+    try {    
+      const userInfo = (await services.user.logout(email)) as any;
+      dispatch(logOutSuccess());
+      dispatch(setToken(""));
+    } catch (error) {
+      dispatch(loginError(error));
+      return error;
+    }
+  };
+};
+
 export const loginFromToken = (token: string) => {
   return async (dispatch: Dispatch) => {
     dispatch(loginStarted());
     try {
-      debugger;
       const userInfo = (await services.user.checkUserToken(token)) as any;
 
       dispatch(loginSuccess(userInfo.account));
@@ -110,17 +132,14 @@ export const loginFromCredentials = (credentials: ICredentials) => {
   return async (dispatch: Dispatch) => {
     dispatch(loginStarted());
     try {
-      debugger;
       const userInfo = (await services.user.login(credentials)) as any;
 
-      setTimeout(() => {
-        dispatch(loginSuccess(userInfo.account));
-        dispatch(setToken(userInfo.token));
-      }, 1500);
-
-      return userInfo;
+      dispatch(loginSuccess(userInfo.account));
+      dispatch(setToken(userInfo.token));
+      return userInfo as Promise<any>;
     } catch (error) {
       dispatch(loginError(error));
+      return error;
     }
   };
 };

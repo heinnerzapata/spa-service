@@ -33,6 +33,13 @@ const userReducer = (
   switch (action.type) {
     case userActionType.LOGIN_STARTED:
       return { ...state, authenticated: false, isFetching: true };
+    case userActionType.LOGOUT_SUCCESS:
+      return {
+        ...state,
+        authenticated: false,
+        isFetching: false,
+        userInfo: initState.userInfo,
+      };
     case userActionType.LOGIN_SUCCESS:
       return {
         ...state,

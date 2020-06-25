@@ -1,25 +1,30 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
-import styles from "./V7Button.module.scss";
-import { withStyles } from "@material-ui/core/styles";
 import { COLORS } from "variables/constants";
+import { makeStyles } from "@material-ui/styles";
 
 interface v7ButtonProps {
-  disabled: boolean;
-  text: string;
-  type: string;
+  disabled?: boolean;
+  type?: string;
   onClick?: (e: any) => void;
+  visualType?: "contained" | "outlined";
   size?: "small" | "medium" | "large";
 }
 
-const StyledButton = withStyles({
+const useStyles = makeStyles({
   root: {
-    backgroundColor: COLORS.vol7erMain,
+    marginRight: "5px",
+    marginLeft: "5px",
+    color: (props: any) =>
+      props.visualType === "outlined" ? COLORS.white : COLORS.white,
+    backgroundColor: (props: any) =>
+      props.visualType === "outlined" ? "transparent" : COLORS.vol7erMain,
     "&:hover": {
-      backgroundColor: COLORS.vol7erMainLight,
+      backgroundColor: (props: any) =>
+        props.visualType === "outlined" ? "transparent" : COLORS.vol7erMain,
     },
   },
-})(Button);
+});
 
 const V7Button: React.SFC<v7ButtonProps> = (props) => {
   const onClick = (e: any) => {
@@ -31,20 +36,21 @@ const V7Button: React.SFC<v7ButtonProps> = (props) => {
     }
   };
 
+  const classes = useStyles({
+    visualType: props.visualType ? props.visualType : "contained",
+  });
+
   return (
-    <button
-      className={styles.v7Button}
+    <Button
       type={props.type === "submit" ? "submit" : "button"}
+      className={classes.root}
+      disabled={props.disabled}
+      onClick={(e) => onClick(e)}
+      variant={props.visualType ? props.visualType : "contained"}
+      size={props.size ? props.size : "medium"}
     >
-      <StyledButton
-        disabled={props.disabled}
-        onClick={(e) => onClick(e)}
-        variant="contained"
-        size={props.size ? props.size : "medium"}
-      >
-        {props.text}
-      </StyledButton>
-    </button>
+      {props.children}
+    </Button>
   );
 };
 

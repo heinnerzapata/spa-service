@@ -1,7 +1,8 @@
 @import "../../variables/sass/variables.scss";
 
-.vol7er-link {
+.vol7erLink {
   color: $vol7er-main !important;
+
   &:hover {
     color: $vol7er-main-light !important;
   }

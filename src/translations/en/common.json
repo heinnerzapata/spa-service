@@ -3,6 +3,11 @@
     "en": "English",
     "es": "Spanish"
   },
+  "toast": {
+    "welcome": "Welcome",
+    "invalidCredentials": "Invalid credentials",
+    "pleaseValidateCredentials": "Please validate your credentials"
+  },
   "pages": {
     "home": {
       "join": "Join!"
@@ -61,7 +66,8 @@
         "signin": "SignIn",
         "profile": "Profile",
         "closeSession": "Close session",
-        "dashboard": "Dashboard"
+        "dashboard": "Dashboard",
+        "logout": "LogOut"
       }
     }
   },
@@ -85,6 +91,7 @@
       "pay": "Pay",
       "recoverPassword": "Recover password",
       "dontHaveAccount": "Don't Have an Account ?",
+      "doYouHaveAnAccount": "Do you have an account already ?",
       "firstName": "First name",
       "companyName": "Company name",
       "lastName": "Last name",

@@ -10,7 +10,7 @@ const V7PageTitle: React.SFC<v7PageTitleProps> = (props) => {
     <section className={styles.vol7erPageTitle}>
       <div className={styles.back} />
       <div className={styles.cover} />
-      <div className={styles.content}>{props.title}</div>
+      <div className={styles.content}>{props.title.toUpperCase()}</div>
     </section>
   );
 };
