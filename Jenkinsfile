@@ -18,13 +18,11 @@ pipeline {
     }
     }
     stages {
-        // stage('INSTALL - prev tools') { 
-        //     steps {
-        //       sh "apk update && apk upgrade"
-        //       sh "apk add --no-cache bash git openssh"
-        //       sh "npm install -g yarn"
-        //     }
-        // }
+        stage('INIT') { 
+            steps {
+             
+            }
+        }
         // stage('INSTALL PROJECT MODULES') { 
         //     steps {
         //       sh 'yarn install' 
