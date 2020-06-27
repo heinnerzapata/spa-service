@@ -1,46 +1,50 @@
 pipeline {
     environment {
         HOME = '.'
+        dockerImage = ''
     }
+    // agent {
+    //     docker {
+    //       image 'mhart/alpine-node:12'
+    //       args '-u root'
+    //     }
+    // }
     agent {
-        docker {
-          image 'mhart/alpine-node:12'
-          args '-u root'
-        }
+      dockerfile {
+        dir './Dockerfile.dev'
+        label 'spa-test'
+        additionalBuildArgs  '--build-arg version=1.0'
+        args '-u root'
+    }
     }
     stages {
-        stage('INSTALL - prev tools') { 
+        // stage('INSTALL - prev tools') { 
+        //     steps {
+        //       sh "apk update && apk upgrade"
+        //       sh "apk add --no-cache bash git openssh"
+        //       sh "npm install -g yarn"
+        //     }
+        // }
+        // stage('INSTALL PROJECT MODULES') { 
+        //     steps {
+        //       sh 'yarn install' 
+        //     }
+        // }
+        stage('BUILD') {
             steps {
-              sh "apk update && apk upgrade"
-              sh "apk add --no-cache bash git openssh"
-              sh "npm install -g yarn"
-            }
-        }
-        stage('INSTALL PROJECT MODULES') { 
-            steps {
-              sh 'yarn install' 
+              /* groovylint-disable-next-line NestedBlockDepth */
+              dockerImage = docker.build("test")
             }
         }
         stage('TEST') { 
             steps {
-                sh 'yarn test:coverage' 
+                sh "docker run ${dockerImage.id} npm run test"
             }
         }
-        stage ('Starting CD') {
-           steps {
-            build job: 'node-services-pipeline', parameters: [[$class: 'StringParameterValue', name: 'SERVICE', value: 'vol7er-spa'], [$class: 'StringParameterValue', name: 'VERSION', value: 'develop']]
-           }
-        }
-      //   stage('DEPLOY DEV - GitHub Pages') { 
-      //     steps {   
-      //       withCredentials([string(credentialsId: 'GH_TOKEN', variable: 'GH_TOKEN'), string(credentialsId: 'GH_USER', variable: 'GH_USER'), string(credentialsId: 'GH_MAIL', variable: 'GH_MAIL')]) { 
-      //         sh "git config --global user.email '${GH_MAIL}'"
-      //         sh "git config --global user.name '${GH_USER}'"
-      //         sh "git remote rm origin"
-      //         sh "git remote add origin https://vol7er:'${GH_TOKEN}'@github.com/vol7er/vol7er.git"
-      //         sh "yarn deploy"
-      //       }           
-      //     }
-      // }
+        // stage ('Continous Deployment') {
+        //    steps {
+        //     build job: 'node-services-pipeline', parameters: [[$class: 'StringParameterValue', name: 'SERVICE', value: 'vol7er-spa'], [$class: 'StringParameterValue', name: 'VERSION', value: 'develop']]
+        //    }
+        // }
     }
 }
