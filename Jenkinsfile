@@ -1,13 +1,13 @@
 pipeline {
     agent {
       dockerfile {
-        filename 'Dockerfile.dev'
-      }
+        filename 'Dockerfile.dev' 
+      } 
     }
     stages { 
-        stage('Example') {
+        stage('TEST') {
             steps {
-                echo 'Hello World'
+                sh "npm run test"
             }
         }
     }
