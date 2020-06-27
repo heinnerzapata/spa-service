@@ -27,7 +27,9 @@ pipeline {
             }
         }
         stage ('Starting CD') {
-          build job: 'vol7er-DEV-Cluster', parameters: [[$class: 'StringParameterValue', name: 'SERVICE', value: 'vol7er-spa'], [$class: 'StringParameterValue', name: 'VERSION', value: 'develop']]
+           steps {
+            build job: 'vol7er-DEV-Cluster', parameters: [[$class: 'StringParameterValue', name: 'SERVICE', value: 'vol7er-spa'], [$class: 'StringParameterValue', name: 'VERSION', value: 'develop']]
+           }
         }
       //   stage('DEPLOY DEV - GitHub Pages') { 
       //     steps {   
