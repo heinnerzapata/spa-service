@@ -35,33 +35,33 @@ class UserService {
     // Mock service
     // return V7HttpRequest.get(urlCheckUserToken);
 
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve({
-          account: {
-            sign_up_date: `2020-06-06T16:09:37.521Z`,
-            email: `felipeberm@gmail.com`,
-            display_name: "felipe bermudez",
-            first_name: "Felipe",
-            last_name: "Bermudez",
-            phone_contact: "3165555555",
-            state: "active",
-            admin: true,
-            hex_id: "90dc11c",
-            avatar:
-              "http://gravatar.com/avatar/101a805367507a51917217e0320ac7a0?s=200&d=retro",
-            createdAt: "2020-06-06T16:09:45.997Z",
-            updatedAt: "2020-06-06T16:09:45.997Z",
-          },
-        });
-      }, 500);
-    });
-
-    // return new Promise((resolve, reject) => {
+    // return new Promise((resolve) => {
     //   setTimeout(() => {
-    //     reject("error");
-    //   }, 1000);
+    //     resolve({
+    //       account: {
+    //         sign_up_date: `2020-06-06T16:09:37.521Z`,
+    //         email: `felipeberm@gmail.com`,
+    //         display_name: "felipe bermudez",
+    //         first_name: "Felipe",
+    //         last_name: "Bermudez",
+    //         phone_contact: "3165555555",
+    //         state: "active",
+    //         admin: true,
+    //         hex_id: "90dc11c",
+    //         avatar:
+    //           "http://gravatar.com/avatar/101a805367507a51917217e0320ac7a0?s=200&d=retro",
+    //         createdAt: "2020-06-06T16:09:45.997Z",
+    //         updatedAt: "2020-06-06T16:09:45.997Z",
+    //       },
+    //     });
+    //   }, 500);
     // });
+
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        reject("error");
+      }, 1000);
+    });
   }
 
   logout(email: string) {

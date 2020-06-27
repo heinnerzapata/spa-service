@@ -34,9 +34,7 @@ interface IAppProps {
 class App extends React.PureComponent<IAppProps, any> {
   componentDidMount() {
     const currentToken = getToken();
-    debugger;
     if (currentToken && currentToken !== null && currentToken !== "") {
-      debugger;
       this.props.onLoginFromToken(currentToken);
     }
   }
@@ -45,7 +43,6 @@ class App extends React.PureComponent<IAppProps, any> {
     this.props
       .onLogout(this.props.userReducer.userInfo.email)
       .then((result: any) => {
-        debugger;
         setToken("");
       });
   };

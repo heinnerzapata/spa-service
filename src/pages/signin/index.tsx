@@ -48,12 +48,6 @@ class SignIn extends React.PureComponent<ISignInProps, ISignInState> {
     this.setState({ nextPage: this.getNextPage() });
   }
 
-  componentDidUpdate() {
-    if (this.props.userReducer.authenticated) {
-      this.props.history.push(defaultSignInRedirectionUrl);
-    }
-  }
-
   getNextPage = () => {
     const { t } = this.props;
     const queryParams = queryString.parse(this.props.location.search);
@@ -79,7 +73,6 @@ class SignIn extends React.PureComponent<ISignInProps, ISignInState> {
     if (props.onloginFromCredentials) {
       props.onloginFromCredentials(model).then((data: any) => {
         if (data.account) {
-          debugger;
           setToken(data.token);
           this.validCredentials();
         }

@@ -11,6 +11,7 @@ import { loginFromToken } from "store/user/actions";
 import { getToken } from "utilities/token";
 import { RouteComponentProps } from "react-router-dom";
 import { withRouter } from "react-router-dom";
+import _ from "lodash";
 
 interface IPageContainerProps extends RouteComponentProps {
   isFull?: boolean;
@@ -25,6 +26,8 @@ interface IPageContainerProps extends RouteComponentProps {
   page: string;
   onLoginFromToken?: (token: string) => any;
 }
+
+const PAGES_REDIRECT_ON_LOGGED = ["/signin", "/signup"];
 
 const useStyles = createUseStyles({
   v7PageContainer: {
@@ -58,6 +61,15 @@ class V7PageContainer extends React.PureComponent<
 
   componentDidMount() {
     this.validateProtectedRoute();
+  }
+
+  componentDidUpdate() {
+    if (
+      this.props.userReducer.authenticated &&
+      _.includes(PAGES_REDIRECT_ON_LOGGED, this.props.history.location.pathname)
+    ) {
+      this.props.history.push(`/`);
+    }
   }
 
   loginFromToken = (token: string) => {

@@ -50,12 +50,6 @@ class SignUp extends React.PureComponent<ISignInProps, ISignInState> {
     this.setState({ nextPage: this.getNextPage() });
   }
 
-  componentDidUpdate() {
-    if (this.props.userReducer.authenticated) {
-      this.props.history.push(defaultSignInRedirectionUrl);
-    }
-  }
-
   getNextPage = () => {
     const { t } = this.props;
     const queryParams = queryString.parse(this.props.location.search);
@@ -78,13 +72,13 @@ class SignUp extends React.PureComponent<ISignInProps, ISignInState> {
   };
 
   submit(model: IFormModel, props: ISignInProps) {
-    if (props.onloginFromCredentials) {
-      props.onloginFromCredentials(model).then((data: any) => {
-        if (data.account) {
-          this.validCredentials();
-        }
-      });
-    }
+    // if (props.onloginFromCredentials) {
+    //   props.onloginFromCredentials(model).then((data: any) => {
+    //     if (data.account) {
+    //       this.validCredentials();
+    //     }
+    //   });
+    // }
   }
 
   validCredentials = () => {
