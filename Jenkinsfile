@@ -26,6 +26,9 @@ pipeline {
                 sh 'yarn test:coverage' 
             }
         }
+        stage ('Starting CD') {
+          build job: 'vol7er-DEV-Cluster', parameters: [[$class: 'StringParameterValue', name: 'SERVICE', value: 'vol7er-spa'], [$class: 'StringParameterValue', name: 'VERSION', value: 'develop']]
+        }
       //   stage('DEPLOY DEV - GitHub Pages') { 
       //     steps {   
       //       withCredentials([string(credentialsId: 'GH_TOKEN', variable: 'GH_TOKEN'), string(credentialsId: 'GH_USER', variable: 'GH_USER'), string(credentialsId: 'GH_MAIL', variable: 'GH_MAIL')]) { 
