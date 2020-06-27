@@ -9,13 +9,10 @@ pipeline {
     //       args '-u root'
     //     }
     // }
-    agent {
-      dockerfile {
-        dir './Dockerfile.dev'
-        label 'spa-test'
-        additionalBuildArgs  '--build-arg version=1.0'
-        args '-u root'
-    }
+    agent any
+    options {
+        /* groovylint-disable-next-line SpaceAroundMapEntryColon */
+        timeout(time: 20, unit: 'MINUTES')
     }
     stages {
         // stage('INSTALL - prev tools') { 
@@ -33,7 +30,7 @@ pipeline {
         stage('BUILD') {
             steps {
               /* groovylint-disable-next-line NestedBlockDepth */
-              dockerImage = docker.build("test")
+              dockerImage = docker.build("test-image", "./Dockerfile.dev", "--build-arg v1.0")
             }
         }
         stage('TEST') { 
