@@ -12,7 +12,7 @@ pipeline {
         }
         stage ('CONTINUOUS DEPLOYMENT') {
            steps {
-            build job: 'vol7er-services-pipeline', parameters: [[$class: 'StringParameterValue', name: 'SERVICE', value: 'cluster-cd-pipeline'], [$class: 'StringParameterValue', name: 'VERSION', value: 'develop']]
+            build job: 'vol7er-services-pipeline', parameters: [[$class: 'StringParameterValue', name: 'SERVICE', value: 'vol7er-spa'], [$class: 'StringParameterValue', name: 'VERSION', value: 'develop']]
            }
         }
     }
