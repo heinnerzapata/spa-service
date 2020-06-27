@@ -20,7 +20,7 @@ pipeline {
     stages {
         stage('INIT') { 
             steps {
-             
+             sh 'docker build -t vol7er/spa-tetst -f Dockerfile.dev .'
             }
         }
         // stage('INSTALL PROJECT MODULES') { 
