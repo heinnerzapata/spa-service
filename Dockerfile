@@ -8,6 +8,8 @@ RUN apk add --no-cache bash git openssh
 
 RUN npm install -g yarn
 
+RUN yarn install
+
 COPY . .
 RUN yarn build
 
