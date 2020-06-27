@@ -1,17 +1,9 @@
 FROM mhart/alpine-node:12
 WORKDIR '/app'
 COPY package*.json ./
-
-RUN apk update && apk upgrade
-
-RUN apk add --no-cache bash git openssh
-
-RUN npm install -g yarn
-
-RUN yarn install
-
+RUN npm install
 COPY . .
-RUN yarn build
+RUN npm run build
 
 FROM nginx
 EXPOSE 80
