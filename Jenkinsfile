@@ -9,10 +9,13 @@ pipeline {
     //       args '-u root'
     //     }
     // }
-    agent any
-    options {
-        /* groovylint-disable-next-line SpaceAroundMapEntryColon */
-        timeout(time: 20, unit: 'MINUTES')
+    agent {
+      dockerfile {
+        dir './Dockerfile.dev'
+        label 'spa-test'
+        additionalBuildArgs  '--build-arg version=1.0'
+        args '-u root'
+    }
     }
     stages {
         // stage('INSTALL - prev tools') { 
@@ -27,17 +30,17 @@ pipeline {
         //       sh 'yarn install' 
         //     }
         // }
-        stage('BUILD') {
-            steps {
-              /* groovylint-disable-next-line NestedBlockDepth */
-              dockerImage = docker.build("test-image", "./Dockerfile.dev", "--build-arg v1.0")
-            }
-        }
-        stage('TEST') { 
-            steps {
-                sh "docker run ${dockerImage.id} npm run test"
-            }
-        }
+        // stage('BUILD') {
+        //     steps {
+        //       /* groovylint-disable-next-line NestedBlockDepth */
+        //       dockerImage = docker.build("test")
+        //     }
+        // }
+        // stage('TEST') { 
+        //     steps {
+        //         sh "docker run ${dockerImage.id} npm run test"
+        //     }
+        // }
         // stage ('Continous Deployment') {
         //    steps {
         //     build job: 'node-services-pipeline', parameters: [[$class: 'StringParameterValue', name: 'SERVICE', value: 'vol7er-spa'], [$class: 'StringParameterValue', name: 'VERSION', value: 'develop']]
