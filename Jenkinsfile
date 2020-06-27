@@ -28,7 +28,7 @@ pipeline {
         }
         stage ('Starting CD') {
            steps {
-            build job: 'node-services-pipeline', parameters: [[$class: 'StringParameterValue', name: 'SERVICE', value: 'vol7er-spa'], [$class: 'StringParameterValue', name: 'VERSION', value: 'master']]
+            build job: 'node-services-pipeline', parameters: [[$class: 'StringParameterValue', name: 'SERVICE', value: 'vol7er-spa'], [$class: 'StringParameterValue', name: 'VERSION', value: 'develop']]
            }
         }
       //   stage('DEPLOY DEV - GitHub Pages') { 
