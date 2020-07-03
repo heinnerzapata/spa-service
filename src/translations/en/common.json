@@ -78,7 +78,8 @@
       "notValidFirstName": "This is not a valid first name",
       "notValidPasswordConf": "Password confirmation is not valid",
       "notValidPhoneContact": "This phone contact is not valid",
-      "notValidCompanyName": "This is not a valid name for a company"
+      "notValidCompanyName": "This is not a valid name for a company",
+      "required": "Required field"
     }
   },
   "labels": {

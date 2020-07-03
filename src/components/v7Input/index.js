@@ -59,6 +59,7 @@ const V7Input = (props) => {
     if (props.reset || props.defaultValue) {
       props.setValue(props.defaultValue);
     }
+
     setIsError(shouldShowError);
   }, [props, shouldShowError]);
 
@@ -69,7 +70,7 @@ const V7Input = (props) => {
           <StyledInput
             error={isError}
             onChange={onChange}
-            value={props.value}
+            value={props.value || ''}
             label={props.label}
             defaultValue={props.defaultValue}
             helperText={isError && props.validationError}

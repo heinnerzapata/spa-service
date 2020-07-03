@@ -3,6 +3,20 @@ import { Dispatch } from "redux";
 import services from "services";
 import { ICredentials } from "models";
 
+export interface ISignupStarted {
+  type: userActionType.SIGNUP_STARTED;
+}
+
+export interface ISignupSuccess {
+  type: userActionType.SIGNUP_SUCCESS;
+  userInfo: any;
+}
+
+export interface ISignupError {
+  type: userActionType.SIGNUP_ERROR;
+  error: any;
+}
+
 export interface ILoginStarted {
   type: userActionType.LOGIN_STARTED;
 }
@@ -47,7 +61,10 @@ export type IAction =
   | ILoginStarted
   | ILoginSuccess
   | ILoginError
-  | ILogOutSuccess;
+  | ILogOutSuccess
+  | ISignupStarted
+  | ISignupSuccess
+  | ISignupError;
 
 export const cleanToken = () => {
   return (dispatch: Dispatch) => {
@@ -73,6 +90,20 @@ export const cleanUserInfo = () => {
     });
   };
 };
+
+export const signupStarted = (): ISignupStarted => ({
+  type: userActionType.SIGNUP_STARTED,
+});
+
+export const signupSuccess = (userInfo: any): ISignupSuccess => ({
+  type: userActionType.SIGNUP_SUCCESS,
+  userInfo,
+});
+
+export const signupError = (error: any): ISignupError => ({
+  type: userActionType.SIGNUP_ERROR,
+  error,
+});
 
 export const loginStarted = (): ILoginStarted => ({
   type: userActionType.LOGIN_STARTED,
@@ -100,12 +131,30 @@ export const setToken = (token: string): ISetToken => ({
 export const userLogOut = (email: string) => {
   return async (dispatch: Dispatch) => {
     dispatch(loginStarted());
-    try {    
-      const userInfo = (await services.user.logout(email)) as any;
+    try {
+      await services.user.logout(email);
       dispatch(logOutSuccess());
       dispatch(setToken(""));
     } catch (error) {
       dispatch(loginError(error));
+      return error;
+    }
+  };
+};
+
+export const signUp = (newUserInfo: any) => {
+  return async (dispatch: Dispatch) => {
+    dispatch(signupStarted());
+
+    try {
+      const userInfo = (await services.user.signup(newUserInfo)) as any;
+
+      dispatch(signupSuccess(userInfo));
+      dispatch(setToken(userInfo.token));
+
+      return userInfo;
+    } catch (error) {
+      dispatch(signupError(error));
       return error;
     }
   };
@@ -136,6 +185,7 @@ export const loginFromCredentials = (credentials: ICredentials) => {
 
       dispatch(loginSuccess(userInfo.account));
       dispatch(setToken(userInfo.token));
+
       return userInfo as Promise<any>;
     } catch (error) {
       dispatch(loginError(error));

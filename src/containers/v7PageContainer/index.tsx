@@ -27,7 +27,7 @@ interface IPageContainerProps extends RouteComponentProps {
   onLoginFromToken?: (token: string) => any;
 }
 
-const PAGES_REDIRECT_ON_LOGGED = ["/signin", "/signup"];
+const PAGES_REDIRECT_ON_LOGGED = ["/signin", "/signup", "/recover"];
 
 const useStyles = createUseStyles({
   v7PageContainer: {

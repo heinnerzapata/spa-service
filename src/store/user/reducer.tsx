@@ -31,6 +31,7 @@ const userReducer = (
   action: IAction
 ): IUserState => {
   switch (action.type) {
+    case userActionType.SIGNUP_STARTED:
     case userActionType.LOGIN_STARTED:
       return { ...state, authenticated: false, isFetching: true };
     case userActionType.LOGOUT_SUCCESS:
@@ -40,6 +41,7 @@ const userReducer = (
         isFetching: false,
         userInfo: initState.userInfo,
       };
+    case userActionType.SIGNUP_SUCCESS:
     case userActionType.LOGIN_SUCCESS:
       return {
         ...state,
@@ -48,6 +50,7 @@ const userReducer = (
         isFetching: false,
       };
     case userActionType.LOGIN_ERROR:
+    case userActionType.SIGNUP_ERROR:
       return {
         ...state,
         userInfo: initState.userInfo,

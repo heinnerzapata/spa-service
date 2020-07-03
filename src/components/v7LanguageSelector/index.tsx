@@ -1,7 +1,7 @@
 import React from "react";
 import "./v7LanguageSelector.module.scss";
 import { V7Avatar, AVATAR_SIZES } from "components";
-import { DEFAULT_CONFIG, LANGUAGES_OPTIONS } from "variables/constants";
+import { LANGUAGES_OPTIONS } from "variables/constants";
 import { LANGUAGES, ILanguagesOptions } from "models";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";

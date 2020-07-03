@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { IAppState } from "store";
 import { ThunkDispatch } from "redux-thunk";
-import { loginFromCredentials } from "store/user/actions";
+import { signUp } from "store/user/actions";
 import { ICredentials } from "models";
 
 const mapStateToProps = (state: IAppState) => ({
@@ -12,8 +12,8 @@ const mapStateToProps = (state: IAppState) => ({
 });
 function mapDispatchToProps(dispatch: ThunkDispatch<any, any, any>) {
   return {
-    onloginFromCredentials: (credentials: ICredentials) =>
-      dispatch(loginFromCredentials(credentials)),
+    onSignUp: (credentials: ICredentials) =>
+      dispatch(signUp(credentials)),
   };
 }
 

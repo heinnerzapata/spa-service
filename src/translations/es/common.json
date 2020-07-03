@@ -79,7 +79,8 @@
       "notValidLastName": "Este no es un apellido valido",
       "notValidPasswordConf": "La confirmacion de la contraseña no es valida",
       "notValidPhoneContact": "Este telefono de contacto no es valido",
-      "notValidCompanyName": "Este no es un nombre valido para una compañia"
+      "notValidCompanyName": "Este no es un nombre valido para una compañia",
+      "required": "Campo requerido"
     }
   },
   "labels": {

@@ -2,13 +2,10 @@ import React from "react";
 import { V7Avatar, V7Icon } from "components";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import flagES from "static/media/images/flags/es.svg";
-import flagGB from "static/media/images/flags/gb.svg";
 import faSignOutAlt from "@fortawesome/fontawesome-free-solid/faSignOutAlt";
 import { useTranslation } from "react-i18next";
 import { COLORS } from "variables/constants";
 import { createUseStyles } from "react-jss";
-import "i18n";
 
 interface v7LanguageSelectorProps {
   imgUrl: string;
@@ -35,7 +32,7 @@ const MENU_OPTIONS: IMenuOptions[] = [
 ];
 
 const V7UserOptions: React.SFC<v7LanguageSelectorProps> = (props) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {

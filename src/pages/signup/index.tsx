@@ -9,6 +9,7 @@ import faKey from "@fortawesome/fontawesome-free-solid/faKey";
 import faUser from "@fortawesome/fontawesome-free-solid/faUser";
 import queryString from "query-string";
 import { RouteComponentProps } from "react-router-dom";
+import { setToken } from "utilities/token";
 import _ from "lodash";
 import { ICredentials } from "models";
 import { IUserState } from "store/user/reducer";
@@ -18,7 +19,7 @@ import { toast } from "react-toastify";
 interface ISignInProps extends WithTranslation, RouteComponentProps {
   t: any;
   userReducer: IUserState;
-  onloginFromCredentials?: (Credentials: ICredentials) => any;
+  onSignUp?: (userInfo: any) => any;
 }
 
 interface ISignInState {
@@ -72,13 +73,14 @@ class SignUp extends React.PureComponent<ISignInProps, ISignInState> {
   };
 
   submit(model: IFormModel, props: ISignInProps) {
-    // if (props.onloginFromCredentials) {
-    //   props.onloginFromCredentials(model).then((data: any) => {
-    //     if (data.account) {
-    //       this.validCredentials();
-    //     }
-    //   });
-    // }
+    if (props.onSignUp) {
+      props.onSignUp(model).then((data: any) => {
+        if (data.account) {
+          setToken(data.token);
+          this.validCredentials();
+        }
+      });
+    }
   }
 
   validCredentials = () => {
@@ -86,7 +88,7 @@ class SignUp extends React.PureComponent<ISignInProps, ISignInState> {
     toast.success(
       `${t("toast.welcome")} ${this.props.userReducer.userInfo.display_name} !!`
     );
-    this.props.history.push(this.state.nextPage);
+    this.props.history.push('/dashboard');
   };
 
   invalidCredentials = () => {
