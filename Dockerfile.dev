@@ -3,6 +3,7 @@ FROM mhart/alpine-node:12
 WORKDIR '/app'
 
 COPY package.json .
+RUN npm install react-dev-utils
 RUN npm install
 
 COPY . .
