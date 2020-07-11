@@ -12,6 +12,7 @@ class V7HttpRequest {
       headers: {
         "Content-Type": "application/json;charset=UTF-8",
         "Access-Control-Allow-Origin": "*",
+        "x-api-key": "NhHgv6XxfExoTA8xRU96==",
       },
     };
     this.baseUrl = config.urlEnv;
