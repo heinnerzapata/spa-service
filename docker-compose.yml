@@ -10,7 +10,7 @@ services:
     volumes:
       - /app/node_modules
       - .:/app
-    command: ["npm", "run", "start"]
+    command: ["yarn", "start"]
   test:
     build:
       context: .
@@ -18,4 +18,4 @@ services:
     volumes:
       - /app/node_modules
       - .:/app
-    command: ["npm", "run", "test"]
+    command: ["yarn", "test"]

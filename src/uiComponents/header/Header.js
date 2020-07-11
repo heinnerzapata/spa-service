@@ -16,9 +16,9 @@ class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isStrollTop: true,
+      isScrollTop: true,
       isMenuMobileVisible: false,
-      language: this.props.t(`languages.${DEFAULT_CONFIG.defaultLanguage}`)
+      language: this.props.t(`languages.${DEFAULT_CONFIG.defaultLanguage}`),
     };
     window.scrollTo(0, 0);
     this.handleScroll = this.handleScroll.bind(this);
@@ -29,9 +29,9 @@ class Header extends Component {
 
   validateScrollPosition() {
     if (window.scrollY > 0) {
-      this.setState({ isStrollTop: false });
+      this.setState({ isScrollTop: false });
     } else {
-      this.setState({ isStrollTop: true });
+      this.setState({ isScrollTop: true });
     }
   }
 
@@ -64,9 +64,9 @@ class Header extends Component {
       <header
         className={[
           "vol7er-header",
-          this.state.isStrollTop
+          this.state.isScrollTop
             ? "vol7er-header--top"
-            : "vol7er-header--scrolled"
+            : "vol7er-header--scrolled",
         ].join(" ")}
       >
         <div
@@ -74,30 +74,25 @@ class Header extends Component {
             "vol7er-header__options-mobile",
             this.state.isMenuMobileVisible
               ? "vol7er-header__options-mobile--notVisible"
-              : "vol7er-header__options-mobile--visible"
+              : "vol7er-header__options-mobile--visible",
           ].join(" ")}
         >
           <ul className="vol7er-header__options-mobile__menu">
-            {/* <li className="vol7er-header__options-mobile__menu__item vol7er-header__options-mobile-whitef">
-              <Link to="/about" onClick={this.closeMobileMenu}>
-                {t("components.header.menu.about")}
-              </Link>
-            </li> */}
-            {!!!this.props.userReducer.userInfo.hexId && (
+            {!this.props.userReducer.authenticated && (
               <li className="vol7er-header__options-mobile__menu__item vol7er-header__options-mobile-whitef">
                 <Link to="/signup" onClick={this.closeMobileMenu}>
                   {t("components.header.menu.signup")}
                 </Link>
               </li>
             )}
-            {!!!this.props.userReducer.userInfo.hexId && (
+            {!this.props.userReducer.authenticated && (
               <li className="vol7er-header__options-mobile__menu__item vol7er-header__options-mobile-whitef">
                 <Link to="/signin" onClick={this.closeMobileMenu}>
                   {t("components.header.menu.signin")}
                 </Link>
               </li>
             )}
-            {!!this.props.userReducer.userInfo.hexId && (
+            {this.props.userReducer.authenticated && (
               <li className="vol7er-header__options-mobile__menu__item">
                 <Profile width={60} />
               </li>
@@ -113,16 +108,16 @@ class Header extends Component {
             height={40}
             width={40}
             menuMobileChangeEvent={this.handleMenuMobileChange}
-            onRef={ref => (this.mobileIconComponent = ref)}
+            onRef={(ref) => (this.mobileIconComponent = ref)}
           />
         </div>
         <Grid>
           <Row
             className={[
               "vol7er-header__row",
-              this.state.isStrollTop
+              this.state.isScrollTop
                 ? "vol7er-header__row--top"
-                : "vol7er-header__row--scrolled"
+                : "vol7er-header__row--scrolled",
             ].join(" ")}
             middle="xs"
           >
@@ -131,7 +126,7 @@ class Header extends Component {
                 <Col xs={12}>
                   <Link className="vol7er-header__row--logo" to="/">
                     <Logo
-                      isStrollTop={this.state.isStrollTop ? true : false}
+                      isScrollTop={this.state.isScrollTop ? true : false}
                       fontSize={26}
                     />
                   </Link>
@@ -140,12 +135,7 @@ class Header extends Component {
             </Col>
             <Col xs={12} lg={8} className="vol7er-header__options">
               <Row end="lg" center="xs" middle="xs">
-                {/* <Col>
-                  <V7Chip className="vol7er-header__options__menu--option">
-                    <Link to="/about">{t("components.header.menu.about")}</Link>
-                  </V7Chip>
-                </Col> */}
-                {!!this.props.userReducer.userInfo.hexId && (
+                {!this.props.userReducer.authenticated && (
                   <Col>
                     <V7Chip className="vol7er-header__options__menu--option">
                       <Link to="/dashboard">
@@ -154,7 +144,7 @@ class Header extends Component {
                     </V7Chip>
                   </Col>
                 )}
-                {!!!this.props.userReducer.userInfo.hexId && (
+                {!this.props.userReducer.authenticated && (
                   <Col>
                     <V7Chip className="vol7er-header__options__menu--option">
                       <Link to="/signup">
@@ -163,7 +153,7 @@ class Header extends Component {
                     </V7Chip>
                   </Col>
                 )}
-                {!!!this.props.userReducer.userInfo.hexId && (
+                {!this.props.userReducer.authenticated && (
                   <Col>
                     <V7Chip className="vol7er-header__options__menu--option">
                       <Link to="/signin">
@@ -172,7 +162,7 @@ class Header extends Component {
                     </V7Chip>
                   </Col>
                 )}
-                {!!this.props.userReducer.userInfo.hexId && (
+                {this.props.userReducer.authenticated && (
                   <Col>
                     <Profile width={35} />
                   </Col>
@@ -189,4 +179,4 @@ class Header extends Component {
   }
 }
 
-export default connect(state => state)(withTranslation("common")(Header));
+export default connect((state) => state)(withTranslation("common")(Header));

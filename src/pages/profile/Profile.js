@@ -9,6 +9,9 @@ import { V7Tabs } from 'uiComponents/components';
 import { withTranslation } from 'react-i18next';
 
 class Profile extends Component {
+  componentDidMount() {
+
+  }
   render() {
     const { t } = this.props;
     const tabs = [
@@ -23,19 +26,20 @@ class Profile extends Component {
       }
     ];
     return (
-      <Session
-        next={'profile'}>
-        <PageTitle
-          title={t('pages.profile.title')} />
-        <PageContainer
-          isMarginTopActivated={false}>
-          <ProfileLayout>
-            <V7Tabs
-              tabs={tabs}
-              backGray={false} />
-          </ProfileLayout>
-        </PageContainer>
-      </Session>
+      // <Session
+      //   next={'profile'}>
+      //   <PageTitle
+      //     title={t('pages.profile.title')} />
+      //   <PageContainer
+      //     isMarginTopActivated={false}>
+      //     <ProfileLayout>
+      //       <V7Tabs
+      //         tabs={tabs}
+      //         backGray={false} />
+      //     </ProfileLayout>
+      //   </PageContainer>
+      // </Session>
+      <h1>profile</h1>
     );
   }
 }

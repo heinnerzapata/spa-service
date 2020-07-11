@@ -3,6 +3,11 @@
     "en": "Ingles",
     "es": "Español"
   },
+  "toast": {
+    "welcome": "Bienvenido",
+    "invalidCredentials": "Credenciales invalidas",
+    "pleaseValidateCredentials": "Porfavor valide sus credenciales"
+  },
   "pages": {
     "home": {
       "join": "Únete!"
@@ -61,7 +66,8 @@
         "signin": "Ingresar",
         "profile": "Perfil",
         "closeSession": "Cerrar sesion",
-        "dashboard": "Tablero"
+        "dashboard": "Tablero",
+        "logout": "Salir"
       }
     }
   },
@@ -73,12 +79,13 @@
       "notValidLastName": "Este no es un apellido valido",
       "notValidPasswordConf": "La confirmacion de la contraseña no es valida",
       "notValidPhoneContact": "Este telefono de contacto no es valido",
-      "notValidCompanyName": "Este no es un nombre valido para una compañia"
+      "notValidCompanyName": "Este no es un nombre valido para una compañia",
+      "required": "Campo requerido"
     }
   },
   "labels": {
     "forms": {
-      "email": "Email",
+      "email": "Correo electrónico",
       "password": "Contraseña",
       "newPassword": "Nueva contraseña",
       "submit": "Enviar",
@@ -86,6 +93,7 @@
       "pay": "Pagar",
       "recoverPassword": "Recuperar contraseña",
       "dontHaveAccount": "¿ No tienes una cuenta ?",
+      "doYouHaveAnAccount": "¿ Ya tienes una cuenta ?",
       "firstName": "Nombre",
       "companyName": "Nombre de la compañia",
       "lastName": "Apellido",

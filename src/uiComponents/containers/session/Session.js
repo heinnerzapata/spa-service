@@ -6,8 +6,7 @@ import _ from "lodash";
 import { withRouter } from "react-router-dom";
 import queryString from "query-string";
 import V7Preloader from "./../../v7Preloader/V7Preloader";
-import { setToken } from "./../../../store/actions/user.action";
-import { setUserInfo } from "./../../../store/actions/user.action";
+import { setToken, setUserInfo } from "store/user/actions";
 
 class Session extends Component {
   constructor(props) {
@@ -15,7 +14,7 @@ class Session extends Component {
     this.state = {
       userInfo: {},
       token: "",
-      isLoading: false
+      isLoading: false,
     };
     this.userService = UserService;
   }
@@ -32,10 +31,10 @@ class Session extends Component {
     this.setState({ isLoading: true });
     this.userService
       .checkUserToken(this.state.userInfo.hexId)
-      .then(result => {
+      .then((result) => {
         this.setUserInfo(result);
       })
-      .catch(error => {
+      .catch((error) => {
         if (this.props.onSessionResult) {
           this.props.onSessionResult(false);
         }
@@ -57,7 +56,7 @@ class Session extends Component {
       firstName: result.account.firstName,
       lastName: result.account.lastName,
       phoneContact: result.account.phoneContact,
-      company: result.account.company
+      company: result.account.company,
     };
     this.props.dispatch(setToken(result.token));
     this.props.dispatch(setUserInfo(userInfo));
@@ -70,7 +69,7 @@ class Session extends Component {
     const signInQuery = { next: this.props.next };
     this.props.history.push({
       pathname: "/signin",
-      search: `?${queryString.stringify(signInQuery)}`
+      search: `?${queryString.stringify(signInQuery)}`,
     });
   };
 
@@ -115,4 +114,4 @@ class Session extends Component {
   }
 }
 
-export default connect(state => state)(withRouter(Session));
+export default connect((state) => state)(withRouter(Session));

@@ -1,5 +1,5 @@
 const config =  {
-  urlEnv: 'https://api.vol7er.com/api'
+  urlEnv: 'https://api.dev.vol7er.com/cmms-gateway-ms'
 }
 
 export default config;

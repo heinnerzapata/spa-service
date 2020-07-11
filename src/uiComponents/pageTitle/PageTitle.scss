@@ -7,7 +7,7 @@ $height-md: 150px;
   &__back {
     background-color: $vol7er-title;
     width: 100%;
-    height: 80px;
+    height: 50px;
     background-image: url('../../static/media/images/gears2.jpg');
     -webkit-background-size: cover; /* For WebKit*/
     -moz-background-size: cover; /* Mozilla*/
@@ -24,7 +24,7 @@ $height-md: 150px;
     position: absolute;
     left: 0px;
     top: 0px;
-    height: 80px;
+    height: 50px;
     width: 100%;
     background-color: $vol7er-main-t2;
     @media screen and (max-width: 650px) {
@@ -38,7 +38,7 @@ $height-md: 150px;
     position: absolute;
     left: 0px;
     top: 0px;
-    height: 80px;
+    height: 50px;
     width: 100%;
     color: $white;
     display: flex;

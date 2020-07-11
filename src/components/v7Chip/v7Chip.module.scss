@@ -1,0 +1,38 @@
+@import "../../variables/sass/variables.scss";
+
+.vol7erChip {
+  margin-left: 2px;
+  margin-right: 2px;
+  border-radius: 50px;
+  border: solid 1px transparent;
+  -webkit-transition: 0.3s;
+  /* Safari */
+  transition: 0.3s;
+  min-height: 40px;
+  max-height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 80px;
+
+  a,
+  p {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 5px;
+    text-decoration: none;
+  }
+}
+
+.vol7erChip:hover {
+  border: solid 1px $white;
+  cursor: pointer;
+  -webkit-box-shadow: 0px 6px 9px -6px rgba(255, 255, 255, 1);
+  -moz-box-shadow: 0px 6px 9px -6px rgba(255, 255, 255, 1);
+  box-shadow: 0px 6px 9px -6px rgba(255, 255, 255, 1);
+}
+
+.vol7erChip:active {
+  transform: scale(0.9);
+}

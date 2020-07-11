@@ -13,7 +13,7 @@ class Logo extends Component {
         <span className="vol7er-logo-text">VOL</span>
         <span
           className={
-            this.props.isStrollTop
+            this.props.isScrollTop
               ? "vol7er-logo-7--grey"
               : "vol7er-logo-7--orange"
           }
@@ -29,7 +29,7 @@ class Logo extends Component {
 Logo.propTypes = {
   className: PropTypes.string,
   fontSize: PropTypes.number,
-  isStrollTop: PropTypes.bool
+  isScrollTop: PropTypes.bool
 }
 
 export default Logo;
