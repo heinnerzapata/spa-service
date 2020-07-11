@@ -4,7 +4,6 @@ import VideoCover from "../../uiComponents/videoCover/VideoCover";
 import PageContainer from "../../uiComponents/pageContainer/PageContainer";
 import HomeCoverComponent from "./homeCoverContent";
 import { WithTranslation } from "react-i18next";
-import "./home.scss";
 import { RouteComponentProps } from "react-router-dom";
 
 interface homeProps extends WithTranslation {
