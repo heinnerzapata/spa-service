@@ -4,9 +4,7 @@ import { V7PageTitle, V7Input, V7Icon, V7Button, V7Link } from "components";
 import { V7PageContainer } from "containers";
 import { Row, Col } from "react-flexbox-grid";
 import Formsy, { addValidationRule } from "formsy-react";
-import faAt from "@fortawesome/fontawesome-free-solid/faAt";
-import faKey from "@fortawesome/fontawesome-free-solid/faKey";
-import faUser from "@fortawesome/fontawesome-free-solid/faUser";
+import { faAt, faKey, faUser } from "@fortawesome/fontawesome-free-solid";
 import queryString from "query-string";
 import { RouteComponentProps } from "react-router-dom";
 import { setToken } from "utilities/token";
@@ -88,7 +86,7 @@ class SignUp extends React.PureComponent<ISignInProps, ISignInState> {
     toast.success(
       `${t("toast.welcome")} ${this.props.userReducer.userInfo.display_name} !!`
     );
-    this.props.history.push('/dashboard');
+    this.props.history.push("/dashboard");
   };
 
   invalidCredentials = () => {

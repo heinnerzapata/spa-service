@@ -2,7 +2,7 @@ import React from "react";
 import { V7Avatar, V7Icon } from "components";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import faSignOutAlt from "@fortawesome/fontawesome-free-solid/faSignOutAlt";
+import { faSignOutAlt } from "@fortawesome/fontawesome-free-solid";
 import { useTranslation } from "react-i18next";
 import { COLORS } from "variables/constants";
 import { createUseStyles } from "react-jss";
