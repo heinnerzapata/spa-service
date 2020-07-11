@@ -8,7 +8,6 @@ COPY package-lock.json .
 RUN set -eux \
   & apk add \
   --no-cache \
-  nodejs \
   yarn
 
 RUN yarn install
