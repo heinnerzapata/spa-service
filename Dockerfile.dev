@@ -3,7 +3,15 @@ FROM node:12-alpine
 WORKDIR '/app'
 
 COPY package.json .
-RUN npm install
+COPY package-lock.json .
+
+RUN set -eux \
+  & apk add \
+  --no-cache \
+  nodejs \
+  yarn
+
+RUN yarn install
 
 COPY . .
 
