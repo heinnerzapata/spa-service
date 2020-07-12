@@ -1,8 +1,13 @@
 version: "3"
-  test:
+services:
+  spa-service:
+    stdin_open: true
     build:
-      context: .
       dockerfile: Dockerfile.dev
+      context: ./
+    ports:
+      - "3000:3000"
     volumes:
       - /app/node_modules
       - .:/app
+    command: npm run start
