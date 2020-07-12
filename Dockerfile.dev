@@ -1,15 +1,10 @@
-FROM node:12-alpine
+FROM mhart/alpine-node:12
 
 WORKDIR '/app'
 
 COPY package.json .
 
-RUN set -eux \
-  & apk add \
-  --no-cache \
-  yarn
-
-RUN yarn install
+RUN npm install
 
 COPY . .
 

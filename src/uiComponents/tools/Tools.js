@@ -5,7 +5,7 @@ import {
   faCogs,
   faTruckLoading,
   faWifi,
-} from "@fortawesome/fontawesome-free-solid";
+} from "@fortawesome/free-solid-svg-icons";
 
 const Tools = (props) => {
   return (

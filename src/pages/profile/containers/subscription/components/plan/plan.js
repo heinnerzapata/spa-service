@@ -2,7 +2,7 @@ import React from 'react';
 import { Row, Col } from 'react-flexbox-grid';
 import { V7Switch } from 'uiComponents/components';
 import { withTranslation } from 'react-i18next';
-import { faFlask, faLightbulb } from "@fortawesome/fontawesome-free-solid";
+import { faFlask, faLightbulb } from "@fortawesome/free-solid-svg-icons";
 import SubscriptionType from './../subscriptionType/subscriptionType';
 
 const Plan = (props) => {

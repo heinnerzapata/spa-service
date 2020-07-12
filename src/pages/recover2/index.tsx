@@ -11,7 +11,7 @@ import {
 import { V7PageContainer } from "containers";
 import { Row, Col } from "react-flexbox-grid";
 import Formsy from "formsy-react";
-import { faAt, faKey } from "@fortawesome/fontawesome-free-solid";
+import { faAt, faKey } from "@fortawesome/free-solid-svg-icons";
 import queryString from "query-string";
 import { setToken } from "utilities/token";
 import { RouteComponentProps } from "react-router-dom";

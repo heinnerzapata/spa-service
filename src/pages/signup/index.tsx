@@ -4,7 +4,7 @@ import { V7PageTitle, V7Input, V7Icon, V7Button, V7Link } from "components";
 import { V7PageContainer } from "containers";
 import { Row, Col } from "react-flexbox-grid";
 import Formsy, { addValidationRule } from "formsy-react";
-import { faAt, faKey, faUser } from "@fortawesome/fontawesome-free-solid";
+import { faAt, faKey, faUser } from "@fortawesome/free-solid-svg-icons";
 import queryString from "query-string";
 import { RouteComponentProps } from "react-router-dom";
 import { setToken } from "utilities/token";

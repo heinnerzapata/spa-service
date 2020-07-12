@@ -9,7 +9,7 @@ import {
   faAt,
   faPhone,
   faKey,
-} from "@fortawesome/fontawesome-free-solid";
+} from "@fortawesome/free-solid-svg-icons";
 import UserService from "../../../../services/user.service";
 import V7Preloader from "../../../../uiComponents/v7Preloader/V7Preloader";
 import { setToken, setUserInfo } from "store/user/actions";

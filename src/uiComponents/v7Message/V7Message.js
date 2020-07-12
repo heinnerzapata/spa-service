@@ -6,7 +6,7 @@ import {
   faTimes,
   faCheck,
   V7Icon,
-} from "@fortawesome/fontawesome-free-solid";
+} from "@fortawesome/free-solid-svg-icons";
 
 const MESSAGES_TYPES = {
   ALERT: "alert",

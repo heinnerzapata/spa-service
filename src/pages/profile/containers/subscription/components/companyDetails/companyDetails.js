@@ -5,7 +5,7 @@ import { V7Padding, V7StepButtons, V7Title } from 'uiComponents/components';
 import Formsy from 'formsy-react';
 import V7Icon from "./../../../../../../uiComponents/v7Icon/V7Icon";
 import { V7Input } from "uiComponents/components";
-import { faIndustry, faAt } from "@fortawesome/fontawesome-free-solid";
+import { faIndustry, faAt } from "@fortawesome/free-solid-svg-icons";
 import V7Preloader from "./../../../../../../uiComponents/v7Preloader/V7Preloader";
 
 const CompanyDetails = (props) => {
