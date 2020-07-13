@@ -39,7 +39,7 @@ class V7HttpRequest {
     return new Promise((resolve, reject) => {
       axios
         .post(
-          `${url}`,
+          `${process.env.REACT_APP_API}${url}`,
           { email: "felipeberm@gmail.com", password: "55555" },
           this.getConfigRequest()
         )
