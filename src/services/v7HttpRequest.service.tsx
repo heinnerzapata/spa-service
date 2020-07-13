@@ -32,6 +32,9 @@ class V7HttpRequest {
   }
 
   post(data: any, url: any) {
+    debugger;
+    const va = process.env.REACT_APP_API;
+
     return new Promise((resolve, reject) => {
       axios
         .post(
