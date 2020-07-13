@@ -4,7 +4,7 @@ module.exports = function (app) {
     "/cmms-gateway-ms/*",
     createProxyMiddleware({
       target: "https://api.dev.vol7er.com",
-      changeOrigin: true,
+      changeOrigin: false,
     })
   );
 };
