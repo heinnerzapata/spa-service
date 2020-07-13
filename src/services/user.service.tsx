@@ -30,7 +30,7 @@ class UserService {
   }
 
   checkUserToken(userId: any) {
-   // const urlCheckUserToken = `account/${userId}`;
+    // const urlCheckUserToken = `account/${userId}`;
 
     // Mock service
     // return V7HttpRequest.get(urlCheckUserToken);
@@ -113,7 +113,7 @@ class UserService {
   }
 
   login(credentials: ICredentials) {
-    const loginUrl = `account/sign-in`;
+    const loginUrl = `/cmms-gateway-ms/account/sign-in`;
 
     return V7HttpRequest.post(credentials, loginUrl);
 
