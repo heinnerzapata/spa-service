@@ -10,8 +10,7 @@ class V7HttpRequest {
   constructor() {
     this.configRequest = {
       headers: {
-        "Content-Type": "application/json;charset=UTF-8",
-        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
         "x-api-key": "NhHgv6XxfExoTA8xRU96==",
       },
     };
@@ -35,7 +34,11 @@ class V7HttpRequest {
   post(data: any, url: any) {
     return new Promise((resolve, reject) => {
       axios
-        .post(`${this.baseUrl}/${url}`, data, this.getConfigRequest())
+        .post(
+          `/${url}`,
+          { email: "felipeberm@gmail.com", password: "55555" },
+          this.getConfigRequest()
+        )
         .then(function (response) {
           resolve(response.data);
         })
