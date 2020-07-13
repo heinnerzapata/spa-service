@@ -114,7 +114,6 @@ class UserService {
 
   login(credentials: ICredentials) {
     const loginUrl = `/cmms-gateway-ms/account/sign-in`;
-    console.log(loginUrl);
 
     return V7HttpRequest.post(credentials, loginUrl);
 
