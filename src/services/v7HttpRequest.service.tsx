@@ -1,6 +1,7 @@
 import axios from "axios";
 import config from "../config/config";
 import store from "../store";
+import { getToken } from "utilities/token";
 import _ from "lodash";
 
 class V7HttpRequest {
@@ -11,28 +12,25 @@ class V7HttpRequest {
     this.configRequest = {
       headers: {
         "Content-Type": "application/json",
-        "x-api-key": "NhHgv6XxfExoTA8xRU96==",
+        "x-api-key": process.env.REACT_APP_API_KEY,
       },
     };
     this.baseUrl = config.urlEnv;
-
-    this.getToken();
   }
 
-  getToken = () => {
-    const token = store.getState().userReducer.token;
+  getToken = (isGet: boolean) => {
+    const token = isGet ? getToken() : store.getState().userReducer.token;
     if (!_.isEmpty(token)) {
       this.configRequest.headers.authorization = `bearer ${token}`;
     }
   };
 
-  getConfigRequest() {
-    this.getToken();
+  getConfigRequest(isGet: boolean) {
+    this.getToken(isGet);
     return this.configRequest;
   }
 
-  post(data: any, url: any) {
-    debugger;
+  post(data: any, url: string) {
     const va = process.env.REACT_APP_API;
     console.log(va);
 
@@ -40,8 +38,8 @@ class V7HttpRequest {
       axios
         .post(
           `${process.env.REACT_APP_API}${url}`,
-          { email: "felipeberm@gmail.com", password: "55555" },
-          this.getConfigRequest()
+          data,
+          this.getConfigRequest(false)
         )
         .then(function (response) {
           resolve(response.data);
@@ -52,10 +50,10 @@ class V7HttpRequest {
     });
   }
 
-  get(url: any) {
+  get(url: string) {
     return new Promise((resolve, reject) => {
       axios
-        .get(`${this.baseUrl}/${url}`, this.getConfigRequest())
+        .get(`${process.env.REACT_APP_API}${url}`, this.getConfigRequest(true))
         .then(function (response) {
           resolve(response.data);
         })

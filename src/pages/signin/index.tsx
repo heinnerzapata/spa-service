@@ -70,12 +70,17 @@ class SignIn extends React.PureComponent<ISignInProps, ISignInState> {
 
   submit(model: IFormModel, props: ISignInProps) {
     if (props.onloginFromCredentials) {
-      props.onloginFromCredentials(model).then((data: any) => {
-        if (data.account) {
-          setToken(data.token);
-          this.validCredentials();
-        }
-      });
+      props
+        .onloginFromCredentials(model)
+        .then((data: any) => {
+          if (data.account) {
+            setToken(data.token);
+            this.validCredentials();
+          }
+        })
+        .catch((err: any) => {
+          this.invalidCredentials();
+        });
     }
   }
 

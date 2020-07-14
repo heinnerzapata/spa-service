@@ -80,6 +80,7 @@
       "notValidPasswordConf": "La confirmacion de la contraseña no es valida",
       "notValidPhoneContact": "Este telefono de contacto no es valido",
       "notValidCompanyName": "Este no es un nombre valido para una compañia",
+      "notValidDisplayName": "Este no es un nombre valido para mostrar",
       "required": "Campo requerido"
     }
   },
@@ -103,6 +104,7 @@
       "emailRecoverTokenError": "Este codigo de restablecimiento es invalido o ha expirado",
       "emailRecoverSuccess": "La contraseña de la cuenta ha sido cambiada exitosamente",
       "userInfo": "Informacion del usuario",
+      "displayName": "Nombre para mostrar",
       "return": "Retornar"
     }
   }

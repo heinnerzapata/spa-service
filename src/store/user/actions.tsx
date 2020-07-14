@@ -152,7 +152,7 @@ export const signUp = (newUserInfo: any) => {
       dispatch(signupSuccess(userInfo));
       dispatch(setToken(userInfo.token));
 
-      return userInfo;
+      return Promise.resolve(userInfo);
     } catch (error) {
       dispatch(signupError(error));
       return error;
@@ -186,10 +186,10 @@ export const loginFromCredentials = (credentials: ICredentials) => {
       dispatch(loginSuccess(userInfo.account));
       dispatch(setToken(userInfo.token));
 
-      return userInfo as Promise<any>;
+      return Promise.resolve(userInfo);
     } catch (error) {
       dispatch(loginError(error));
-      return error;
+      return Promise.reject(error);
     }
   };
 };

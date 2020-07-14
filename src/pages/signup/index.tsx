@@ -70,14 +70,28 @@ class SignUp extends React.PureComponent<ISignInProps, ISignInState> {
     this.setState({ canSubmit: true });
   };
 
-  submit(model: IFormModel, props: ISignInProps) {
+  submit(model: any, props: ISignInProps) {
+    const signUpModel = {
+      email: model.email,
+      display_name: model.display_name,
+      password: model.password,
+      first_name: model.first_name,
+      last_name: model.last_name,
+      phone_contact: model.phone_contact,
+    };
+
     if (props.onSignUp) {
-      props.onSignUp(model).then((data: any) => {
-        if (data.account) {
-          setToken(data.token);
-          this.validCredentials();
-        }
-      });
+      props
+        .onSignUp(signUpModel)
+        .then((data: any) => {
+          if (data.account) {
+            setToken(data.token);
+            this.validCredentials();
+          }
+        })
+        .catch((error: any) => {
+          this.invalidCredentials();
+        });
     }
   }
 
@@ -99,7 +113,7 @@ class SignUp extends React.PureComponent<ISignInProps, ISignInState> {
 
   addValidationRules() {
     addValidationRule("passwordConfirmation", (values, value) => {
-      if (values.password !== values.passwordConf) {
+      if (values.password !== values.password_conf) {
         return false;
       }
       return true;
@@ -130,7 +144,7 @@ class SignUp extends React.PureComponent<ISignInProps, ISignInState> {
                 <Row middle="xs">
                   <Col xs={12}>
                     <V7Input
-                      name="firstName"
+                      name="first_name"
                       s={12}
                       validations="minLength:3"
                       type="text"
@@ -147,13 +161,30 @@ class SignUp extends React.PureComponent<ISignInProps, ISignInState> {
                 <Row middle="xs">
                   <Col xs={12}>
                     <V7Input
-                      name="lastName"
+                      name="last_name"
                       s={12}
                       validations="minLength:3"
                       type="text"
                       validationError={t("errors.forms.notValidLastName")}
                       label={t("labels.forms.lastName")}
                       icon={<V7Icon icon={faUser} size={"2x"} />}
+                      defaultValue=""
+                      reset={this.state.resetForm}
+                      required
+                    />
+                  </Col>
+                </Row>
+
+                <Row middle="xs">
+                  <Col xs={12}>
+                    <V7Input
+                      name="display_name"
+                      s={12}
+                      validations="isExisty"
+                      type="text"
+                      validationError={t("errors.forms.notValidDisplayName")}
+                      label={t("labels.forms.displayName")}
+                      icon={<V7Icon icon={faAt} size={"2x"} />}
                       defaultValue=""
                       reset={this.state.resetForm}
                       required
@@ -181,7 +212,7 @@ class SignUp extends React.PureComponent<ISignInProps, ISignInState> {
                 <Row middle="xs">
                   <Col xs={12}>
                     <V7Input
-                      name="phoneContact"
+                      name="phone_contact"
                       s={12}
                       validations="isExisty,minLength:3,isNumeric"
                       type="text"
@@ -215,7 +246,7 @@ class SignUp extends React.PureComponent<ISignInProps, ISignInState> {
                 <Row middle="xs">
                   <Col xs={12}>
                     <V7Input
-                      name="passwordConf"
+                      name="password_conf"
                       type="password"
                       s={12}
                       validations="passwordConfirmation"

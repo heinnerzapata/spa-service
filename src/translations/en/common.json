@@ -79,6 +79,7 @@
       "notValidPasswordConf": "Password confirmation is not valid",
       "notValidPhoneContact": "This phone contact is not valid",
       "notValidCompanyName": "This is not a valid name for a company",
+      "notValidDisplayName": "This is not a valid display name",
       "required": "Required field"
     }
   },
@@ -102,6 +103,7 @@
       "emailRecoverTokenError": "Password reset token is invalid or has expired",
       "emailRecoverSuccess": "Account password has been changed successfully",
       "userInfo": "User info",
+      "displayName": "Display name",
       "return": "Return"
     }
   }
