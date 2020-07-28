@@ -6,7 +6,8 @@
   "toast": {
     "welcome": "Welcome",
     "invalidCredentials": "Invalid credentials",
-    "pleaseValidateCredentials": "Please validate your credentials"
+    "pleaseValidateCredentials": "Please validate your credentials",
+    "invalidEmail": "Invalid email"
   },
   "pages": {
     "home": {

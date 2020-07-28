@@ -6,7 +6,8 @@
   "toast": {
     "welcome": "Bienvenido",
     "invalidCredentials": "Credenciales invalidas",
-    "pleaseValidateCredentials": "Porfavor valide sus credenciales"
+    "pleaseValidateCredentials": "Porfavor valide sus credenciales",
+    "invalidEmail": "Correo electronico invalido"
   },
   "pages": {
     "home": {

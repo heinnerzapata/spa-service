@@ -15,9 +15,9 @@ class UserService {
   //   return V7HttpRequest.post(data, urlLogInRequest);
   // }
 
-  recoverPassword(data: any) {
-    const urlRecoverPassword = `account/recover`;
-    return V7HttpRequest.post(data, urlRecoverPassword);
+  recoverPassword(email: string) {
+    const urlRecoverPassword = `/cmms-gateway-ms/account/recover`;
+    return V7HttpRequest.post({ email }, urlRecoverPassword);
   }
 
   changePassword(token: any, data: any) {

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
+import InputAdornment from "@material-ui/core/InputAdornment";
 import { COLORS } from "variables/constants";
 
 interface IInputProps {
@@ -13,6 +14,7 @@ interface IInputProps {
   disabled?: boolean;
   type: string;
   errorText: string;
+  icon: any;
   onChange?: (e: any) => void;
   onBlur?: (e: any) => void;
 }
@@ -71,6 +73,13 @@ const Input: React.SFC<IInputProps> = (props) => {
       variant="outlined"
       type={props.type}
       autoComplete="off"
+      InputProps={{
+        endAdornment: (
+          <InputAdornment position="end">
+            {props.icon ? props.icon : null}
+          </InputAdornment>
+        ),
+      }}
     />
   );
 };
