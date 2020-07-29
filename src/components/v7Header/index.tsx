@@ -70,7 +70,7 @@ const V7Header: React.SFC<v7HeaderProps> = (props) => {
                       </V7Button>
                     </V7Link>
                   )}
-                  {props.userReducer.authenticated && (
+                  {props.userReducer.authenticated && props.userReducer.userInfo && (
                     <V7UserOptions
                       imgUrl={props.userReducer.userInfo.avatar}
                       onLogOutClick={() => {

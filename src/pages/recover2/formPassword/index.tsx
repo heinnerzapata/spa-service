@@ -3,12 +3,20 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
 import { Row, Col } from "react-flexbox-grid";
-import { V7TextField, V7Button, V7Icon } from "components";
+import {
+  V7TextField,
+  V7Button,
+  V7Icon,
+  V7Alert,
+  ALERT_TYPES,
+} from "components";
 import { faAt } from "@fortawesome/free-solid-svg-icons";
 
-interface IFormEmail {
+interface IFormPassword {
   t: any;
-  onRecoverPassword: (email: string) => void;
+  hash: string;
+  history: any;
+  onRestorePassword: (password: string, hash: string) => void;
 }
 
 interface IFormModel {
@@ -21,7 +29,7 @@ const initFormValue: IFormModel = {
   passwordConfirm: "",
 };
 
-const FormPassword: React.SFC<IFormEmail> = (props) => {
+const FormPassword: React.SFC<IFormPassword> = (props) => {
   const { t } = props;
 
   const validationsForm = Yup.object().shape({
@@ -29,12 +37,14 @@ const FormPassword: React.SFC<IFormEmail> = (props) => {
     passwordConfirm: Yup.string().required(t("errors.forms.required")),
   });
 
-  const onSubmit = async (email: string, resetForm: any) => {
+  const onSubmit = async (password: string, resetForm: any, hash: string) => {
     try {
-      await props.onRecoverPassword(email);
+      await props.onRestorePassword(password, hash);
+      toast.success(`${t("password changed")}`);
+      props.history.push("/dashboard");
     } catch (error) {
       const { t } = props;
-      toast.error(`${t("toast.invalidEmail")}`);
+      toast.error(`${t("error restoring password")}`);
       resetForm({});
     }
   };
@@ -46,7 +56,7 @@ const FormPassword: React.SFC<IFormEmail> = (props) => {
       validateOnBlur={true}
       validationSchema={validationsForm}
       onSubmit={(values, { setSubmitting, resetForm }) => {
-        onSubmit(values.password, resetForm);
+        onSubmit(values.password, resetForm, props.hash);
         setSubmitting(false);
       }}
     >

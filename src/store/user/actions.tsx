@@ -164,9 +164,10 @@ export const userLogOut = (email: string) => {
       await services.user.logout(email);
       dispatch(logOutSuccess());
       dispatch(setToken(""));
+      return Promise.resolve();
     } catch (error) {
       dispatch(loginError(error));
-      return error;
+      return Promise.reject(error);
     }
   };
 };
@@ -183,8 +184,8 @@ export const signUp = (newUserInfo: any) => {
 
       return Promise.resolve(userInfo);
     } catch (error) {
-      dispatch(signupError(error));
-      return error;
+      dispatch(signupError("error"));
+      return Promise.reject(error);
     }
   };
 };
@@ -195,13 +196,13 @@ export const loginFromToken = (token: string) => {
     try {
       const userInfo = (await services.user.checkUserToken(token)) as any;
 
-      dispatch(loginSuccess(userInfo.account));
+      dispatch(loginSuccess(userInfo));
       dispatch(setToken(token));
 
-      return userInfo;
+      return Promise.resolve(userInfo);
     } catch (error) {
       dispatch(loginError(error));
-      return error;
+      return Promise.reject(error);
     }
   };
 };
@@ -230,11 +231,45 @@ export const recoverPassword = (email: string) => {
       const result = (await services.user.recoverPassword(email)) as any;
 
       dispatch(recoverSuccess());
-
       return Promise.resolve(result);
     } catch (error) {
       dispatch(recoverError(error));
       return Promise.reject(error);
+    }
+  };
+};
+
+export const checkRecoverHash = (hash: string) => {
+  return async (dispatch: Dispatch) => {
+    dispatch(recoverStarted());
+    try {
+      const result = (await services.user.checkRecoverHash(hash)) as any;
+
+      dispatch(recoverSuccess());
+      return Promise.resolve(result);
+    } catch (error) {
+      dispatch(recoverError(error));
+      return Promise.resolve(error);
+    }
+  };
+};
+
+export const restorePassword = (password: string, hash: string) => {
+  return async (dispatch: Dispatch) => {
+    dispatch(recoverStarted());
+    try {
+      debugger;
+      const result = (await services.user.restorePassword(
+        password,
+        hash
+      )) as any;
+
+      dispatch(recoverSuccess());
+      return Promise.resolve(result);
+    } catch (error) {
+      debugger;
+      dispatch(recoverError(error));
+      return Promise.resolve(error);
     }
   };
 };

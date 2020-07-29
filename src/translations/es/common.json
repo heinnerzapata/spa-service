@@ -102,7 +102,7 @@
       "phoneContact": "Telefono de contacto",
       "passwordConf": "Confirmar contraseña",
       "emailRecoverSent": "Un link de confirmacion ha sido enviado a su Email para restablecer la contraseña",
-      "emailRecoverTokenError": "Este codigo de restablecimiento es invalido o ha expirado",
+      "emailRecoverTokenError": "Este link de restablecimiento es invalido o ha expirado",
       "emailRecoverSuccess": "La contraseña de la cuenta ha sido cambiada exitosamente",
       "userInfo": "Informacion del usuario",
       "displayName": "Nombre para mostrar",

@@ -101,7 +101,7 @@
       "phoneContact": "Phone contact",
       "passwordConf": "Confirm password",
       "emailRecoverSent": "An message confirmation has been sent to your email with a link to reset your password",
-      "emailRecoverTokenError": "Password reset token is invalid or has expired",
+      "emailRecoverTokenError": "Password reset link is invalid or has expired",
       "emailRecoverSuccess": "Account password has been changed successfully",
       "userInfo": "User info",
       "displayName": "Display name",
