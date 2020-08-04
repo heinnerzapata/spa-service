@@ -249,7 +249,7 @@ export const checkRecoverHash = (hash: string) => {
       return Promise.resolve(result);
     } catch (error) {
       dispatch(recoverError(error));
-      return Promise.resolve(error);
+      return Promise.reject(error);
     }
   };
 };
@@ -258,18 +258,18 @@ export const restorePassword = (password: string, hash: string) => {
   return async (dispatch: Dispatch) => {
     dispatch(recoverStarted());
     try {
-      debugger;
-      const result = (await services.user.restorePassword(
+      const userInfo = (await services.user.restorePassword(
         password,
         hash
       )) as any;
 
       dispatch(recoverSuccess());
-      return Promise.resolve(result);
+      dispatch(loginSuccess(userInfo.account));
+      dispatch(setToken(userInfo.token));
+      return Promise.resolve(userInfo);
     } catch (error) {
-      debugger;
       dispatch(recoverError(error));
-      return Promise.resolve(error);
+      return Promise.reject(error);
     }
   };
 };

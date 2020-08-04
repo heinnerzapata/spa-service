@@ -1,22 +1,18 @@
 import React from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { toast } from "react-toastify";
 import { Row, Col } from "react-flexbox-grid";
 import {
   V7TextField,
   V7Button,
   V7Icon,
-  V7Alert,
-  ALERT_TYPES,
 } from "components";
 import { faAt } from "@fortawesome/free-solid-svg-icons";
 
 interface IFormPassword {
   t: any;
-  hash: string;
   history: any;
-  onRestorePassword: (password: string, hash: string) => void;
+  onFormEmailSubmit: (password: string) => void;
 }
 
 interface IFormModel {
@@ -37,16 +33,9 @@ const FormPassword: React.SFC<IFormPassword> = (props) => {
     passwordConfirm: Yup.string().required(t("errors.forms.required")),
   });
 
-  const onSubmit = async (password: string, resetForm: any, hash: string) => {
-    try {
-      await props.onRestorePassword(password, hash);
-      toast.success(`${t("password changed")}`);
-      props.history.push("/dashboard");
-    } catch (error) {
-      const { t } = props;
-      toast.error(`${t("error restoring password")}`);
-      resetForm({});
-    }
+  const onSubmit = async (password: string, resetForm: any) => {
+    props.onFormEmailSubmit(password);
+    resetForm({});
   };
 
   return (
@@ -56,7 +45,7 @@ const FormPassword: React.SFC<IFormPassword> = (props) => {
       validateOnBlur={true}
       validationSchema={validationsForm}
       onSubmit={(values, { setSubmitting, resetForm }) => {
-        onSubmit(values.password, resetForm, props.hash);
+        onSubmit(values.password, resetForm);
         setSubmitting(false);
       }}
     >

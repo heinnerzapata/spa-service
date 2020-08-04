@@ -54,7 +54,6 @@ class SignUp extends React.PureComponent<ISignInProps, ISignInState> {
     const queryParams = queryString.parse(this.props.location.search);
 
     if (!_.isNil(queryParams.next)) {
-      debugger;
       toast.info(`${t("toast.pleaseValidateCredentials")}`);
     }
 
@@ -86,7 +85,6 @@ class SignUp extends React.PureComponent<ISignInProps, ISignInState> {
         .onSignUp(signUpModel)
         .then((data: any) => {
           if (data.account) {
-            debugger;
             setToken(data.token);
             this.validCredentials();
           }

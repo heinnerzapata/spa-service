@@ -2,23 +2,18 @@ import React from "react";
 import { WithTranslation } from "react-i18next";
 import {
   V7PageTitle,
-  V7TextField,
-  V7Button,
-  V7Icon,
   V7Alert,
   V7Link,
   ALERT_TYPES,
 } from "components";
-import { faAt } from "@fortawesome/free-solid-svg-icons";
 import { V7PageContainer } from "containers";
 import { Row, Col } from "react-flexbox-grid";
 import { RouteComponentProps } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Formik } from "formik";
 import { IUserState } from "store/user/reducer";
-import * as Yup from "yup";
 import FormEmail from "./formEmail";
 import FormPassword from "./formPassword";
+import { setToken } from "utilities/token";
 
 interface IRecoverProps extends WithTranslation, RouteComponentProps {
   t: any;
@@ -32,6 +27,7 @@ interface IRecoverProps extends WithTranslation, RouteComponentProps {
 interface IRecoverState {
   isPasswordView: boolean;
   isValidHash: boolean;
+  isEmailSent: boolean;
   hash: string;
 }
 
@@ -39,6 +35,7 @@ class Recover extends React.PureComponent<IRecoverProps, IRecoverState> {
   state = {
     isPasswordView: false,
     isValidHash: false,
+    isEmailSent: false,
     hash: "",
   };
 
@@ -49,7 +46,7 @@ class Recover extends React.PureComponent<IRecoverProps, IRecoverState> {
       this.props
         .onCheckRecoverHash(hash)
         .then((result: any) => {
-          this.setState({ isValidHash: true });
+          this.setState({ isValidHash: true, hash });
         })
         .catch((err: any) => {
           this.setState({ isValidHash: false });
@@ -57,7 +54,31 @@ class Recover extends React.PureComponent<IRecoverProps, IRecoverState> {
     }
   }
 
-  validateTokenParam = (token: string) => {};
+  onFormEmailSubmit = async (email: string) => {
+    const { t } = this.props;
+    try {
+      await this.props.onRecoverPassword(email);
+      this.setState({ isEmailSent: true });
+    } catch (error) {
+      toast.error(`${t("toast.invalidEmail")}`);
+      this.setState({ isEmailSent: false });
+    }
+  };
+
+  onFormPasswordSubmit = async (password: string) => {
+    const { t } = this.props;
+    try {
+      const userInfo = await this.props.onRestorePassword(
+        password,
+        this.state.hash
+      );
+      toast.success(`${t("password changed")}`);
+      setToken(userInfo.token);
+      this.props.history.push("/dashboard");
+    } catch (error) {
+      toast.error(`${t("toast.errorInProcess")}`);
+    }
+  };
 
   render() {
     const { t } = this.props;
@@ -75,8 +96,7 @@ class Recover extends React.PureComponent<IRecoverProps, IRecoverState> {
               {this.state.isValidHash && (
                 <FormPassword
                   history={this.props.history}
-                  onRestorePassword={this.props.onRestorePassword}
-                  hash={this.state.hash}
+                  onFormEmailSubmit={this.onFormPasswordSubmit}
                   t={t}
                 />
               )}
@@ -102,7 +122,22 @@ class Recover extends React.PureComponent<IRecoverProps, IRecoverState> {
           )}
 
           {!this.state.isPasswordView && (
-            <FormEmail onRecoverPassword={this.props.onRecoverPassword} t={t} />
+            <React.Fragment>
+              <FormEmail onFormEmailSubmit={this.onFormEmailSubmit} t={t} />
+              <br />
+              {this.state.isEmailSent && (
+                <React.Fragment>
+                  <Row center="xs">
+                    <Col xs={12} md={6} xl={4}>
+                      <V7Alert
+                        type={ALERT_TYPES.SUCCESS}
+                        message={t("labels.forms.emailRecoverSent")}
+                      />
+                    </Col>
+                  </Row>
+                </React.Fragment>
+              )}
+            </React.Fragment>
           )}
         </V7PageContainer>
       </section>

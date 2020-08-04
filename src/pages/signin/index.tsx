@@ -52,7 +52,6 @@ class SignIn extends React.PureComponent<ISignInProps, ISignInState> {
     const queryParams = queryString.parse(this.props.location.search);
 
     if (!_.isNil(queryParams.next)) {
-      debugger;
       toast.info(`${t("toast.pleaseValidateCredentials")}`);
     }
 

@@ -1,14 +1,13 @@
 import React from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { toast } from "react-toastify";
 import { Row, Col } from "react-flexbox-grid";
 import { V7TextField, V7Button, V7Icon } from "components";
 import { faAt } from "@fortawesome/free-solid-svg-icons";
 
 interface IFormEmail {
   t: any;
-  onRecoverPassword: (e: any) => void;
+  onFormEmailSubmit: (email: string) => void;
 }
 
 interface IFormModel {
@@ -29,13 +28,8 @@ const FormEmail: React.SFC<IFormEmail> = (props) => {
   });
 
   const onSubmit = async (email: string, resetForm: any) => {
-    try {
-      await props.onRecoverPassword(email);
-    } catch (error) {
-      const { t } = props;
-      toast.error(`${t("toast.invalidEmail")}`);
-      resetForm({});
-    }
+    props.onFormEmailSubmit(email);
+    resetForm({});
   };
 
   return (
