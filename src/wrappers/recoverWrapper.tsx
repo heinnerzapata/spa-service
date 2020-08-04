@@ -1,4 +1,4 @@
-import Recover from "pages/recover2";
+import Recover from "pages/recover";
 import { withTranslation } from "react-i18next";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
