@@ -56,6 +56,7 @@ class V7HttpRequest {
         .get(`${process.env.REACT_APP_API}${url}`, this.getConfigRequest(true))
         .then(function (response) {
           resolve(response.data);
+          debugger;
         })
         .catch(function (error) {
           reject(Error(error));

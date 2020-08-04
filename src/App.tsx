@@ -35,7 +35,7 @@ class App extends React.PureComponent<IAppProps, any> {
   componentDidMount() {
     const currentToken = getToken();
     if (currentToken && currentToken !== null && currentToken !== "") {
-      this.props.onLoginFromToken(currentToken);
+      this.props.onLoginFromToken(currentToken).catch((error: any) => {});
     }
   }
 
