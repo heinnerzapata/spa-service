@@ -11,6 +11,7 @@ class V7HttpRequest {
   constructor() {
     this.configRequest = {
       headers: {
+        "Accept-Language": "en",
         "Content-Type": "application/json",
         "x-api-key": process.env.REACT_APP_API_KEY,
       },

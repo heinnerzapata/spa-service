@@ -74,13 +74,16 @@ class V7PageContainer extends React.PureComponent<
 
   loginFromToken = (token: string) => {
     if (this.props.onLoginFromToken) {
-      this.props.onLoginFromToken(token).then((result: any) => {
-        if (result.account) {
-          this.setState({ isLoading: false });
-        } else {
-          this.props.history.push(`/signin?next=${this.props.page}`);
-        }
-      });
+      this.props
+        .onLoginFromToken(token)
+        .then((result: any) => {
+          if (result.hex_id) {
+            this.setState({ isLoading: false });
+          } else {
+            this.props.history.push(`/signin?next=${this.props.page}`);
+          }
+        })
+        .catch((error: any) => {});
     }
   };
 
@@ -90,7 +93,8 @@ class V7PageContainer extends React.PureComponent<
       this.setState({ isLoading: true });
       this.loginFromToken(token);
     } else if (this.props.isProtected) {
-      this.props.history.push(`/`);
+      //this.props.history.push(`/`);
+      this.props.history.push(`/signin?next=${this.props.page}`);
     }
   };
 

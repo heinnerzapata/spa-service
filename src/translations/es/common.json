@@ -6,7 +6,9 @@
   "toast": {
     "welcome": "Bienvenido",
     "invalidCredentials": "Credenciales invalidas",
-    "pleaseValidateCredentials": "Porfavor valide sus credenciales"
+    "pleaseValidateCredentials": "Porfavor valide sus credenciales",
+    "invalidEmail": "Correo electronico invalido",
+    "errorInProcess": "Error en el proceso"
   },
   "pages": {
     "home": {
@@ -100,8 +102,8 @@
       "lastName": "Apellido",
       "phoneContact": "Telefono de contacto",
       "passwordConf": "Confirmar contraseña",
-      "emailRecoverSent": "Un link de confirmacion ha sido enviado a su Email para restablecer la contraseña",
-      "emailRecoverTokenError": "Este codigo de restablecimiento es invalido o ha expirado",
+      "emailRecoverSent": "Un link de confirmacion ha sido enviado a su correo electronico para restablecer la contraseña",
+      "emailRecoverTokenError": "Este link de restablecimiento es invalido o ha expirado",
       "emailRecoverSuccess": "La contraseña de la cuenta ha sido cambiada exitosamente",
       "userInfo": "Informacion del usuario",
       "displayName": "Nombre para mostrar",

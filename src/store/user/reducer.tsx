@@ -13,7 +13,7 @@ const initState: IUserState = {
   isFetching: false,
   authenticated: false,
   token: "",
-  error: {},
+  error: null,
   userInfo: {
     hexId: "",
     email: "",
@@ -31,14 +31,28 @@ const userReducer = (
   action: IAction
 ): IUserState => {
   switch (action.type) {
+    case userActionType.RECOVER_STARTED:
     case userActionType.SIGNUP_STARTED:
     case userActionType.LOGIN_STARTED:
-      return { ...state, authenticated: false, isFetching: true };
+      return { ...state, authenticated: false, isFetching: true, error: null };
+    case userActionType.RECOVER_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        error: null,
+      };
+    case userActionType.RECOVER_ERROR:
+      return {
+        ...state,
+        isFetching: false,
+        error: action.error,
+      };
     case userActionType.LOGOUT_SUCCESS:
       return {
         ...state,
         authenticated: false,
         isFetching: false,
+        error: null,
         userInfo: initState.userInfo,
       };
     case userActionType.SIGNUP_SUCCESS:
@@ -48,6 +62,7 @@ const userReducer = (
         userInfo: action.userInfo,
         authenticated: true,
         isFetching: false,
+        error: null,
       };
     case userActionType.LOGIN_ERROR:
     case userActionType.SIGNUP_ERROR:

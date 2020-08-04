@@ -3,21 +3,22 @@ import { ICredentials } from "models";
 import jwt_decode from "jwt-decode";
 
 class UserService {
-  private static instance: UserService;
+  recoverPassword(email: string) {
+    const urlRecoverPassword = `/cmms-gateway-ms/account/recover`;
+    return V7HttpRequest.post({ email }, urlRecoverPassword);
+  }
 
-  // logInRequest(data: any) {
-  //   const urlLogInRequest = `signin`;
-  //   return V7HttpRequest.post(data, urlLogInRequest);
-  // }
+  checkRecoverHash(hash: string) {
+    const urlCheckRecoverHash = `/cmms-gateway-ms/account/recover/${hash}`;
+    return V7HttpRequest.get(urlCheckRecoverHash);
+  }
 
-  // signUpRequest(data: any) {
-  //   const urlLogInRequest = `signup`;
-  //   return V7HttpRequest.post(data, urlLogInRequest);
-  // }
-
-  recoverPassword(data: any) {
-    const urlRecoverPassword = `account/recover`;
-    return V7HttpRequest.post(data, urlRecoverPassword);
+  restorePassword(password: string, hash: string) {
+    const urlCheckRecoverHash = `/cmms-gateway-ms/account/restore/${hash}`;
+    return V7HttpRequest.post(
+      { password, confirm_password: password },
+      urlCheckRecoverHash
+    );
   }
 
   changePassword(token: any, data: any) {

@@ -35,7 +35,7 @@ class App extends React.PureComponent<IAppProps, any> {
   componentDidMount() {
     const currentToken = getToken();
     if (currentToken && currentToken !== null && currentToken !== "") {
-      this.props.onLoginFromToken(currentToken);
+      this.props.onLoginFromToken(currentToken).catch((error: any) => {});
     }
   }
 
@@ -55,7 +55,7 @@ class App extends React.PureComponent<IAppProps, any> {
           <Route exact path="/" component={HomeWrapper} />
           <Route path="/signin" component={SignInWrapper} />
           <Route path="/signup" component={SignUpWrapper} />
-          <Route path="/recover/:token?" component={RecoverWrapper} />
+          <Route path="/recover/:hash?" component={RecoverWrapper} />
           {/* <Route path="/about" component={About} />
               <Route path="/recover/:token?" component={Recover} /> */}
           {/* <Route path="/profile" component={Profile} /> */}

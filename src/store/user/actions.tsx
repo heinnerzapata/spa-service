@@ -53,6 +53,19 @@ export interface ICleanUserInfo {
   type: userActionType.CLEAN_USER_INFO;
 }
 
+export interface IRecoverStarted {
+  type: userActionType.RECOVER_STARTED;
+}
+
+export interface IRecoverSuccess {
+  type: userActionType.RECOVER_SUCCESS;
+}
+
+export interface IRecoverError {
+  type: userActionType.RECOVER_ERROR;
+  error: string;
+}
+
 export type IAction =
   | ICleanToken
   | ISetToken
@@ -64,7 +77,10 @@ export type IAction =
   | ILogOutSuccess
   | ISignupStarted
   | ISignupSuccess
-  | ISignupError;
+  | ISignupError
+  | IRecoverStarted
+  | IRecoverSuccess
+  | IRecoverError;
 
 export const cleanToken = () => {
   return (dispatch: Dispatch) => {
@@ -128,6 +144,19 @@ export const setToken = (token: string): ISetToken => ({
   token,
 });
 
+export const recoverStarted = (): IRecoverStarted => ({
+  type: userActionType.RECOVER_STARTED,
+});
+
+export const recoverSuccess = (): IRecoverSuccess => ({
+  type: userActionType.RECOVER_SUCCESS,
+});
+
+export const recoverError = (error: string): IRecoverError => ({
+  type: userActionType.RECOVER_ERROR,
+  error,
+});
+
 export const userLogOut = (email: string) => {
   return async (dispatch: Dispatch) => {
     dispatch(loginStarted());
@@ -135,9 +164,10 @@ export const userLogOut = (email: string) => {
       await services.user.logout(email);
       dispatch(logOutSuccess());
       dispatch(setToken(""));
+      return Promise.resolve();
     } catch (error) {
       dispatch(loginError(error));
-      return error;
+      return Promise.reject(error);
     }
   };
 };
@@ -154,8 +184,8 @@ export const signUp = (newUserInfo: any) => {
 
       return Promise.resolve(userInfo);
     } catch (error) {
-      dispatch(signupError(error));
-      return error;
+      dispatch(signupError("error"));
+      return Promise.reject(error);
     }
   };
 };
@@ -166,13 +196,13 @@ export const loginFromToken = (token: string) => {
     try {
       const userInfo = (await services.user.checkUserToken(token)) as any;
 
-      dispatch(loginSuccess(userInfo.account));
+      dispatch(loginSuccess(userInfo));
       dispatch(setToken(token));
 
-      return userInfo;
+      return Promise.resolve(userInfo);
     } catch (error) {
       dispatch(loginError(error));
-      return error;
+      return Promise.reject(error);
     }
   };
 };
@@ -189,6 +219,56 @@ export const loginFromCredentials = (credentials: ICredentials) => {
       return Promise.resolve(userInfo);
     } catch (error) {
       dispatch(loginError(error));
+      return Promise.reject(error);
+    }
+  };
+};
+
+export const recoverPassword = (email: string) => {
+  return async (dispatch: Dispatch) => {
+    dispatch(recoverStarted());
+    try {
+      const result = (await services.user.recoverPassword(email)) as any;
+
+      dispatch(recoverSuccess());
+      return Promise.resolve(result);
+    } catch (error) {
+      dispatch(recoverError(error));
+      return Promise.reject(error);
+    }
+  };
+};
+
+export const checkRecoverHash = (hash: string) => {
+  return async (dispatch: Dispatch) => {
+    dispatch(recoverStarted());
+    try {
+      const result = (await services.user.checkRecoverHash(hash)) as any;
+
+      dispatch(recoverSuccess());
+      return Promise.resolve(result);
+    } catch (error) {
+      dispatch(recoverError(error));
+      return Promise.reject(error);
+    }
+  };
+};
+
+export const restorePassword = (password: string, hash: string) => {
+  return async (dispatch: Dispatch) => {
+    dispatch(recoverStarted());
+    try {
+      const userInfo = (await services.user.restorePassword(
+        password,
+        hash
+      )) as any;
+
+      dispatch(recoverSuccess());
+      dispatch(loginSuccess(userInfo.account));
+      dispatch(setToken(userInfo.token));
+      return Promise.resolve(userInfo);
+    } catch (error) {
+      dispatch(recoverError(error));
       return Promise.reject(error);
     }
   };

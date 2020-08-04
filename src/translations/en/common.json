@@ -6,7 +6,9 @@
   "toast": {
     "welcome": "Welcome",
     "invalidCredentials": "Invalid credentials",
-    "pleaseValidateCredentials": "Please validate your credentials"
+    "pleaseValidateCredentials": "Please validate your credentials",
+    "invalidEmail": "Invalid email",
+    "errorInProcess": "Error in process"
   },
   "pages": {
     "home": {
@@ -99,8 +101,8 @@
       "lastName": "Last name",
       "phoneContact": "Phone contact",
       "passwordConf": "Confirm password",
-      "emailRecoverSent": "An message confirmation has been sent to your email with a link to reset your password",
-      "emailRecoverTokenError": "Password reset token is invalid or has expired",
+      "emailRecoverSent": "A confirmation message has been sent to your email with a link to reset your password",
+      "emailRecoverTokenError": "Password reset link is invalid or has expired",
       "emailRecoverSuccess": "Account password has been changed successfully",
       "userInfo": "User info",
       "displayName": "Display name",
