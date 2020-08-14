@@ -46,9 +46,11 @@ class Recover extends React.PureComponent<IRecoverProps, IRecoverState> {
       this.props
         .onCheckRecoverHash(hash)
         .then((result: any) => {
+          debugger;
           this.setState({ isValidHash: true, hash });
         })
         .catch((err: any) => {
+          debugger;
           this.setState({ isValidHash: false });
         });
     }
@@ -58,8 +60,10 @@ class Recover extends React.PureComponent<IRecoverProps, IRecoverState> {
     const { t } = this.props;
     try {
       await this.props.onRecoverPassword(email);
+      debugger;
       this.setState({ isEmailSent: true });
     } catch (error) {
+      debugger;
       toast.error(`${t("toast.invalidEmail")}`);
       this.setState({ isEmailSent: false });
     }
@@ -72,10 +76,12 @@ class Recover extends React.PureComponent<IRecoverProps, IRecoverState> {
         password,
         this.state.hash
       );
+      debugger;
       toast.success(`${t("password changed")}`);
       setToken(userInfo.token);
       this.props.history.push("/dashboard");
     } catch (error) {
+      debugger;
       toast.error(`${t("toast.errorInProcess")}`);
     }
   };

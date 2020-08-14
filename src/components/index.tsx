@@ -10,7 +10,6 @@ import V7Avatar, { AVATAR_SIZES } from "components/v7Avatar";
 import V7Icon from "components/v7Icon";
 import V7LanguageSelector from "components/v7LanguageSelector";
 import V7PageTitle from "components/v7PageTitle";
-import V7Input from "components/v7Input";
 import V7Button from "components/v7Button";
 import V7TextField from "components/v7TextField";
 import V7Alert, { ALERT_TYPES } from "components/v7Alert";
@@ -29,7 +28,6 @@ export {
   V7Icon,
   V7LanguageSelector,
   V7PageTitle,
-  V7Input,
   V7Button,
   V7UserOptions,
   V7TextField,

@@ -1,18 +1,23 @@
 import React from "react";
 import { WithTranslation } from "react-i18next";
-import { V7PageTitle, V7Input, V7Icon, V7Button, V7Link } from "components";
+import { V7PageTitle, V7Icon, V7Button, V7Link, V7TextField } from "components";
 import { V7PageContainer } from "containers";
 import { Row, Col } from "react-flexbox-grid";
-import Formsy, { addValidationRule } from "formsy-react";
-import { faAt, faKey, faUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAt,
+  faKey,
+  faUser,
+  faPhone,
+} from "@fortawesome/free-solid-svg-icons";
+import { Formik } from "formik";
 import queryString from "query-string";
 import { RouteComponentProps } from "react-router-dom";
 import { setToken } from "utilities/token";
 import _ from "lodash";
-import { ICredentials } from "models";
 import { IUserState } from "store/user/reducer";
 import styles from "./signUp.module.scss";
 import { toast } from "react-toastify";
+import * as Yup from "yup";
 
 interface ISignInProps extends WithTranslation, RouteComponentProps {
   t: any;
@@ -26,7 +31,25 @@ interface ISignInState {
   resetForm: boolean;
 }
 
-interface IFormModel extends ICredentials {}
+interface IFormModel {
+  email: string;
+  display_name: string;
+  password: string;
+  password_conf: string;
+  first_name: string;
+  last_name: string;
+  phone_contact: string;
+}
+
+const initFormValue: IFormModel = {
+  email: "",
+  display_name: "",
+  password: "",
+  password_conf: "",
+  first_name: "",
+  last_name: "",
+  phone_contact: "",
+};
 
 const defaultSignInRedirectionUrl = "/dashboard";
 
@@ -41,8 +64,6 @@ class SignUp extends React.PureComponent<ISignInProps, ISignInState> {
       nextPage: "",
       resetForm: false,
     };
-
-    this.addValidationRules();
   }
 
   componentDidMount() {
@@ -70,7 +91,9 @@ class SignUp extends React.PureComponent<ISignInProps, ISignInState> {
     this.setState({ canSubmit: true });
   };
 
-  submit(model: any, props: ISignInProps) {
+  submit(model: IFormModel) {
+    const { onSignUp } = this.props;
+
     const signUpModel = {
       email: model.email,
       display_name: model.display_name,
@@ -80,22 +103,21 @@ class SignUp extends React.PureComponent<ISignInProps, ISignInState> {
       phone_contact: model.phone_contact,
     };
 
-    if (props.onSignUp) {
-      props
-        .onSignUp(signUpModel)
+    if (onSignUp) {
+      onSignUp(signUpModel)
         .then((data: any) => {
           if (data.account) {
             setToken(data.token);
-            this.validCredentials();
+            this.registerSuccess();
           }
         })
         .catch((error: any) => {
-          this.invalidCredentials();
+          this.errorOnUserRegister();
         });
     }
   }
 
-  validCredentials = () => {
+  registerSuccess = () => {
     const { t } = this.props;
     toast.success(
       `${t("toast.welcome")} ${this.props.userReducer.userInfo.display_name} !!`
@@ -103,25 +125,54 @@ class SignUp extends React.PureComponent<ISignInProps, ISignInState> {
     this.props.history.push("/dashboard");
   };
 
-  invalidCredentials = () => {
+  errorOnUserRegister = () => {
     const { t } = this.props;
-    toast.error(`${t("toast.invalidCredentials")}`);
+    toast.error(`${t("toast.errorInProcess")}`);
     this.setState({ resetForm: true }, () => {
       this.setState({ resetForm: false });
     });
   };
 
-  addValidationRules() {
-    addValidationRule("passwordConfirmation", (values, value) => {
-      if (values.password !== values.password_conf) {
-        return false;
-      }
-      return true;
-    });
-  }
+  onSubmit = async (model: IFormModel, resetForm: any) => {
+    this.submit(model);
+    resetForm({});
+  };
 
   render() {
     const { t } = this.props;
+
+    const getTextError = (
+      touched: boolean | undefined,
+      error: string | undefined
+    ): string => {
+      return error !== undefined && touched && error !== undefined ? error : "";
+    };
+
+    const validationsForm = Yup.object().shape({
+      first_name: Yup.string()
+        .min(3, t("errors.forms.notValidFirstName"))
+        .required(t("errors.forms.required")),
+      last_name: Yup.string()
+        .min(3, t("errors.forms.notValidLastName"))
+        .required(t("errors.forms.required")),
+      display_name: Yup.string()
+        .required(t("errors.forms.required"))
+        .min(3, t("errors.forms.notValidDisplayName")),
+      email: Yup.string()
+        .email(t("errors.forms.notValidEmail"))
+        .required(t("errors.forms.required")),
+      phone_contact: Yup.string()
+        .required(t("errors.forms.required"))
+        .min(10, t("errors.forms.notValidPhoneContact")),
+      password: Yup.string()
+        .min(8, t("errors.forms.notValidPassword"))
+        .required(t("errors.forms.required")),
+      password_conf: Yup.string()
+        .min(8, t("errors.forms.notValidPassword"))
+        .required(t("errors.forms.required"))
+        .oneOf([Yup.ref("password"), ""], "Passwords must match"),
+    });
+
     return (
       <section className={styles.vol7erSignIn}>
         <V7PageTitle title={t("pages.signup.title")} />
@@ -131,7 +182,201 @@ class SignUp extends React.PureComponent<ISignInProps, ISignInState> {
           isFull
           showPreloader={this.props.userReducer.isFetching}
         >
-          <Formsy
+          <Formik
+            initialValues={initFormValue}
+            validateOnChange={true}
+            validateOnBlur={true}
+            validationSchema={validationsForm}
+            onSubmit={(values, { setSubmitting, resetForm }) => {
+              this.onSubmit(values, resetForm);
+              setSubmitting(false);
+            }}
+          >
+            {({
+              values,
+              errors,
+              touched,
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              isSubmitting,
+              isValid,
+              dirty,
+            }) => (
+              <form onSubmit={handleSubmit}>
+                <Row center="xs">
+                  <Col xs={12} md={6} xl={4}>
+                    <V7TextField
+                      id={"first_name"}
+                      name={"first_name"}
+                      type={"text"}
+                      label={t("labels.forms.firstName")}
+                      disabled={isSubmitting}
+                      error={
+                        errors.first_name !== undefined && touched.first_name
+                      }
+                      value={values.first_name}
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      icon={<V7Icon icon={faUser} size={"2x"} />}
+                      errorText={getTextError(
+                        touched.first_name,
+                        errors.first_name
+                      )}
+                    />
+                  </Col>
+                </Row>
+                <Row center="xs">
+                  <Col xs={12} md={6} xl={4}>
+                    <V7TextField
+                      id={"last_name"}
+                      name={"last_name"}
+                      type={"text"}
+                      label={t("labels.forms.lastName")}
+                      disabled={isSubmitting}
+                      error={
+                        errors.last_name !== undefined && touched.last_name
+                      }
+                      value={values.last_name}
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      icon={<V7Icon icon={faUser} size={"2x"} />}
+                      errorText={getTextError(
+                        touched.last_name,
+                        errors.last_name
+                      )}
+                    />
+                  </Col>
+                </Row>
+                <Row center="xs">
+                  <Col xs={12} md={6} xl={4}>
+                    <V7TextField
+                      id={"last_name"}
+                      name={"display_name"}
+                      type={"text"}
+                      label={t("labels.forms.displayName")}
+                      disabled={isSubmitting}
+                      error={
+                        errors.display_name !== undefined &&
+                        touched.display_name
+                      }
+                      value={values.display_name}
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      icon={<V7Icon icon={faUser} size={"2x"} />}
+                      errorText={getTextError(
+                        touched.display_name,
+                        errors.display_name
+                      )}
+                    />
+                  </Col>
+                </Row>
+                <Row center="xs">
+                  <Col xs={12} md={6} xl={4}>
+                    <V7TextField
+                      id={"email"}
+                      name={"email"}
+                      type={"text"}
+                      label={t("labels.forms.email")}
+                      disabled={isSubmitting}
+                      error={errors.email !== undefined && touched.email}
+                      value={values.email}
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      icon={<V7Icon icon={faAt} size={"2x"} />}
+                      errorText={getTextError(touched.email, errors.email)}
+                    />
+                  </Col>
+                </Row>
+                <Row center="xs">
+                  <Col xs={12} md={6} xl={4}>
+                    <V7TextField
+                      id={"phone_contact"}
+                      name={"phone_contact"}
+                      type={"number"}
+                      label={t("labels.forms.phoneContact")}
+                      disabled={isSubmitting}
+                      error={
+                        errors.phone_contact !== undefined &&
+                        touched.phone_contact
+                      }
+                      value={values.phone_contact}
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      icon={<V7Icon icon={faPhone} size={"2x"} />}
+                      errorText={getTextError(
+                        touched.phone_contact,
+                        errors.phone_contact
+                      )}
+                    />
+                  </Col>
+                </Row>
+                <Row center="xs">
+                  <Col xs={12} md={6} xl={4}>
+                    <V7TextField
+                      id={"password"}
+                      name={"password"}
+                      type={"password"}
+                      label={t("labels.forms.password")}
+                      disabled={isSubmitting}
+                      error={errors.password !== undefined && touched.password}
+                      value={values.password}
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      icon={<V7Icon icon={faKey} size={"2x"} />}
+                      errorText={getTextError(
+                        touched.password,
+                        errors.password
+                      )}
+                    />
+                  </Col>
+                </Row>
+                <Row center="xs">
+                  <Col xs={12} md={6} xl={4}>
+                    <V7TextField
+                      id={"password_conf"}
+                      name={"password_conf"}
+                      type={"password"}
+                      label={t("labels.forms.passwordConf")}
+                      disabled={isSubmitting}
+                      error={
+                        errors.password_conf !== undefined &&
+                        touched.password_conf
+                      }
+                      value={values.password_conf}
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      icon={<V7Icon icon={faKey} size={"2x"} />}
+                      errorText={getTextError(
+                        touched.password_conf,
+                        errors.password_conf
+                      )}
+                    />
+                  </Col>
+                </Row>
+                <Row center="xs">
+                  <Col xs={12}>
+                    <V7Button
+                      type="submit"
+                      disabled={!(isValid && dirty)}
+                      size="large"
+                    >
+                      {t("labels.forms.submit")}
+                    </V7Button>
+                  </Col>
+                </Row>
+                <Row center="xs" className="">
+                  <Col xs={12} className={styles.recover}>
+                    <V7Link
+                      to={"/signin"}
+                      text={t("labels.forms.doYouHaveAnAccount")}
+                    />
+                  </Col>
+                </Row>
+              </form>
+            )}
+          </Formik>
+          {/* <Formsy
             onValidSubmit={(model: ICredentials) => {
               this.submit(model, this.props);
             }}
@@ -280,7 +525,7 @@ class SignUp extends React.PureComponent<ISignInProps, ISignInState> {
                 </Row>
               </Col>
             </Row>
-          </Formsy>
+          </Formsy> */}
         </V7PageContainer>
       </section>
     );
