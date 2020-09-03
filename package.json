@@ -56,7 +56,6 @@
     "file-loader": "4.3.0",
     "font-awesome": "^4.7.0",
     "formik": "^2.1.4",
-    "formsy-react": "^2.0.3",
     "fs-extra": "8.1.0",
     "gh-pages": "2.2.0",
     "history": "^4.7.2",

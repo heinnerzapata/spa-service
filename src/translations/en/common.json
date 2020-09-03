@@ -78,6 +78,7 @@
       "notValidEmail": "This is not a valid email",
       "notValidPassword": "This is not a valid password",
       "notValidFirstName": "This is not a valid first name",
+      "notValidLastName": "This is not a valid last name",
       "notValidPasswordConf": "Password confirmation is not valid",
       "notValidPhoneContact": "This phone contact is not valid",
       "notValidCompanyName": "This is not a valid name for a company",

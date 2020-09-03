@@ -177,12 +177,15 @@ export const signUp = (newUserInfo: any) => {
     dispatch(signupStarted());
 
     try {
-      const userInfo = (await services.user.signup(newUserInfo)) as any;
+      const result = (await services.user.signup(newUserInfo)) as any;
+      const userInfo = result.response.data.account;
+      const resultToken = result.response.data.token;
+      const data = result.response.data;
 
       dispatch(signupSuccess(userInfo));
-      dispatch(setToken(userInfo.token));
+      dispatch(setToken(resultToken));
 
-      return Promise.resolve(userInfo);
+      return Promise.resolve(data);
     } catch (error) {
       dispatch(signupError("error"));
       return Promise.reject(error);
@@ -194,12 +197,14 @@ export const loginFromToken = (token: string) => {
   return async (dispatch: Dispatch) => {
     dispatch(loginStarted());
     try {
-      const userInfo = (await services.user.checkUserToken(token)) as any;
+      const result = (await services.user.checkUserToken(token)) as any;
+      const userInfo = result.response.data.account;
+      const data = result.response.data;
 
       dispatch(loginSuccess(userInfo));
       dispatch(setToken(token));
 
-      return Promise.resolve(userInfo);
+      return Promise.resolve(data);
     } catch (error) {
       dispatch(loginError(error));
       return Promise.reject(error);
@@ -211,12 +216,15 @@ export const loginFromCredentials = (credentials: ICredentials) => {
   return async (dispatch: Dispatch) => {
     dispatch(loginStarted());
     try {
-      const userInfo = (await services.user.login(credentials)) as any;
+      const result = (await services.user.login(credentials)) as any;
+      const userInfo = result.response.data.account;
+      const resultToken = result.response.data.token;
+      const data = result.response.data;
 
-      dispatch(loginSuccess(userInfo.account));
-      dispatch(setToken(userInfo.token));
+      dispatch(loginSuccess(userInfo));
+      dispatch(setToken(resultToken));
 
-      return Promise.resolve(userInfo);
+      return Promise.resolve(data);
     } catch (error) {
       dispatch(loginError(error));
       return Promise.reject(error);
@@ -258,15 +266,16 @@ export const restorePassword = (password: string, hash: string) => {
   return async (dispatch: Dispatch) => {
     dispatch(recoverStarted());
     try {
-      const userInfo = (await services.user.restorePassword(
+      const result = (await services.user.restorePassword(
         password,
         hash
       )) as any;
+      const userInfo = result.response.data.account;
 
       dispatch(recoverSuccess());
-      dispatch(loginSuccess(userInfo.account));
+      dispatch(loginSuccess(userInfo));
       dispatch(setToken(userInfo.token));
-      return Promise.resolve(userInfo);
+      return Promise.resolve(result.response.data);
     } catch (error) {
       dispatch(recoverError(error));
       return Promise.reject(error);

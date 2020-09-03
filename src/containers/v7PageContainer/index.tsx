@@ -77,7 +77,7 @@ class V7PageContainer extends React.PureComponent<
       this.props
         .onLoginFromToken(token)
         .then((result: any) => {
-          if (result.hex_id) {
+          if (result.account) {
             this.setState({ isLoading: false });
           } else {
             this.props.history.push(`/signin?next=${this.props.page}`);

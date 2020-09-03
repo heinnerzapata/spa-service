@@ -2,11 +2,7 @@ import React from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { Row, Col } from "react-flexbox-grid";
-import {
-  V7TextField,
-  V7Button,
-  V7Icon,
-} from "components";
+import { V7TextField, V7Button, V7Icon } from "components";
 import { faAt } from "@fortawesome/free-solid-svg-icons";
 
 interface IFormPassword {
@@ -30,7 +26,10 @@ const FormPassword: React.SFC<IFormPassword> = (props) => {
 
   const validationsForm = Yup.object().shape({
     password: Yup.string().required(t("errors.forms.required")),
-    passwordConfirm: Yup.string().required(t("errors.forms.required")),
+    passwordConfirm: Yup.string()
+      .min(8, t("errors.forms.notValidPassword"))
+      .required(t("errors.forms.required"))
+      .oneOf([Yup.ref("password"), ""], "Passwords must match"),
   });
 
   const onSubmit = async (password: string, resetForm: any) => {

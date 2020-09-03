@@ -1,9 +1,9 @@
 import React from "react";
 import { WithTranslation } from "react-i18next";
-import { V7PageTitle, V7Input, V7Icon, V7Button, V7Link } from "components";
+import { V7PageTitle, V7Icon, V7Button, V7Link, V7TextField } from "components";
+import { Formik } from "formik";
 import { V7PageContainer } from "containers";
 import { Row, Col } from "react-flexbox-grid";
-import Formsy from "formsy-react";
 import { faAt, faKey } from "@fortawesome/free-solid-svg-icons";
 import queryString from "query-string";
 import { setToken } from "utilities/token";
@@ -13,6 +13,7 @@ import { ICredentials } from "models";
 import { IUserState } from "store/user/reducer";
 import styles from "./signIn.module.scss";
 import { toast } from "react-toastify";
+import * as Yup from "yup";
 
 interface ISignInProps extends WithTranslation, RouteComponentProps {
   t: any;
@@ -29,6 +30,11 @@ interface ISignInState {
 interface IFormModel extends ICredentials {}
 
 const defaultSignInRedirectionUrl = "/dashboard";
+
+const initFormValue: IFormModel = {
+  email: "",
+  password: "",
+};
 
 class SignIn extends React.PureComponent<ISignInProps, ISignInState> {
   formRef = React.createRef<any>();
@@ -60,18 +66,10 @@ class SignIn extends React.PureComponent<ISignInProps, ISignInState> {
       : defaultSignInRedirectionUrl;
   };
 
-  disableButton = () => {
-    this.setState({ canSubmit: false });
-  };
-
-  enableButton = () => {
-    this.setState({ canSubmit: true });
-  };
-
-  submit(model: IFormModel, props: ISignInProps) {
-    if (props.onloginFromCredentials) {
-      props
-        .onloginFromCredentials(model)
+  submit(model: IFormModel) {
+    const { onloginFromCredentials } = this.props;
+    if (onloginFromCredentials) {
+      onloginFromCredentials(model)
         .then((data: any) => {
           if (data.account) {
             setToken(data.token);
@@ -100,8 +98,30 @@ class SignIn extends React.PureComponent<ISignInProps, ISignInState> {
     });
   };
 
+  onSubmit = async (model: IFormModel, resetForm: any) => {
+    this.submit(model);
+    resetForm({});
+  };
+
   render() {
     const { t } = this.props;
+
+    const validationsForm = Yup.object().shape({
+      email: Yup.string()
+        .email(t("errors.forms.notValidEmail"))
+        .required(t("errors.forms.required")),
+      password: Yup.string()
+        .min(8, t("errors.forms.notValidPassword"))
+        .required(t("errors.forms.required")),
+    });
+
+    const getTextError = (
+      touched: boolean | undefined,
+      error: string | undefined
+    ): string => {
+      return error !== undefined && touched && error !== undefined ? error : "";
+    };
+
     return (
       <section className={styles.vol7erSignIn}>
         <V7PageTitle title={t("pages.signin.title")} />
@@ -111,60 +131,77 @@ class SignIn extends React.PureComponent<ISignInProps, ISignInState> {
           isFull
           showPreloader={this.props.userReducer.isFetching}
         >
-          <Formsy
-            onValidSubmit={(model: ICredentials) => {
-              this.submit(model, this.props);
+          <Formik
+            initialValues={initFormValue}
+            validateOnChange={true}
+            validateOnBlur={true}
+            validationSchema={validationsForm}
+            onSubmit={(values, { setSubmitting, resetForm }) => {
+              this.onSubmit(values, resetForm);
+              setSubmitting(false);
             }}
-            onValid={this.enableButton}
-            onInvalid={this.disableButton}
-            ref={this.formRef}
           >
-            <Row center="xs">
-              <Col xs={12} sm={8} lg={4}>
-                <Row middle="xs">
-                  <Col xs={12}>
-                    <V7Input
-                      name="email"
-                      s={12}
-                      validations="isExisty,isEmail"
-                      type="text"
-                      validationError={t("errors.forms.notValidEmail")}
+            {({
+              values,
+              errors,
+              touched,
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              isSubmitting,
+              isValid,
+              dirty,
+            }) => (
+              <form onSubmit={handleSubmit}>
+                <Row center="xs">
+                  <Col xs={12} md={6} xl={4}>
+                    <V7TextField
+                      id={"email"}
+                      name={"email"}
+                      type={"text"}
                       label={t("labels.forms.email")}
+                      disabled={isSubmitting}
+                      error={errors.email !== undefined && touched.email}
+                      value={values.email}
+                      onBlur={handleBlur}
+                      onChange={handleChange}
                       icon={<V7Icon icon={faAt} size={"2x"} />}
-                      defaultValue=""
-                      required
-                      reset={this.state.resetForm}
+                      errorText={getTextError(touched.email, errors.email)}
                     />
                   </Col>
                 </Row>
-                <Row middle="xs">
-                  <Col xs={12}>
-                    <V7Input
-                      name="password"
-                      type="password"
-                      s={12}
-                      validations="isExisty,minLength:3"
-                      validationError={t("errors.forms.notValidPassword")}
+                <Row center="xs">
+                  <Col xs={12} md={6} xl={4}>
+                    <V7TextField
+                      id={"password"}
+                      name={"password"}
+                      type={"password"}
                       label={t("labels.forms.password")}
+                      disabled={isSubmitting}
+                      error={errors.password !== undefined && touched.password}
+                      value={values.password}
+                      onBlur={handleBlur}
+                      onChange={handleChange}
                       icon={<V7Icon icon={faKey} size={"2x"} />}
-                      defaultValue=""
-                      required
-                      reset={this.state.resetForm}
+                      errorText={getTextError(
+                        touched.password,
+                        errors.password
+                      )}
                     />
                   </Col>
                 </Row>
-                <Row middle="xs">
-                  <Col xs={12}>
+                <Row center="xs">
+                  <Col xs={12} md={6} xl={4}>
                     <V7Button
                       type="submit"
-                      disabled={!this.state.canSubmit}
+                      disabled={!(isValid && dirty)}
                       size="large"
                     >
                       {t("labels.forms.submit")}
                     </V7Button>
                   </Col>
                 </Row>
-                <Row middle="xs" className="">
+                <Row center="xs" middle="xs" className="">
                   <Col xs={12} className={styles.recover}>
                     <V7Link
                       to={"/recover"}
@@ -178,9 +215,9 @@ class SignIn extends React.PureComponent<ISignInProps, ISignInState> {
                     />
                   </Col>
                 </Row>
-              </Col>
-            </Row>
-          </Formsy>
+              </form>
+            )}
+          </Formik>
         </V7PageContainer>
       </section>
     );

@@ -14,7 +14,7 @@ class UserService {
   }
 
   restorePassword(password: string, hash: string) {
-    const urlCheckRecoverHash = `/cmms-gateway-ms/account/restore/${hash}`;
+    const urlCheckRecoverHash = `/cmms-gateway-ms/account/recover/${hash}`;
     return V7HttpRequest.post(
       { password, confirm_password: password },
       urlCheckRecoverHash
