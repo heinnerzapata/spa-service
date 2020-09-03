@@ -83,6 +83,7 @@
       "notValidPhoneContact": "Este telefono de contacto no es valido",
       "notValidCompanyName": "Este no es un nombre valido para una compañia",
       "notValidDisplayName": "Este no es un nombre valido para mostrar",
+      "confirmNewPassword": "Debe confirmar la nueva contraseña",
       "required": "Campo requerido"
     }
   },

@@ -29,7 +29,7 @@ const FormPassword: React.SFC<IFormPassword> = (props) => {
     passwordConfirm: Yup.string()
       .min(8, t("errors.forms.notValidPassword"))
       .required(t("errors.forms.required"))
-      .oneOf([Yup.ref("password"), ""], "Passwords must match"),
+      .oneOf([Yup.ref("password"), ""], t("errors.forms.confirmNewPassword")),
   });
 
   const onSubmit = async (password: string, resetForm: any) => {

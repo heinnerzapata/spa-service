@@ -170,7 +170,7 @@ class SignUp extends React.PureComponent<ISignInProps, ISignInState> {
       password_conf: Yup.string()
         .min(8, t("errors.forms.notValidPassword"))
         .required(t("errors.forms.required"))
-        .oneOf([Yup.ref("password"), ""], "Passwords must match"),
+        .oneOf([Yup.ref("password"), ""], t("errors.forms.confirmNewPassword")),
     });
 
     return (
