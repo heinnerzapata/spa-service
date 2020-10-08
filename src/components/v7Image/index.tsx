@@ -1,11 +1,14 @@
-import React from "react";
 import "./v7Image.scss";
+
+import React, { useEffect } from "react";
+
 import cx from "classnames";
 
 interface v7ImageProps {
   style?: React.CSSProperties;
+  className?: string;
   src: string;
-  type?: string;
+  type?: "round" | "square";
   noShadow: boolean;
   flip: boolean;
   width: number;
@@ -30,11 +33,16 @@ const V7Image: React.SFC<v7ImageProps> = (props) => {
     return result;
   };
 
+  useEffect(() => {
+    console.log(props.src);
+  }, [props.src]);
+
   return (
     <img
       src={props.src}
       alt="render"
       className={cx(
+        props.className,
         "vol7er-image",
         getImageTypeClass(props.type ? props.type : ""),
         props.noShadow ? "" : "vol7er-image__shadow",

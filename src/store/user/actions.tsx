@@ -1,10 +1,24 @@
-import { userActionType } from "./types";
 import { Dispatch } from "redux";
-import services from "services";
 import { ICredentials } from "models";
+import services from "services";
+import { userActionType } from "./types";
 
 export interface ISignupStarted {
   type: userActionType.SIGNUP_STARTED;
+}
+
+export interface IUpdateUserStarted {
+  type: userActionType.UPDATE_USER_STARTED;
+}
+
+export interface IUpdateUserSuccess {
+  type: userActionType.UPDATE_USER_SUCCESS;
+  userInfo: any;
+}
+
+export interface IUpdateUserError {
+  type: userActionType.UPDATE_USER_ERROR;
+  error: any;
 }
 
 export interface ISignupSuccess {
@@ -80,7 +94,10 @@ export type IAction =
   | ISignupError
   | IRecoverStarted
   | IRecoverSuccess
-  | IRecoverError;
+  | IRecoverError
+  | IUpdateUserStarted
+  | IUpdateUserSuccess
+  | IUpdateUserError;
 
 export const cleanToken = () => {
   return (dispatch: Dispatch) => {
@@ -109,6 +126,20 @@ export const cleanUserInfo = () => {
 
 export const signupStarted = (): ISignupStarted => ({
   type: userActionType.SIGNUP_STARTED,
+});
+
+export const updateUserStarted = (): IUpdateUserStarted => ({
+  type: userActionType.UPDATE_USER_STARTED,
+});
+
+export const updateUserSuccess = (userInfo: any): IUpdateUserSuccess => ({
+  type: userActionType.UPDATE_USER_SUCCESS,
+  userInfo,
+});
+
+export const updateUserError = (error: any): IUpdateUserError => ({
+  type: userActionType.UPDATE_USER_ERROR,
+  error,
 });
 
 export const signupSuccess = (userInfo: any): ISignupSuccess => ({
@@ -156,6 +187,25 @@ export const recoverError = (error: string): IRecoverError => ({
   type: userActionType.RECOVER_ERROR,
   error,
 });
+
+export const updateUser = (newUserInfo: any, hexId: string) => {
+  return async (dispatch: Dispatch) => {
+    dispatch(updateUserStarted());
+    try {
+      const result = (await services.user.updateAccount(
+        newUserInfo,
+        hexId
+      )) as any;
+      const data = result.response.data;
+      const userInfo = data.account;
+      dispatch(updateUserSuccess(userInfo));
+      return Promise.resolve(userInfo);
+    } catch (error) {
+      dispatch(updateUserError(error));
+      return Promise.reject(error);
+    }
+  };
+};
 
 export const userLogOut = (email: string) => {
   return async (dispatch: Dispatch) => {

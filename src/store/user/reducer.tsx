@@ -1,5 +1,5 @@
-import { userActionType } from "./types";
 import { IAction } from "./actions";
+import { userActionType } from "./types";
 
 export interface IUserState {
   isFetching: boolean;
@@ -14,16 +14,7 @@ const initState: IUserState = {
   authenticated: false,
   token: "",
   error: null,
-  userInfo: {
-    hexId: "",
-    email: "",
-    displayname: "",
-    avatar: "",
-    firstName: "",
-    phoneContact: "",
-    lastName: "",
-    company: "",
-  },
+  userInfo: null,
 };
 
 const userReducer = (
@@ -81,6 +72,17 @@ const userReducer = (
       return { ...state, userInfo: action.userInfo };
     case userActionType.CLEAN_USER_INFO:
       return { ...state, userInfo: initState.userInfo };
+    case userActionType.UPDATE_USER_STARTED:
+      return { ...state, isFetching: true };
+    case userActionType.UPDATE_USER_SUCCESS:
+      return { ...state, isFetching: false, userInfo: action.userInfo };
+    case userActionType.UPDATE_USER_ERROR:
+      return {
+        ...state,
+        isFetching: false,
+        error: action.error,
+        authenticated: false,
+      };
     default:
       return state;
   }

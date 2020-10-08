@@ -1,5 +1,5 @@
-import V7HttpRequest from "./v7HttpRequest.service";
 import { ICredentials } from "models";
+import V7HttpRequest from "./v7HttpRequest.service";
 import jwt_decode from "jwt-decode";
 
 class UserService {
@@ -113,6 +113,12 @@ class UserService {
     //     resolve({});
     //   }, 500);
     // });
+  }
+
+  updateAccount(userInfo: any, hexId: string) {
+    const updateAccountUrl = `/cmms-gateway-ms/account/${hexId}`;
+
+    return V7HttpRequest.put(userInfo, updateAccountUrl);
   }
 
   login(credentials: ICredentials) {

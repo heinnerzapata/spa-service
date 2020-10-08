@@ -1,19 +1,20 @@
-import React from "react";
-import { WithTranslation } from "react-i18next";
 import {
-  V7PageTitle,
+  ALERT_TYPES,
   V7Alert,
   V7Link,
-  ALERT_TYPES,
+  V7PageTitle,
 } from "components";
-import { V7PageContainer } from "containers";
-import { Row, Col } from "react-flexbox-grid";
-import { RouteComponentProps } from "react-router-dom";
-import { toast } from "react-toastify";
-import { IUserState } from "store/user/reducer";
+import { Col, Row } from "react-flexbox-grid";
+
 import FormEmail from "./formEmail";
 import FormPassword from "./formPassword";
+import { IUserState } from "store/user/reducer";
+import React from "react";
+import { RouteComponentProps } from "react-router-dom";
+import { V7PageContainer } from "containers";
+import { WithTranslation } from "react-i18next";
 import { setToken } from "utilities/token";
+import { toast } from "react-toastify";
 
 interface IRecoverProps extends WithTranslation, RouteComponentProps {
   t: any;
@@ -46,11 +47,9 @@ class Recover extends React.PureComponent<IRecoverProps, IRecoverState> {
       this.props
         .onCheckRecoverHash(hash)
         .then((result: any) => {
-          debugger;
           this.setState({ isValidHash: true, hash });
         })
         .catch((err: any) => {
-          debugger;
           this.setState({ isValidHash: false });
         });
     }
@@ -60,10 +59,8 @@ class Recover extends React.PureComponent<IRecoverProps, IRecoverState> {
     const { t } = this.props;
     try {
       await this.props.onRecoverPassword(email);
-      debugger;
       this.setState({ isEmailSent: true });
     } catch (error) {
-      debugger;
       toast.error(`${t("toast.invalidEmail")}`);
       this.setState({ isEmailSent: false });
     }
@@ -76,12 +73,10 @@ class Recover extends React.PureComponent<IRecoverProps, IRecoverState> {
         password,
         this.state.hash
       );
-      debugger;
       toast.success(`${t("password changed")}`);
       setToken(userInfo.token);
       this.props.history.push("/dashboard");
     } catch (error) {
-      debugger;
       toast.error(`${t("toast.errorInProcess")}`);
     }
   };

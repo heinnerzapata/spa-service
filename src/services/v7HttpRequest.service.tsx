@@ -1,8 +1,8 @@
+import _ from "lodash";
 import axios from "axios";
 import config from "../config/config";
-import store from "../store";
 import { getToken } from "utilities/token";
-import _ from "lodash";
+import store from "../store";
 
 class V7HttpRequest {
   configRequest: any;
@@ -32,12 +32,26 @@ class V7HttpRequest {
   }
 
   post(data: any, url: string) {
-    const va = process.env.REACT_APP_API;
-    console.log(va);
-
     return new Promise((resolve, reject) => {
       axios
         .post(
+          `${process.env.REACT_APP_API}${url}`,
+          data,
+          this.getConfigRequest(false)
+        )
+        .then(function (response) {
+          resolve(response.data);
+        })
+        .catch(function (error) {
+          reject(Error(error));
+        });
+    });
+  }
+
+  put(data: any, url: string) {
+    return new Promise((resolve, reject) => {
+      axios
+        .put(
           `${process.env.REACT_APP_API}${url}`,
           data,
           this.getConfigRequest(false)

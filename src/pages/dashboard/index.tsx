@@ -1,7 +1,8 @@
+import { Col, Row } from "react-flexbox-grid";
 import React, { Component } from "react";
-import { V7PageTitle } from "components";
+
 import { V7PageContainer } from "containers";
-import { Row, Col } from "react-flexbox-grid";
+import { V7PageTitle } from "components";
 import { WithTranslation } from "react-i18next";
 
 interface dashboardProps extends WithTranslation {

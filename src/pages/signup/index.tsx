@@ -1,23 +1,25 @@
-import React from "react";
-import { WithTranslation } from "react-i18next";
-import { V7PageTitle, V7Icon, V7Button, V7Link, V7TextField } from "components";
-import { V7PageContainer } from "containers";
-import { Row, Col } from "react-flexbox-grid";
+import * as Yup from "yup";
+
+import { Col, Row } from "react-flexbox-grid";
+import { V7Button, V7Icon, V7Link, V7PageTitle, V7TextField } from "components";
 import {
   faAt,
   faKey,
-  faUser,
   faPhone,
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
+
 import { Formik } from "formik";
-import queryString from "query-string";
-import { RouteComponentProps } from "react-router-dom";
-import { setToken } from "utilities/token";
-import _ from "lodash";
 import { IUserState } from "store/user/reducer";
+import React from "react";
+import { RouteComponentProps } from "react-router-dom";
+import { V7PageContainer } from "containers";
+import { WithTranslation } from "react-i18next";
+import _ from "lodash";
+import queryString from "query-string";
+import { setToken } from "utilities/token";
 import styles from "./signUp.module.scss";
 import { toast } from "react-toastify";
-import * as Yup from "yup";
 
 interface ISignInProps extends WithTranslation, RouteComponentProps {
   t: any;
@@ -376,156 +378,6 @@ class SignUp extends React.PureComponent<ISignInProps, ISignInState> {
               </form>
             )}
           </Formik>
-          {/* <Formsy
-            onValidSubmit={(model: ICredentials) => {
-              this.submit(model, this.props);
-            }}
-            onValid={this.enableButton}
-            onInvalid={this.disableButton}
-            ref={this.formRef}
-          >
-            <Row center="xs">
-              <Col xs={12} sm={8} lg={4}>
-                <Row middle="xs">
-                  <Col xs={12}>
-                    <V7Input
-                      name="first_name"
-                      s={12}
-                      validations="minLength:3"
-                      type="text"
-                      validationError={t("errors.forms.notValidFirstName")}
-                      label={t("labels.forms.firstName")}
-                      icon={<V7Icon icon={faUser} size={"2x"} />}
-                      defaultValue=""
-                      reset={this.state.resetForm}
-                      required
-                    />
-                  </Col>
-                </Row>
-
-                <Row middle="xs">
-                  <Col xs={12}>
-                    <V7Input
-                      name="last_name"
-                      s={12}
-                      validations="minLength:3"
-                      type="text"
-                      validationError={t("errors.forms.notValidLastName")}
-                      label={t("labels.forms.lastName")}
-                      icon={<V7Icon icon={faUser} size={"2x"} />}
-                      defaultValue=""
-                      reset={this.state.resetForm}
-                      required
-                    />
-                  </Col>
-                </Row>
-
-                <Row middle="xs">
-                  <Col xs={12}>
-                    <V7Input
-                      name="display_name"
-                      s={12}
-                      validations="isExisty"
-                      type="text"
-                      validationError={t("errors.forms.notValidDisplayName")}
-                      label={t("labels.forms.displayName")}
-                      icon={<V7Icon icon={faAt} size={"2x"} />}
-                      defaultValue=""
-                      reset={this.state.resetForm}
-                      required
-                    />
-                  </Col>
-                </Row>
-
-                <Row middle="xs">
-                  <Col xs={12}>
-                    <V7Input
-                      name="email"
-                      s={12}
-                      validations="isExisty,isEmail"
-                      type="text"
-                      validationError={t("errors.forms.notValidEmail")}
-                      label={t("labels.forms.email")}
-                      icon={<V7Icon icon={faAt} size={"2x"} />}
-                      defaultValue=""
-                      reset={this.state.resetForm}
-                      required
-                    />
-                  </Col>
-                </Row>
-
-                <Row middle="xs">
-                  <Col xs={12}>
-                    <V7Input
-                      name="phone_contact"
-                      s={12}
-                      validations="isExisty,minLength:3,isNumeric"
-                      type="text"
-                      validationError={t("errors.forms.notValidPhoneContact")}
-                      label={t("labels.forms.phoneContact")}
-                      icon={<V7Icon icon={faAt} size={"2x"} />}
-                      defaultValue=""
-                      reset={this.state.resetForm}
-                      required
-                    />
-                  </Col>
-                </Row>
-
-                <Row middle="xs">
-                  <Col xs={12}>
-                    <V7Input
-                      name="password"
-                      type="password"
-                      s={12}
-                      validations="isExisty,minLength:3"
-                      validationError={t("errors.forms.notValidPassword")}
-                      label={t("labels.forms.password")}
-                      icon={<V7Icon icon={faKey} size={"2x"} />}
-                      defaultValue=""
-                      reset={this.state.resetForm}
-                      required
-                    />
-                  </Col>
-                </Row>
-
-                <Row middle="xs">
-                  <Col xs={12}>
-                    <V7Input
-                      name="password_conf"
-                      type="password"
-                      s={12}
-                      validations="passwordConfirmation"
-                      validationError={t("errors.forms.notValidPasswordConf")}
-                      label={t("labels.forms.passwordConf")}
-                      icon={<V7Icon icon={faKey} size={"2x"} />}
-                      reset={this.state.resetForm}
-                      required
-                    />
-                  </Col>
-                </Row>
-
-                <Row middle="xs">
-                  <Col xs={12}>
-                    <V7Button
-                      type="submit"
-                      disabled={!this.state.canSubmit}
-                      size="large"
-                    >
-                      {t("labels.forms.submit")}
-                    </V7Button>
-                  </Col>
-                </Row>
-                <Row middle="xs" className="">
-                  <Col xs={12} className={styles.recover}>
-                    <V7Link
-                      to={"/signin"}
-                      text={t("labels.forms.doYouHaveAnAccount")}
-                    />
-                  </Col>
-                </Row>
-              </Col>
-            </Row>
-          </Formsy> */}
         </V7PageContainer>
       </section>
     );

@@ -1,16 +1,15 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Route, Switch } from "react-router-dom";
-import { ThunkDispatch } from "redux-thunk";
-import { IAppState } from "./store";
 import "./App.scss";
+
 import {
-  HomeWrapper,
-  SignInWrapper,
   DashboardWrapper,
-  SignUpWrapper,
+  HomeWrapper,
+  ProfileWrapper,
   RecoverWrapper,
+  SignInWrapper,
+  SignUpWrapper,
 } from "wrappers";
+import { Route, Switch } from "react-router-dom";
+import { V7Footer, V7Header } from "components";
 // import About from "./pages/about/About";
 // import SignUp from "./pages/signup/SignUp";
 // import Recover from "./pages/recover/Recover";
@@ -20,10 +19,13 @@ import {
 // import Profile from "./pages/profile/Profile";
 import { getToken, setToken } from "utilities/token";
 import { loginFromToken, userLogOut } from "store/user/actions";
-import { V7Footer, V7Header } from "components";
-import { IUserState } from "store/user/reducer";
 
+import { IAppState } from "./store";
+import { IUserState } from "store/user/reducer";
+import React from "react";
+import { ThunkDispatch } from "redux-thunk";
 import { ToastContainer } from "react-toastify";
+import { connect } from "react-redux";
 
 interface IAppProps {
   userReducer: IUserState;
@@ -37,8 +39,7 @@ class App extends React.PureComponent<IAppProps, any> {
     if (currentToken && currentToken !== null && currentToken !== "") {
       this.props
         .onLoginFromToken(currentToken)
-        .then((result: any) => {
-        })
+        .then((result: any) => {})
         .catch((error: any) => {});
     }
   }
@@ -62,7 +63,7 @@ class App extends React.PureComponent<IAppProps, any> {
           <Route path="/recover/:hash?" component={RecoverWrapper} />
           {/* <Route path="/about" component={About} />
               <Route path="/recover/:token?" component={Recover} /> */}
-          {/* <Route path="/profile" component={Profile} /> */}
+          <Route path="/profile" component={ProfileWrapper} />
           <Route path="/dashboard" component={DashboardWrapper} />
           {/* <Route path="/machines/:hexId" component={Machine} />
           <Route path="/machiness" component={Machines} /> */}

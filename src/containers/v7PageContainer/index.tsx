@@ -1,20 +1,21 @@
-import React from "react";
-import styles from "./v7PageContainer.module.scss";
 import { Grid } from "react-flexbox-grid";
-import { createUseStyles } from "react-jss";
-import { V7Preloader } from "components";
-import { IUserState } from "store/user/reducer";
-import { ThunkDispatch } from "redux-thunk";
 import { IAppState } from "store";
-import { connect } from "react-redux";
-import { loginFromToken } from "store/user/actions";
-import { getToken } from "utilities/token";
+import { IUserState } from "store/user/reducer";
+import React from "react";
 import { RouteComponentProps } from "react-router-dom";
-import { withRouter } from "react-router-dom";
+import { ThunkDispatch } from "redux-thunk";
+import { V7Preloader } from "components";
 import _ from "lodash";
+import { connect } from "react-redux";
+import { createUseStyles } from "react-jss";
+import { getToken } from "utilities/token";
+import { loginFromToken } from "store/user/actions";
+import styles from "./v7PageContainer.module.scss";
+import { withRouter } from "react-router-dom";
 
 interface IPageContainerProps extends RouteComponentProps {
   isFull?: boolean;
+  noFluid?: boolean;
   isMarginTopActivated?: boolean;
   showTools?: boolean;
   marginTop?: number;
@@ -102,7 +103,7 @@ class V7PageContainer extends React.PureComponent<
     if (this.props.isFull) {
       return (
         <Grid
-          fluid={true}
+          fluid={!props.noFluid}
           className={
             this.props.isMarginTopActivated ? styles.marginVariable : ""
           }
