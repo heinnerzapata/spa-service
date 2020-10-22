@@ -1,8 +1,12 @@
-import React, { useEffect } from "react";
-import { withStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
-import InputAdornment from "@material-ui/core/InputAdornment";
+import React, { useEffect, useState } from "react";
+
 import { COLORS } from "variables/constants";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import TextField from "@material-ui/core/TextField";
+import { V7Icon } from "components";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
+import styles from "./v7TextField.module.scss";
+import { withStyles } from "@material-ui/core/styles";
 
 interface IInputProps {
   id: string;
@@ -57,7 +61,17 @@ const StyledInput = withStyles({
 })(TextField);
 
 const Input: React.SFC<IInputProps> = (props) => {
-  useEffect(() => {}, [props]);
+  const [type, setType] = useState(props.type);
+  const [showPassword, setShowPassword] = useState(true);
+
+  const onIconClickHandler = (event: React.MouseEvent<HTMLElement>) => {
+    setShowPassword(!showPassword);
+  };
+
+  useEffect(() => {
+    setType(props.type);
+  }, [props]);
+  
   return (
     <StyledInput
       id={props.id}
@@ -71,11 +85,16 @@ const Input: React.SFC<IInputProps> = (props) => {
       defaultValue={props.default}
       helperText={props.errorText}
       variant="outlined"
-      type={props.type}
+      type={showPassword ? type : "text"}
       autoComplete="off"
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
+            {props.type === "password" && (
+              <div onClick={onIconClickHandler}>
+                <V7Icon className={styles.eyeIcon} icon={faEye} size={"1x"} />
+              </div>
+            )}
             {props.icon ? props.icon : null}
           </InputAdornment>
         ),
