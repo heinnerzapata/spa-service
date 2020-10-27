@@ -103,7 +103,7 @@
       "lastName": "Apellido",
       "phoneContact": "Telefono de contacto",
       "passwordConf": "Confirmar contraseña",
-      "emailRecoverSent": "Un link de confirmacion ha sido enviado a su correo electronico para restablecer la contraseña",
+      "emailRecoverSent": "Un hipervinculo de confirmación ha sido enviado a su correo electrónico para restablecer la contraseña",
       "emailRecoverTokenError": "Este link de restablecimiento es invalido o ha expirado",
       "emailRecoverSuccess": "La contraseña de la cuenta ha sido cambiada exitosamente",
       "userInfo": "Informacion del usuario",
