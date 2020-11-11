@@ -1,4 +1,5 @@
 @import "../../variables/sass/variables.scss";
+@import "../../variables/sass/mixins.scss";
 
 .v7Header {
   position: fixed;
@@ -8,6 +9,10 @@
   transition: height 0.3s, background 0.3s;
   z-index: 100;
   padding: 3px;
+
+  .menuItemText {
+    @include menuItemText();
+  }
 }
 
 .v7Header.isScroll {

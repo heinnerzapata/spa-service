@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import styles from "./v7Header.module.scss";
 import cx from "classnames";
 import { Row, Col, Grid } from "react-flexbox-grid";
+import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { COLORS } from "variables/constants";
 import {
@@ -10,6 +11,9 @@ import {
   V7Button,
   V7Link,
   V7UserOptions,
+  V7Avatar,
+  V7Menu,
+  V7Icon,
 } from "components";
 import { IUserState } from "store/user/reducer";
 import { useTranslation } from "react-i18next";
@@ -35,6 +39,16 @@ const V7Header: React.SFC<v7HeaderProps> = (props) => {
       window.removeEventListener("scroll", validateScrollPosition);
     };
   });
+
+  const handleMenuUserClick = (index: number) => {
+    switch (index) {
+      case 0:
+        if (props.onLogOut) {
+          props.onLogOut();
+        }
+        break;
+    }
+  };
 
   return (
     <header className={cx(styles.v7Header, isScroll ? styles.isScroll : "")}>
@@ -70,17 +84,23 @@ const V7Header: React.SFC<v7HeaderProps> = (props) => {
                       </V7Button>
                     </V7Link>
                   )}
-                  {props.userReducer.authenticated && props.userReducer.userInfo && (
-                    <V7UserOptions
-                      imgUrl={props.userReducer.userInfo.avatar}
-                      onLogOutClick={() => {
-                        if (props.onLogOut) {
-                          props.onLogOut();
-                        }
-                        history.push("/");
-                      }}
-                    />
-                  )}
+                  {props.userReducer.authenticated &&
+                    props.userReducer.userInfo && (
+                      <V7Menu
+                        width={140}
+                        onItemClick={handleMenuUserClick}
+                        menuImage={props.userReducer.userInfo.avatar}
+                        listItems={[
+                          <React.Fragment>
+                            <V7Icon icon={faSignOutAlt} size={"2x"} />
+                            <span className={styles.menuItemText}>
+                              {" "}
+                              {t(`components.header.menu.closeSession`)}
+                            </span>
+                          </React.Fragment>,
+                        ]}
+                      />
+                    )}
                 </React.Fragment>
               )}
               <Col>

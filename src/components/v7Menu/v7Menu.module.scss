@@ -1,0 +1,42 @@
+@import "../../variables/sass/variables.scss";
+
+.v7Menu {
+  position: relative;
+
+  .menuContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 3px;
+    top: 15px;
+    background-color: $vol7er-main-dark;
+    border-radius: 5px;
+    padding: 8px;
+    z-index: 1000;
+    box-shadow: 2px 5px 12px -3px rgba(0, 0, 0, 0.81);
+    -webkit-box-shadow: 2px 5px 12px -3px rgba(0, 0, 0, 0.81);
+    -moz-box-shadow: 2px 5px 12px -3px rgba(0, 0, 0, 0.81);
+
+    .list {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      list-style-type: none;
+
+      &>li {
+        width: calc(100% - 6px);
+        padding: 3px;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: center;
+
+        &:hover {
+          cursor: pointer;
+          background-color: rgba($vol7er-title-gray, 0.3);
+        }
+      }
+    }
+  }
+}
