@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import styles from "./v7Header.module.scss";
 import cx from "classnames";
 import { Row, Col, Grid } from "react-flexbox-grid";
-import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import { faSignOutAlt, faUser } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { COLORS } from "variables/constants";
 import {
@@ -10,8 +10,6 @@ import {
   V7LanguageSelector,
   V7Button,
   V7Link,
-  V7UserOptions,
-  V7Avatar,
   V7Menu,
   V7Icon,
 } from "components";
@@ -43,6 +41,9 @@ const V7Header: React.SFC<v7HeaderProps> = (props) => {
   const handleMenuUserClick = (index: number) => {
     switch (index) {
       case 0:
+        history.push("/profile");
+        break;
+      case 1:
         if (props.onLogOut) {
           props.onLogOut();
         }
@@ -91,6 +92,13 @@ const V7Header: React.SFC<v7HeaderProps> = (props) => {
                         onItemClick={handleMenuUserClick}
                         menuImage={props.userReducer.userInfo.avatar}
                         listItems={[
+                          <React.Fragment>
+                            <V7Icon icon={faUser} size={"2x"} />
+                            <span className={styles.menuItemText}>
+                              {" "}
+                              {t(`components.header.menu.profile`)}
+                            </span>
+                          </React.Fragment>,
                           <React.Fragment>
                             <V7Icon icon={faSignOutAlt} size={"2x"} />
                             <span className={styles.menuItemText}>

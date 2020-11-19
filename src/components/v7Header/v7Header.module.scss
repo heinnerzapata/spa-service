@@ -11,6 +11,8 @@
   padding: 3px;
 
   .menuItemText {
+    font-size: 14px;
+    padding-left: 10px;
     @include menuItemText();
   }
 }

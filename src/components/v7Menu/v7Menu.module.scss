@@ -26,11 +26,12 @@
 
       &>li {
         width: calc(100% - 6px);
-        padding: 3px;
+        padding: 5px;
         display: flex;
         flex-direction: row;
         align-items: flex-start;
-        justify-content: center;
+        justify-content: flex-end;
+        margin-bottom: 10px;
 
         &:hover {
           cursor: pointer;
