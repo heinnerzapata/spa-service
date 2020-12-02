@@ -2,6 +2,7 @@ import { Dispatch } from "redux";
 import { ICredentials } from "models";
 import services from "services";
 import { userActionType } from "./types";
+import { clearCompany } from "store/company/actions";
 
 export interface ISignupStarted {
   type: userActionType.SIGNUP_STARTED;
@@ -38,6 +39,7 @@ export interface ILoginStarted {
 export interface ILoginSuccess {
   type: userActionType.LOGIN_SUCCESS;
   userInfo: any;
+  companyId: string | null;
 }
 
 export interface ILogOutSuccess {
@@ -156,9 +158,13 @@ export const loginStarted = (): ILoginStarted => ({
   type: userActionType.LOGIN_STARTED,
 });
 
-export const loginSuccess = (userInfo: any): ILoginSuccess => ({
+export const loginSuccess = (
+  userInfo: any,
+  companyId: string | null
+): ILoginSuccess => ({
   type: userActionType.LOGIN_SUCCESS,
   userInfo,
+  companyId,
 });
 
 export const logOutSuccess = (): ILogOutSuccess => ({
@@ -249,9 +255,15 @@ export const loginFromToken = (token: string) => {
     try {
       const result = (await services.user.checkUserToken(token)) as any;
       const userInfo = result.response.data.account;
+      const company = result.response.data.company;
+      const companyId = company ? company.hex_id : null;
       const data = result.response.data;
 
-      dispatch(loginSuccess(userInfo));
+      if (!company) {
+        dispatch(clearCompany());
+      }
+
+      dispatch(loginSuccess(userInfo, companyId));
       dispatch(setToken(token));
 
       return Promise.resolve(data);
@@ -271,7 +283,7 @@ export const loginFromCredentials = (credentials: ICredentials) => {
       const resultToken = result.response.data.token;
       const data = result.response.data;
 
-      dispatch(loginSuccess(userInfo));
+      dispatch(loginSuccess(userInfo, null));
       dispatch(setToken(resultToken));
 
       return Promise.resolve(data);
@@ -323,7 +335,7 @@ export const restorePassword = (password: string, hash: string) => {
       const userInfo = result.response.data.account;
 
       dispatch(recoverSuccess());
-      dispatch(loginSuccess(userInfo));
+      dispatch(loginSuccess(userInfo, null));
       dispatch(setToken(userInfo.token));
       return Promise.resolve(result.response.data);
     } catch (error) {

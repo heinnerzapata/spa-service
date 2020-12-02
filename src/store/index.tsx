@@ -3,9 +3,11 @@ import thunk from "redux-thunk";
 import reducers from "store/reducers";
 
 import { IUserState } from "./user/reducer";
+import { ICompanyState } from "./company/reducer";
 
 export interface IAppState {
   userReducer: IUserState;
+  companyReducer: ICompanyState;
 }
 
 const middleware = [

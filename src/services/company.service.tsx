@@ -1,13 +1,18 @@
 import V7HttpRequest from "./v7HttpRequest.service";
 
 class CompanyService {
-  createCompany(data: any) {
-    const urlCreateCompany = `company`;
+  updateCompany(data: any, companyId: string) {
+    const urlCreateCompany = `/cmms-gateway-ms/company/${companyId}`;
+    return V7HttpRequest.put(data, urlCreateCompany);
+  }
+
+  setCompany(data: any) {
+    const urlCreateCompany = `/cmms-gateway-ms/company`;
     return V7HttpRequest.post(data, urlCreateCompany);
   }
 
-  getCompany(companyHexId: any) {
-    const urlGetConmpany = `company/${companyHexId}`;
+  getCompany(companyHexId: string) {
+    const urlGetConmpany = `/cmms-gateway-ms/company/${companyHexId}`;
     return V7HttpRequest.get(urlGetConmpany);
   }
 }

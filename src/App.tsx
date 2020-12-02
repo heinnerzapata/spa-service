@@ -7,17 +7,12 @@ import {
   RecoverWrapper,
   SignInWrapper,
   SignUpWrapper,
+  CompanyWrapper,
 } from "wrappers";
 import { Route, Switch } from "react-router-dom";
 import { V7Footer, V7Header } from "components";
-// import About from "./pages/about/About";
-// import SignUp from "./pages/signup/SignUp";
-// import Recover from "./pages/recover/Recover";
-// import Dashboard from "./pages/dashboard";
-// import Machines from "./pages/machines/machines";
-// import Machine from "./pages/machines/containers/machine/machine";
-// import Profile from "./pages/profile/Profile";
-import { getToken, setToken } from "utilities/token";
+// import { getToken, setToken } from "utilities/token";
+import { setToken } from "utilities/token";
 import { loginFromToken, userLogOut } from "store/user/actions";
 
 import { IAppState } from "./store";
@@ -35,13 +30,13 @@ interface IAppProps {
 
 class App extends React.PureComponent<IAppProps, any> {
   componentDidMount() {
-    const currentToken = getToken();
-    if (currentToken && currentToken !== null && currentToken !== "") {
-      this.props
-        .onLoginFromToken(currentToken)
-        .then((result: any) => {})
-        .catch((error: any) => {});
-    }
+    // const currentToken = getToken();
+    // if (currentToken && currentToken !== null && currentToken !== "") {
+    //   this.props
+    //     .onLoginFromToken(currentToken)
+    //     .then((result: any) => {})
+    //     .catch((error: any) => {});
+    // }
   }
 
   logOut = () => {
@@ -63,6 +58,7 @@ class App extends React.PureComponent<IAppProps, any> {
           <Route path="/recover/:hash?" component={RecoverWrapper} />
           {/* <Route path="/about" component={About} />
               <Route path="/recover/:token?" component={Recover} /> */}
+          <Route path="/company" component={CompanyWrapper} />
           <Route path="/profile" component={ProfileWrapper} />
           <Route path="/dashboard" component={DashboardWrapper} />
           {/* <Route path="/machines/:hexId" component={Machine} />

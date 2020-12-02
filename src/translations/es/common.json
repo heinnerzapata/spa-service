@@ -8,7 +8,9 @@
     "invalidCredentials": "Credenciales invalidas",
     "pleaseValidateCredentials": "Porfavor valide sus credenciales",
     "invalidEmail": "Correo electronico invalido",
-    "errorInProcess": "Error en el proceso"
+    "errorInProcess": "Error en el proceso",
+    "companySaved": "Compañia guardada",
+    "errorCompanySaved": "Error guardando compañia"
   },
   "pages": {
     "home": {
@@ -40,6 +42,9 @@
     "recover": {
       "title": "Recuperar contraseña"
     },
+    "company": {
+      "title": "Compañia"
+    },
     "profile": {
       "title": "Perfil",
       "tabs": {
@@ -68,6 +73,7 @@
         "signin": "Ingresar",
         "profile": "Perfil",
         "closeSession": "Cerrar sesion",
+        "company": "Compañia",
         "dashboard": "Tablero",
         "logout": "Salir"
       }
@@ -101,14 +107,18 @@
       "firstName": "Nombre",
       "companyName": "Nombre de la compañia",
       "lastName": "Apellido",
-      "phoneContact": "Telefono de contacto",
+      "phoneContact": "Telefono de la compañia",
       "passwordConf": "Confirmar contraseña",
       "emailRecoverSent": "Un hipervinculo de confirmación ha sido enviado a su correo electrónico para restablecer la contraseña",
       "emailRecoverTokenError": "Este link de restablecimiento es invalido o ha expirado",
       "emailRecoverSuccess": "La contraseña de la cuenta ha sido cambiada exitosamente",
       "userInfo": "Informacion del usuario",
       "displayName": "Nombre para mostrar",
-      "return": "Retornar"
+      "return": "Retornar",
+      "city": "Ciudad",
+      "address": "Direccion",
+      "contactName": "Nombre de contacto",
+      "contactPhone": "Telefono de contacto"
     }
   }
 }

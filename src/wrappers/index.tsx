@@ -4,6 +4,7 @@ import ProfileWrapper from "./profileWrapper";
 import RecoverWrapper from "./recoverWrapper";
 import SignInWrapper from "./signInWrapper";
 import SignUpWrapper from "./signupWrapper";
+import CompanyWrapper from "./companyWrapper";
 
 export {
   HomeWrapper,
@@ -12,4 +13,5 @@ export {
   SignUpWrapper,
   RecoverWrapper,
   ProfileWrapper,
+  CompanyWrapper,
 };

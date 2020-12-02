@@ -10,10 +10,18 @@
   z-index: 100;
   padding: 3px;
 
-  .menuItemText {
-    font-size: 14px;
-    padding-left: 10px;
-    @include menuItemText();
+  .menuItemContainer {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    .menuItemText {
+      font-size: 14px;
+      padding-left: 10px;
+      @include menuItemText();
+    }
   }
 }
 

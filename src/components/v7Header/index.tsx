@@ -2,7 +2,11 @@ import React, { useEffect } from "react";
 import styles from "./v7Header.module.scss";
 import cx from "classnames";
 import { Row, Col, Grid } from "react-flexbox-grid";
-import { faSignOutAlt, faUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  faSignOutAlt,
+  faUser,
+  faIndustry,
+} from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { COLORS } from "variables/constants";
 import {
@@ -44,6 +48,9 @@ const V7Header: React.SFC<v7HeaderProps> = (props) => {
         history.push("/profile");
         break;
       case 1:
+        history.push("/company");
+        break;
+      case 2:
         if (props.onLogOut) {
           props.onLogOut();
         }
@@ -93,18 +100,31 @@ const V7Header: React.SFC<v7HeaderProps> = (props) => {
                         menuImage={props.userReducer.userInfo.avatar}
                         listItems={[
                           <React.Fragment>
-                            <V7Icon icon={faUser} size={"2x"} />
-                            <span className={styles.menuItemText}>
-                              {" "}
-                              {t(`components.header.menu.profile`)}
-                            </span>
+                            <div className={styles.menuItemContainer}>
+                              <V7Icon icon={faUser} size={"1x"} />
+                              <span className={styles.menuItemText}>
+                                {" "}
+                                {t(`components.header.menu.profile`)}
+                              </span>
+                            </div>
                           </React.Fragment>,
                           <React.Fragment>
-                            <V7Icon icon={faSignOutAlt} size={"2x"} />
-                            <span className={styles.menuItemText}>
-                              {" "}
-                              {t(`components.header.menu.closeSession`)}
-                            </span>
+                            <div className={styles.menuItemContainer}>
+                              <V7Icon icon={faIndustry} size={"1x"} />
+                              <span className={styles.menuItemText}>
+                                {" "}
+                                {t(`components.header.menu.company`)}
+                              </span>
+                            </div>
+                          </React.Fragment>,
+                          <React.Fragment>
+                            <div className={styles.menuItemContainer}>
+                              <V7Icon icon={faSignOutAlt} size={"1x"} />
+                              <span className={styles.menuItemText}>
+                                {" "}
+                                {t(`components.header.menu.closeSession`)}
+                              </span>
+                            </div>
                           </React.Fragment>,
                         ]}
                       />

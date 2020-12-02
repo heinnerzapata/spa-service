@@ -8,7 +8,9 @@
     "invalidCredentials": "Invalid credentials",
     "pleaseValidateCredentials": "Please validate your credentials",
     "invalidEmail": "Invalid email",
-    "errorInProcess": "Error in process"
+    "errorInProcess": "Error in process",
+    "companySaved": "Company saved",
+    "errorCompanySaved": "Error saving company"
   },
   "pages": {
     "home": {
@@ -40,6 +42,9 @@
     "recover": {
       "title": "Recover password"
     },
+    "company": {
+      "title": "Company"
+    },
     "profile": {
       "title": "Profile",
       "tabs": {
@@ -68,6 +73,7 @@
         "signin": "SignIn",
         "profile": "Profile",
         "closeSession": "Close session",
+        "company": "Company",
         "dashboard": "Dashboard",
         "logout": "LogOut"
       }
@@ -108,7 +114,11 @@
       "emailRecoverSuccess": "Account password has been changed successfully",
       "userInfo": "User info",
       "displayName": "Display name",
-      "return": "Return"
+      "return": "Return",
+      "city": "City",
+      "address": "Address",
+      "contactName": "Contact name",
+      "contactPhone": "Contact phone"
     }
   }
 }

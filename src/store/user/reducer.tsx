@@ -7,6 +7,7 @@ export interface IUserState {
   token: string;
   userInfo: any;
   error: any;
+  companyId: string | null;
 }
 
 const initState: IUserState = {
@@ -15,6 +16,7 @@ const initState: IUserState = {
   token: "",
   error: null,
   userInfo: null,
+  companyId: null,
 };
 
 const userReducer = (
@@ -47,6 +49,13 @@ const userReducer = (
         userInfo: initState.userInfo,
       };
     case userActionType.SIGNUP_SUCCESS:
+      return {
+        ...state,
+        userInfo: action.userInfo,
+        authenticated: true,
+        isFetching: false,
+        error: null,
+      };
     case userActionType.LOGIN_SUCCESS:
       return {
         ...state,
@@ -54,6 +63,7 @@ const userReducer = (
         authenticated: true,
         isFetching: false,
         error: null,
+        companyId: action.companyId,
       };
     case userActionType.LOGIN_ERROR:
     case userActionType.SIGNUP_ERROR:
