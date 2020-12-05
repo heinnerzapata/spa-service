@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./v7Avatar.module.scss";
 import Avatar from "@material-ui/core/Avatar";
-import { makeStyles } from "@material-ui/styles";
+import { createUseStyles } from "react-jss";
 import cx from "classnames";
 
 interface v7AvatarProps {
@@ -15,12 +15,12 @@ export enum AVATAR_SIZES {
   SMALL = 25,
   MEDIUM = 35,
   LARGE = 45,
-} 
+}
 
-const useStyles = makeStyles({
+const useStyles = createUseStyles({
   size: {
-    width: (size: AVATAR_SIZES) => `${size}px`,
-    height: (size: AVATAR_SIZES) => `${size}px`,
+    width: (props: v7AvatarProps) => `${props.size}px`,
+    height: (props: v7AvatarProps) => `${props.size}px`,
   },
 });
 
