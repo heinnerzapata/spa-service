@@ -1,7 +1,9 @@
-import { SET_MESSAGE } from "../types/message";
+import { SET_MESSAGE } from '../types/message';
+
 const initState = {
-  message: "",
+  message: '',
 };
+
 export default (state = initState, action: any) => {
   switch (action.type) {
     case SET_MESSAGE:

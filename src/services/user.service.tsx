@@ -1,33 +1,38 @@
-import { ICredentials } from "models";
-import V7HttpRequest from "./v7HttpRequest.service";
-import jwt_decode from "jwt-decode";
+import { ICredentials } from 'models';
+import jwt_decode from 'jwt-decode';
+import V7HttpRequest from './v7HttpRequest.service';
 
 class UserService {
   recoverPassword(email: string) {
-    const urlRecoverPassword = `/cmms-gateway-ms/account/recover`;
+    const urlRecoverPassword = '/cmms-gateway-ms/account/recover';
+
     return V7HttpRequest.post({ email }, urlRecoverPassword);
   }
 
   checkRecoverHash(hash: string) {
     const urlCheckRecoverHash = `/cmms-gateway-ms/account/recover/${hash}`;
+
     return V7HttpRequest.get(urlCheckRecoverHash);
   }
 
   restorePassword(password: string, hash: string) {
     const urlCheckRecoverHash = `/cmms-gateway-ms/account/recover/${hash}`;
+
     return V7HttpRequest.post(
       { password, confirm_password: password },
-      urlCheckRecoverHash
+      urlCheckRecoverHash,
     );
   }
 
   changePassword(token: any, data: any) {
     const urlChangePassword = `account/reset/${token}`;
+
     return V7HttpRequest.post(data, urlChangePassword);
   }
 
   checkRecoverToken(token: any) {
     const urlCheckRecoverPassword = `account/reset/${token}`;
+
     return V7HttpRequest.get(urlCheckRecoverPassword);
   }
 
@@ -68,19 +73,19 @@ class UserService {
   }
 
   logout(email: string) {
-    //const logoutUrl = `logout`;
+    // const logoutUrl = `logout`;
 
-    //return V7HttpRequest.post({ email }, logoutUrl);
+    // return V7HttpRequest.post({ email }, logoutUrl);
 
     return new Promise((resolve) => {
       setTimeout(() => {
-        resolve({});
+        resolve({ email });
       }, 500);
     });
   }
 
   signup(userInfo: any) {
-    const signUpUrl = `/cmms-gateway-ms/account/sign-up`;
+    const signUpUrl = '/cmms-gateway-ms/account/sign-up';
 
     return V7HttpRequest.post(userInfo, signUpUrl);
 
@@ -103,6 +108,7 @@ class UserService {
     //         updatedAt: "2020-06-06T16:09:45.997Z",
     //       },
     //       token:
+    // eslint-disable-next-line max-len
     //         "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1OTE0NTk3OTEsImV4cCI6MTU5MTUwMjk5MX0.hoo95VwinUVTD5LYlsJsqTArU069v-gFy_etydi4fm8",
     //     });
     //   }, 500);
@@ -122,7 +128,7 @@ class UserService {
   }
 
   login(credentials: ICredentials) {
-    const loginUrl = `/cmms-gateway-ms/account/sign-in`;
+    const loginUrl = '/cmms-gateway-ms/account/sign-in';
 
     return V7HttpRequest.post(credentials, loginUrl);
 
@@ -145,21 +151,24 @@ class UserService {
     //         updatedAt: "2020-06-06T16:09:45.997Z",
     //       },
     //       token:
+    // eslint-disable-next-line max-len
     //         "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1OTE0NTk3OTEsImV4cCI6MTU5MTUwMjk5MX0.hoo95VwinUVTD5LYlsJsqTArU069v-gFy_etydi4fm8",
     //     });
     //   }, 500);
     // });
 
-    //return Promise.reject("error");
+    // return Promise.reject("error");
   }
 
   editUserAccount(userId: any, data: any) {
     const urlEditUserAccount = `account/${userId}`;
+
     return V7HttpRequest.post(data, urlEditUserAccount);
   }
 
   getSubscriptionTypes() {
-    const urlSubscriptionTypes = `subscriptionTypes`;
+    const urlSubscriptionTypes = 'subscriptionTypes';
+
     return V7HttpRequest.get(urlSubscriptionTypes);
   }
 }

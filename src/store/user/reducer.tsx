@@ -1,5 +1,5 @@
-import { IAction } from "./actions";
-import { userActionType } from "./types";
+import { IAction } from './actions';
+import { userActionType } from './types';
 
 export interface IUserState {
   isFetching: boolean;
@@ -13,21 +13,23 @@ export interface IUserState {
 const initState: IUserState = {
   isFetching: false,
   authenticated: false,
-  token: "",
+  token: '',
   error: null,
-  userInfo: null,
+  userInfo: {},
   companyId: null,
 };
 
 const userReducer = (
   state: IUserState = initState,
-  action: IAction
+  action: IAction,
 ): IUserState => {
   switch (action.type) {
     case userActionType.RECOVER_STARTED:
     case userActionType.SIGNUP_STARTED:
     case userActionType.LOGIN_STARTED:
-      return { ...state, authenticated: false, isFetching: true, error: null };
+      return {
+        ...state, authenticated: false, isFetching: true, error: null,
+      };
     case userActionType.RECOVER_SUCCESS:
       return {
         ...state,

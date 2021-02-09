@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-import { COLORS } from "variables/constants";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import TextField from "@material-ui/core/TextField";
-import { V7Icon } from "components";
-import { faEye } from "@fortawesome/free-solid-svg-icons";
-import styles from "./v7TextField.module.scss";
-import { withStyles } from "@material-ui/core/styles";
+import { COLORS } from 'variables/constants';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import TextField from '@material-ui/core/TextField';
+import { V7Icon } from 'components';
+import { faEye } from '@fortawesome/free-solid-svg-icons';
+import { withStyles } from '@material-ui/core/styles';
+import styles from './v7TextField.module.scss';
 
 interface IInputProps {
   id: string;
@@ -25,53 +25,53 @@ interface IInputProps {
 
 const StyledInput = withStyles({
   root: {
-    width: "100%",
-    marginBottom: "8px",
-    minHeight: "78px",
-    "& label.Mui-focused": {
+    width: '100%',
+    marginBottom: '8px',
+    minHeight: '78px',
+    '& label.Mui-focused': {
       color: `${COLORS.vol7erMain}`,
     },
-    "& label": {
+    '& label': {
       color: `${COLORS.vol7erTitleGray}`,
     },
-    "& .MuiFilledInput-underline:after": {
+    '& .MuiFilledInput-underline:after': {
       borderBottomColor: `${COLORS.vol7erMain}`,
     },
-    "& .MuiFilledInput-underline.Mui-error:after": {
+    '& .MuiFilledInput-underline.Mui-error:after': {
       borderBottomColor: `${COLORS.error}`,
     },
-    "& input.Mui-focused:after": {
+    '& input.Mui-focused:after': {
       color: `${COLORS.vol7erTitleGray}`,
     },
-    "& .MuiInputBase-input": {
+    '& .MuiInputBase-input': {
       color: `${COLORS.white}`,
     },
-    "& .MuiOutlinedInput-notchedOutline": {
+    '& .MuiOutlinedInput-notchedOutline': {
       borderColor: `${COLORS.vol7erTitleGray}`,
     },
-    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+    '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
       borderColor: `${COLORS.vol7erMain}`,
     },
-    "& .MuiOutlinedInput-root": {
-      "&:hover fieldset": {
+    '& .MuiOutlinedInput-root': {
+      '&:hover fieldset': {
         borderColor: `${COLORS.vol7erTitleGray}`,
       },
     },
   },
 })(TextField);
 
-const Input: React.SFC<IInputProps> = (props) => {
+const Input: React.FC<IInputProps> = (props) => {
   const [type, setType] = useState(props.type);
   const [showPassword, setShowPassword] = useState(true);
 
-  const onIconClickHandler = (event: React.MouseEvent<HTMLElement>) => {
+  const onIconClickHandler = () => {
     setShowPassword(!showPassword);
   };
 
   useEffect(() => {
     setType(props.type);
   }, [props]);
-  
+
   return (
     <StyledInput
       id={props.id}
@@ -80,19 +80,19 @@ const Input: React.SFC<IInputProps> = (props) => {
       error={props.error}
       onChange={props.onChange}
       onBlur={props.onBlur}
-      value={props.value || ""}
+      value={props.value || ''}
       label={props.label}
       defaultValue={props.default}
       helperText={props.errorText}
       variant="outlined"
-      type={showPassword ? type : "text"}
+      type={showPassword ? type : 'text'}
       autoComplete="off"
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
-            {props.type === "password" && (
+            {props.type === 'password' && (
               <div onClick={onIconClickHandler}>
-                <V7Icon className={styles.eyeIcon} icon={faEye} size={"1x"} />
+                <V7Icon className={styles.eyeIcon} icon={faEye} size="1x" />
               </div>
             )}
             {props.icon ? props.icon : null}

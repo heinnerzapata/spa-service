@@ -1,17 +1,17 @@
 export const LANGUAGES = [
-  { language: 'en'},
-  { language: 'es'}
+  { language: 'en' },
+  { language: 'es' },
 ];
 
 export const COLORS = {
   white: '#FFFFFF',
   vol7erTitle: '#2D2D2D',
   vol7erTitleGray: '#AAA5A0',
-  
+
   // vol7erMainDark: '#FFA200',
   // vol7erOrange: '#FEBF53',
   // backgroundOrange: '#FFA200',
- 
+
   // vol7erMainDark: '#2aa726',
   // vol7erOrange: '#2aa726',
   // backgroundOrange: '#FFA200'
@@ -22,6 +22,6 @@ export const COLORS = {
   vol7erOrange: '#2aa726',
 };
 
-export const DEFAULT_CONFIG =  {
-  defaultLanguage: (navigator.language || navigator.userLanguage).split('-')[0]
+export const DEFAULT_CONFIG = {
+  defaultLanguage: (navigator.language || navigator.userLanguage).split('-')[0],
 };

@@ -1,9 +1,9 @@
-import React from "react";
-import { Formik } from "formik";
-import * as Yup from "yup";
-import { Row, Col } from "react-flexbox-grid";
-import { V7TextField, V7Button, V7Icon } from "components";
-import { faAt } from "@fortawesome/free-solid-svg-icons";
+import React from 'react';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
+import { Row, Col } from 'react-flexbox-grid';
+import { V7TextField, V7Button, V7Icon } from 'components';
+import { faAt } from '@fortawesome/free-solid-svg-icons';
 
 interface IFormPassword {
   t: any;
@@ -17,19 +17,19 @@ interface IFormModel {
 }
 
 const initFormValue: IFormModel = {
-  password: "",
-  passwordConfirm: "",
+  password: '',
+  passwordConfirm: '',
 };
 
 const FormPassword: React.SFC<IFormPassword> = (props) => {
   const { t } = props;
 
   const validationsForm = Yup.object().shape({
-    password: Yup.string().required(t("errors.forms.required")),
+    password: Yup.string().required(t('errors.forms.required')),
     passwordConfirm: Yup.string()
-      .min(8, t("errors.forms.notValidPassword"))
-      .required(t("errors.forms.required"))
-      .oneOf([Yup.ref("password"), ""], t("errors.forms.confirmNewPassword")),
+      .min(8, t('errors.forms.notValidPassword'))
+      .required(t('errors.forms.required'))
+      .oneOf([Yup.ref('password'), ''], t('errors.forms.confirmNewPassword')),
   });
 
   const onSubmit = async (password: string, resetForm: any) => {
@@ -40,8 +40,8 @@ const FormPassword: React.SFC<IFormPassword> = (props) => {
   return (
     <Formik
       initialValues={initFormValue}
-      validateOnChange={true}
-      validateOnBlur={true}
+      validateOnChange
+      validateOnBlur
       validationSchema={validationsForm}
       onSubmit={(values, { setSubmitting, resetForm }) => {
         onSubmit(values.password, resetForm);
@@ -63,20 +63,20 @@ const FormPassword: React.SFC<IFormPassword> = (props) => {
           <Row center="xs">
             <Col xs={12} md={6} xl={4}>
               <V7TextField
-                id={"password"}
-                name={"password"}
-                type={"password"}
-                label={t("labels.forms.newPassword")}
+                id="password"
+                name="password"
+                type="password"
+                label={t('labels.forms.newPassword')}
                 disabled={isSubmitting}
                 error={errors.password !== undefined && touched.password}
                 value={values.password}
                 onBlur={handleBlur}
                 onChange={handleChange}
-                icon={<V7Icon icon={faAt} size={"2x"} />}
+                icon={<V7Icon icon={faAt} size="2x" />}
                 errorText={
                   errors.password !== undefined && touched.password
                     ? errors.password
-                    : ""
+                    : ''
                 }
               />
             </Col>
@@ -84,24 +84,24 @@ const FormPassword: React.SFC<IFormPassword> = (props) => {
           <Row center="xs">
             <Col xs={12} md={6} xl={4}>
               <V7TextField
-                id={"passwordConfirm"}
-                name={"passwordConfirm"}
-                type={"password"}
-                label={t("labels.forms.passwordConf")}
+                id="passwordConfirm"
+                name="passwordConfirm"
+                type="password"
+                label={t('labels.forms.passwordConf')}
                 disabled={isSubmitting}
                 error={
-                  errors.passwordConfirm !== undefined &&
-                  touched.passwordConfirm
+                  errors.passwordConfirm !== undefined
+                  && touched.passwordConfirm
                 }
                 value={values.passwordConfirm}
                 onBlur={handleBlur}
                 onChange={handleChange}
-                icon={<V7Icon icon={faAt} size={"2x"} />}
+                icon={<V7Icon icon={faAt} size="2x" />}
                 errorText={
-                  errors.passwordConfirm !== undefined &&
-                  touched.passwordConfirm
+                  errors.passwordConfirm !== undefined
+                  && touched.passwordConfirm
                     ? errors.passwordConfirm
-                    : ""
+                    : ''
                 }
               />
             </Col>
@@ -113,7 +113,7 @@ const FormPassword: React.SFC<IFormPassword> = (props) => {
                 disabled={!(isValid && dirty)}
                 size="large"
               >
-                {t("labels.forms.submit")}
+                {t('labels.forms.submit')}
               </V7Button>
             </Col>
           </Row>

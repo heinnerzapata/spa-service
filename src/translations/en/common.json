@@ -3,6 +3,13 @@
     "en": "English",
     "es": "Spanish"
   },
+  "appRouter": {
+    "Principal": "Principal",
+    "Dashboards": "Dashboards",
+    "Main dashboard": "Main dashboard",
+    "Device register": "Device register",
+    "Profile": "Profile"
+  },
   "toast": {
     "welcome": "Welcome",
     "invalidCredentials": "Invalid credentials",
@@ -31,13 +38,20 @@
     },
     "signin": {
       "title": "Sign In",
-      "welcome": "Welcome !!",
+      "hi": "Hi, ",
+      "welcome": "welcome to",
+      "message": "This is the beginning of the new way to automate your daily maintenance control tasks.",
       "invalidCredentials": "Invalid credentials"
     },
     "signup": {
       "title": "Sign Up",
-      "welcome": "Welcome !!",
+      "hi": "Hi, ",
+      "welcome": "let's be partners",
+      "message": "Enter your information details and start the journey with us!",
       "errorOnUserCreation": "Error on user creation"
+    },
+    "verificationCode": {
+      "title": "Verification code"
     },
     "recover": {
       "title": "Recover password"
@@ -77,6 +91,13 @@
         "dashboard": "Dashboard",
         "logout": "LogOut"
       }
+    },
+    "headerProfiler": {
+      "profile": "Profile",
+      "myCompany": "My company",
+      "myAccount": "My account",
+      "settings": "Settings",
+      "logout": "Logout"
     }
   },
   "errors": {
@@ -101,9 +122,14 @@
       "submit": "Submit",
       "save": "Save",
       "pay": "Pay",
-      "recoverPassword": "Recover password",
-      "dontHaveAccount": "Don't Have an Account ?",
-      "doYouHaveAnAccount": "Do you have an account already ?",
+      "forgotPassword": "Forgot password?",
+      "dontHaveAnAccount": "Don't have an Account?",
+      "doYouHaveAVerificationCode": "Do you have a verification code?",
+      "alreadyHaveAnAccount": "Already have an account?",
+      "rememberMe": "Remember me",
+      "agreeAllTerms": "I agree to all Terms",
+      "logIn": "Log in",
+      "signUp": "Sign Up",
       "firstName": "First name",
       "companyName": "Company name",
       "lastName": "Last name",
@@ -118,7 +144,8 @@
       "city": "City",
       "address": "Address",
       "contactName": "Contact name",
-      "contactPhone": "Contact phone"
+      "contactPhone": "Contact phone",
+      "userName": "Username"
     }
   }
 }

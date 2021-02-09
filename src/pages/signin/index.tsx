@@ -1,19 +1,34 @@
-import React from "react";
-import { WithTranslation } from "react-i18next";
-import { V7PageTitle, V7Icon, V7Button, V7Link, V7TextField } from "components";
-import { Formik } from "formik";
-import { V7PageContainer } from "containers";
-import { Row, Col } from "react-flexbox-grid";
-import { faAt, faKey } from "@fortawesome/free-solid-svg-icons";
-import queryString from "query-string";
-import { setToken } from "utilities/token";
-import { RouteComponentProps } from "react-router-dom";
-import _ from "lodash";
-import { ICredentials } from "models";
-import { IUserState } from "store/user/reducer";
-import styles from "./signIn.module.scss";
-import { toast } from "react-toastify";
-import * as Yup from "yup";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react/no-unused-state */
+import React from 'react';
+import { WithTranslation } from 'react-i18next';
+import _ from 'lodash';
+
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
+  Input,
+  CustomInput,
+  Form,
+  Row,
+  Col,
+  Label,
+  Button,
+} from 'reactstrap';
+
+import { Formik } from 'formik';
+
+import { V7Logo } from 'components';
+import queryString from 'query-string';
+import { setToken } from 'utilities/tokenHelper';
+import { RouteComponentProps } from 'react-router-dom';
+import { ICredentials } from 'models';
+import { IUserState } from 'store/user/reducer';
+import { toast } from 'react-toastify';
+import * as Yup from 'yup';
+
+import authBg from 'assets/images/big/v7-auth-bg.png';
 
 interface ISignInProps extends WithTranslation, RouteComponentProps {
   t: any;
@@ -29,11 +44,11 @@ interface ISignInState {
 
 interface IFormModel extends ICredentials {}
 
-const defaultSignInRedirectionUrl = "/dashboard";
+const defaultSignInRedirectionUrl = '/dashboards';
 
 const initFormValue: IFormModel = {
-  email: "",
-  password: "",
+  email: '',
+  password: '',
 };
 
 class SignIn extends React.PureComponent<ISignInProps, ISignInState> {
@@ -44,7 +59,7 @@ class SignIn extends React.PureComponent<ISignInProps, ISignInState> {
 
     this.state = {
       canSubmit: false,
-      nextPage: "",
+      nextPage: '',
       resetForm: false,
     };
   }
@@ -58,7 +73,7 @@ class SignIn extends React.PureComponent<ISignInProps, ISignInState> {
     const queryParams = queryString.parse(this.props.location.search);
 
     if (!_.isNil(queryParams.next)) {
-      toast.info(`${t("toast.pleaseValidateCredentials")}`);
+      toast.info(`${t('toast.pleaseValidateCredentials')}`);
     }
 
     return !_.isNil(queryParams.next)
@@ -76,7 +91,7 @@ class SignIn extends React.PureComponent<ISignInProps, ISignInState> {
             this.validCredentials();
           }
         })
-        .catch((err: any) => {
+        .catch(() => {
           this.invalidCredentials();
         });
     }
@@ -85,14 +100,14 @@ class SignIn extends React.PureComponent<ISignInProps, ISignInState> {
   validCredentials = () => {
     const { t } = this.props;
     toast.success(
-      `${t("toast.welcome")} ${this.props.userReducer.userInfo.display_name} !!`
+      `${t('toast.welcome')} ${this.props.userReducer.userInfo.display_name} !!`,
     );
     this.props.history.push(this.state.nextPage);
   };
 
   invalidCredentials = () => {
     const { t } = this.props;
-    toast.error(`${t("toast.invalidCredentials")}`);
+    toast.error(`${t('toast.invalidCredentials')}`);
     this.setState({ resetForm: true }, () => {
       this.setState({ resetForm: false });
     });
@@ -108,118 +123,205 @@ class SignIn extends React.PureComponent<ISignInProps, ISignInState> {
 
     const validationsForm = Yup.object().shape({
       email: Yup.string()
-        .email(t("errors.forms.notValidEmail"))
-        .required(t("errors.forms.required")),
+        .email(t('errors.forms.notValidEmail'))
+        .required(t('errors.forms.required')),
       password: Yup.string()
-        .min(8, t("errors.forms.notValidPassword"))
-        .required(t("errors.forms.required")),
+        .min(8, t('errors.forms.notValidPassword'))
+        .required(t('errors.forms.required')),
     });
 
     const getTextError = (
       touched: boolean | undefined,
-      error: string | undefined
-    ): string => {
-      return error !== undefined && touched && error !== undefined ? error : "";
-    };
+      error: string | undefined,
+    ): string => (error !== undefined && touched && error !== undefined ? error : '');
+
+    const showError = (info: any) => (
+      <span className="error">
+        *
+        {info}
+        <br />
+      </span>
+    );
 
     return (
-      <section className={styles.vol7erSignIn}>
-        <V7PageTitle title={t("pages.signin.title")} />
-        <V7PageContainer
-          page="signin"
-          marginTop={150}
-          isFull
-          showPreloader={this.props.userReducer.isFetching}
-        >
-          <Formik
-            initialValues={initFormValue}
-            validateOnChange={true}
-            validateOnBlur={true}
-            validationSchema={validationsForm}
-            onSubmit={(values, { setSubmitting, resetForm }) => {
-              this.onSubmit(values, resetForm);
-              setSubmitting(false);
-            }}
-          >
-            {({
-              values,
-              errors,
-              touched,
-              handleChange,
-              handleBlur,
-              handleSubmit,
-              isSubmitting,
-              isValid,
-              dirty,
-            }) => (
-              <form onSubmit={handleSubmit} autoComplete="off">
-                <Row center="xs">
-                  <Col xs={12} md={6} xl={4}>
-                    <V7TextField
-                      id={"email"}
-                      name={"email"}
-                      type={"text"}
-                      label={t("labels.forms.email")}
-                      disabled={isSubmitting}
-                      error={errors.email !== undefined && touched.email}
-                      value={values.email}
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      icon={<V7Icon icon={faAt} size={"2x"} />}
-                      errorText={getTextError(touched.email, errors.email)}
-                    />
-                  </Col>
-                </Row>
-                <Row center="xs">
-                  <Col xs={12} md={6} xl={4}>
-                    <V7TextField
-                      id={"password"}
-                      name={"password"}
-                      type={"password"}
-                      label={t("labels.forms.password")}
-                      disabled={isSubmitting}
-                      error={errors.password !== undefined && touched.password}
-                      value={values.password}
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      icon={<V7Icon icon={faKey} size={"2x"} />}
-                      errorText={getTextError(
-                        touched.password,
-                        errors.password
-                      )}
-                    />
-                  </Col>
-                </Row>
-                <Row center="xs">
-                  <Col xs={12} md={6} xl={4}>
-                    <V7Button
-                      type="submit"
-                      disabled={!(isValid && dirty)}
-                      size="large"
-                    >
-                      {t("labels.forms.submit")}
-                    </V7Button>
-                  </Col>
-                </Row>
-                <Row center="xs" middle="xs" className="">
-                  <Col xs={12} className={styles.recover}>
-                    <V7Link
-                      to={"/recover"}
-                      text={t("labels.forms.recoverPassword")}
-                    />
-                  </Col>
-                  <Col xs={12} className={styles.recover}>
-                    <V7Link
-                      to={"/signup"}
-                      text={t("labels.forms.dontHaveAccount")}
-                    />
-                  </Col>
-                </Row>
-              </form>
-            )}
-          </Formik>
-        </V7PageContainer>
-      </section>
+      <div
+        className="auth-wrapper align-items-center d-flex"
+        style={{
+          backgroundImage: `url(${authBg})`,
+          backgroundSize: 'cover',
+          height: '100vh',
+          flexDirection: 'column-reverse',
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundRepeat: 'no-repeat',
+        }}
+      >
+        <div className="container">
+          <div>
+            <Row className="no-gutters justify-content-center">
+              <Col md="6" lg="4" className="text-white" style={{ backgroundColor: '#2b2c2de3' }}>
+                <div className="p-4">
+                  <h3 className="font-medium mb-3 text-info">
+                    {t('pages.signin.title')}
+                  </h3>
+                  <Formik
+                    initialValues={initFormValue}
+                    validateOnChange
+                    validateOnBlur
+                    validationSchema={validationsForm}
+                    onSubmit={(values, { setSubmitting, resetForm }) => {
+                      this.onSubmit(values, resetForm);
+                      setSubmitting(false);
+                    }}
+                  >
+                    {({
+                      values,
+                      errors,
+                      touched,
+                      handleChange,
+                      handleBlur,
+                      handleSubmit,
+                      isSubmitting,
+                      isValid,
+                      dirty,
+                    }) => (
+                      <Form
+                        autoComplete="off"
+                        onSubmit={handleSubmit}
+                        className="mt-3"
+                        id="loginform"
+                        action="/dashbaords"
+                      >
+                        <>
+                          <Label for="email" className="font-medium">
+                            {t('labels.forms.email')}
+                          </Label>
+                          <InputGroup className="mb-2" size="lg">
+                            <InputGroupAddon addonType="prepend">
+                              <InputGroupText>
+                                <i className="fas fa-user" />
+                              </InputGroupText>
+                            </InputGroupAddon>
+                            <Input
+                              disabled={isSubmitting}
+                              type="email"
+                              id="email"
+                              name="email"
+                              value={values.email}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              placeholder={t('labels.forms.email')}
+                            />
+                          </InputGroup>
+                          {
+                            getTextError(touched.email, errors.email)
+                              && showError(getTextError(touched.email, errors.email))
+                              && touched.email
+                          }
+                          <Label for="password" className="mt-3 font-medium">
+                            {t('labels.forms.password')}
+                          </Label>
+                          <InputGroup className="mb-3" size="lg">
+                            <InputGroupAddon addonType="prepend">
+                              <InputGroupText>
+                                <i className="fas fa-key" />
+                              </InputGroupText>
+                            </InputGroupAddon>
+                            <Input
+                              disabled={isSubmitting}
+                              type="password"
+                              id="password"
+                              name="password"
+                              value={values.password}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              placeholder={t('labels.forms.password')}
+                            />
+                          </InputGroup>
+                          {
+                            getTextError(touched.password, errors.password)
+                              && showError(getTextError(touched.password, errors.password))
+                              && touched.password
+                          }
+                          <div className="d-flex no-block align-items-center mb-4 mt-4">
+                            <CustomInput
+                              type="checkbox"
+                              id="exampleCustomCheckbox"
+                              label={t('labels.forms.rememberMe')}
+                            />
+                            <div className="ml-auto">
+                              <a
+                                href="/auth/recover"
+                                id="to-recover"
+                                className="forgot text-white float-right"
+                              >
+                                <i className="fa fa-lock mr-1" />
+                                {t('labels.forms.forgotPassword')}
+                              </a>
+                            </div>
+                          </div>
+                          <Row className="mb-3">
+                            <Col xs="12">
+                              <Button
+                                color="primary"
+                                className={`${(isValid && dirty) ? '' : 'disabled'}`}
+                                style={{
+                                  backgroundColor: '#44a0ff',
+                                  borderColor: '#44a0ff',
+                                }}
+                                size="lg"
+                                type="submit"
+                                block
+                                disabled={!(isValid && dirty)}
+                              >
+                                {t('labels.forms.logIn')}
+                              </Button>
+                            </Col>
+                          </Row>
+                          <div style={{ fontSize: '12px' }} className="text-center float-right">
+                            {t('labels.forms.dontHaveAnAccount')}
+                            <a href="/auth/register" className="text-info ml-1">
+                              <b>
+                                {t('labels.forms.signUp')}
+                              </b>
+                            </a>
+                          </div>
+                          <div style={{ fontSize: '12px' }} className="text-center float-right">
+                            {t('labels.forms.doYouHaveAVerificationCode')}
+                            <a href="/auth/verification" className="text-info ml-1">
+                              <b>
+                                {t('pages.verificationCode.title')}
+                              </b>
+                            </a>
+                          </div>
+                          <br />
+                          <br />
+                        </>
+                      </Form>
+                    )}
+                  </Formik>
+                </div>
+              </Col>
+              <Col md="6" lg="4" className="text-white" style={{ backgroundColor: '#263238fa' }}>
+                <div className="p-4">
+                  <h2 className="text-white display-5">
+                    {t('pages.signin.hi')}
+                    <br />
+                    <span style={{ color: '#ffb22b' }} className="font-bold">
+                      {t('pages.signin.welcome')}
+                      <V7Logo className="vol7er-preloader__logo" isScrollTop={false} fontSize={34} />
+                    </span>
+                  </h2>
+                  <br />
+                  <p className="op-1 mt-4" style={{ fontSize: '26px', borderTop: 'solid 3px #ffb22b' }}>
+                    {t('pages.signin.message')}
+                  </p>
+                </div>
+              </Col>
+            </Row>
+          </div>
+        </div>
+      </div>
     );
   }
 }

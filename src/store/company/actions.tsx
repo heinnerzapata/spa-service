@@ -1,6 +1,6 @@
-import { Dispatch } from "redux";
-import services from "services";
-import { companyActionType } from "./types";
+import { Dispatch } from 'redux';
+import services from 'services';
+import { companyActionType } from './types';
 
 export interface IGetCompanyStarted {
   type: companyActionType.GET_COMPANY_STARTED;
@@ -75,35 +75,35 @@ export const updateCompanyError = (error: string): IUpdateCompanyError => ({
   error,
 });
 
-export const getCompany = (companyId: string) => {
-  return async (dispatch: Dispatch) => {
-    dispatch(getCompanyStarted());
-    try {
-      const result = (await services.company.getCompany(companyId)) as any;
-      const company = result.response.data.company;
-      dispatch(getCompanySuccess(company));
-      return Promise.resolve();
-    } catch (error) {
-      dispatch(getCompanyError(error));
-      return Promise.reject(error);
-    }
-  };
+export const getCompany = (companyId: string) => async (dispatch: Dispatch) => {
+  dispatch(getCompanyStarted());
+  try {
+    const result = (await services.company.getCompany(companyId)) as any;
+    const { company } = result.response.data;
+    dispatch(getCompanySuccess(company));
+
+    return await Promise.resolve();
+  } catch (error) {
+    dispatch(getCompanyError(error));
+
+    return Promise.reject(error);
+  }
 };
 
-export const upsertCompany = (company: any, companyId: string) => {
-  return async (dispatch: Dispatch) => {
-    dispatch(updateCompanyStarted());
-    try {
-      const result = (await services.company.updateCompany(
-        company,
-        companyId
-      )) as any;
-      const companyResult = result.response.data.company;
-      dispatch(updateCompanySuccess(companyResult));
-      return Promise.resolve(result);
-    } catch (error) {
-      dispatch(updateCompanyError(error));
-      return Promise.reject(error);
-    }
-  };
+export const upsertCompany = (company: any, companyId: string) => async (dispatch: Dispatch) => {
+  dispatch(updateCompanyStarted());
+  try {
+    const result = (await services.company.updateCompany(
+      company,
+      companyId,
+    )) as any;
+    const companyResult = result.response.data.company;
+    dispatch(updateCompanySuccess(companyResult));
+
+    return await Promise.resolve(result);
+  } catch (error) {
+    dispatch(updateCompanyError(error));
+
+    return Promise.reject(error);
+  }
 };

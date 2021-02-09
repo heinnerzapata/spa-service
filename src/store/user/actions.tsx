@@ -1,8 +1,8 @@
-import { Dispatch } from "redux";
-import { ICredentials } from "models";
-import services from "services";
-import { userActionType } from "./types";
-import { clearCompany } from "store/company/actions";
+import { Dispatch } from 'redux';
+import { ICredentials } from 'models';
+import services from 'services';
+import { clearCompany } from 'store/company/actions';
+import { userActionType } from './types';
 
 export interface ISignupStarted {
   type: userActionType.SIGNUP_STARTED;
@@ -101,29 +101,23 @@ export type IAction =
   | IUpdateUserSuccess
   | IUpdateUserError;
 
-export const cleanToken = () => {
-  return (dispatch: Dispatch) => {
-    dispatch({
-      type: userActionType.CLEAN_TOKEN,
-    });
-  };
+export const cleanToken = () => (dispatch: Dispatch) => {
+  dispatch({
+    type: userActionType.CLEAN_TOKEN,
+  });
 };
 
-export const setUserInfo = (userInfo: any) => {
-  return (dispatch: Dispatch) => {
-    dispatch({
-      type: userActionType.SET_USER_INFO,
-      userInfo,
-    });
-  };
+export const setUserInfo = (userInfo: any) => (dispatch: Dispatch) => {
+  dispatch({
+    type: userActionType.SET_USER_INFO,
+    userInfo,
+  });
 };
 
-export const cleanUserInfo = () => {
-  return (dispatch: Dispatch) => {
-    dispatch({
-      type: userActionType.CLEAN_USER_INFO,
-    });
-  };
+export const cleanUserInfo = () => (dispatch: Dispatch) => {
+  dispatch({
+    type: userActionType.CLEAN_USER_INFO,
+  });
 };
 
 export const signupStarted = (): ISignupStarted => ({
@@ -160,7 +154,7 @@ export const loginStarted = (): ILoginStarted => ({
 
 export const loginSuccess = (
   userInfo: any,
-  companyId: string | null
+  companyId: string | null,
 ): ILoginSuccess => ({
   type: userActionType.LOGIN_SUCCESS,
   userInfo,
@@ -194,153 +188,150 @@ export const recoverError = (error: string): IRecoverError => ({
   error,
 });
 
-export const updateUser = (newUserInfo: any, hexId: string) => {
-  return async (dispatch: Dispatch) => {
-    dispatch(updateUserStarted());
-    try {
-      const result = (await services.user.updateAccount(
-        newUserInfo,
-        hexId
-      )) as any;
-      const data = result.response.data;
-      const userInfo = data.account;
-      dispatch(updateUserSuccess(userInfo));
-      return Promise.resolve(userInfo);
-    } catch (error) {
-      dispatch(updateUserError(error));
-      return Promise.reject(error);
-    }
-  };
+export const updateUser = (newUserInfo: any, hexId: string) => async (dispatch: Dispatch) => {
+  dispatch(updateUserStarted());
+  try {
+    const result = (await services.user.updateAccount(
+      newUserInfo,
+      hexId,
+    )) as any;
+    const { data } = result.response;
+    const userInfo = data.account;
+    dispatch(updateUserSuccess(userInfo));
+
+    return await Promise.resolve(userInfo);
+  } catch (error) {
+    dispatch(updateUserError(error));
+
+    return Promise.reject(error);
+  }
 };
 
-export const userLogOut = (email: string) => {
-  return async (dispatch: Dispatch) => {
-    dispatch(loginStarted());
-    try {
-      await services.user.logout(email);
-      dispatch(logOutSuccess());
-      dispatch(setToken(""));
-      return Promise.resolve();
-    } catch (error) {
-      dispatch(loginError(error));
-      return Promise.reject(error);
-    }
-  };
+export const userLogOut = (email: string) => async (dispatch: Dispatch) => {
+  dispatch(loginStarted());
+  try {
+    await services.user.logout(email);
+    dispatch(logOutSuccess());
+    dispatch(setToken(''));
+
+    return await Promise.resolve();
+  } catch (error) {
+    dispatch(loginError(error));
+
+    return Promise.reject(error);
+  }
 };
 
-export const signUp = (newUserInfo: any) => {
-  return async (dispatch: Dispatch) => {
-    dispatch(signupStarted());
+export const signUp = (newUserInfo: any) => async (dispatch: Dispatch) => {
+  dispatch(signupStarted());
 
-    try {
-      const result = (await services.user.signup(newUserInfo)) as any;
-      const userInfo = result.response.data.account;
-      const resultToken = result.response.data.token;
-      const data = result.response.data;
+  try {
+    const result = (await services.user.signup(newUserInfo)) as any;
+    const userInfo = result.response.data.account;
+    const resultToken = result.response.data.token;
+    const { data } = result.response;
 
-      dispatch(signupSuccess(userInfo));
-      dispatch(setToken(resultToken));
+    dispatch(signupSuccess(userInfo));
+    dispatch(setToken(resultToken));
 
-      return Promise.resolve(data);
-    } catch (error) {
-      dispatch(signupError("error"));
-      return Promise.reject(error);
-    }
-  };
+    return await Promise.resolve(data);
+  } catch (error) {
+    dispatch(signupError('error'));
+
+    return Promise.reject(error);
+  }
 };
 
-export const loginFromToken = (token: string) => {
-  return async (dispatch: Dispatch) => {
-    dispatch(loginStarted());
-    try {
-      const result = (await services.user.checkUserToken(token)) as any;
-      const userInfo = result.response.data.account;
-      const company = result.response.data.company;
-      const companyId = company ? company.hex_id : null;
-      const data = result.response.data;
+export const loginFromToken = (token: string) => async (dispatch: Dispatch) => {
+  dispatch(loginStarted());
+  try {
+    const result = (await services.user.checkUserToken(token)) as any;
+    const userInfo = result.response.data.account;
+    const { company } = result.response.data;
+    const companyId = company ? company.hex_id : null;
+    const { data } = result.response;
 
-      if (!company) {
-        dispatch(clearCompany());
-      }
-
-      dispatch(loginSuccess(userInfo, companyId));
-      dispatch(setToken(token));
-
-      return Promise.resolve(data);
-    } catch (error) {
-      dispatch(loginError(error));
-      return Promise.reject(error);
+    if (!company) {
+      dispatch(clearCompany());
     }
-  };
+
+    dispatch(loginSuccess(userInfo, companyId));
+    dispatch(setToken(token));
+
+    return await Promise.resolve(data);
+  } catch (error) {
+    dispatch(loginError(error));
+
+    return Promise.reject(error);
+  }
 };
 
-export const loginFromCredentials = (credentials: ICredentials) => {
-  return async (dispatch: Dispatch) => {
-    dispatch(loginStarted());
-    try {
-      const result = (await services.user.login(credentials)) as any;
-      const userInfo = result.response.data.account;
-      const resultToken = result.response.data.token;
-      const data = result.response.data;
+export const loginFromCredentials = (credentials: ICredentials) => async (dispatch: Dispatch) => {
+  dispatch(loginStarted());
+  try {
+    const result = (await services.user.login(credentials)) as any;
+    const userInfo = result.response.data.account;
+    const resultToken = result.response.data.token;
+    const { data } = result.response;
 
-      dispatch(loginSuccess(userInfo, null));
-      dispatch(setToken(resultToken));
+    dispatch(loginSuccess(userInfo, null));
+    dispatch(setToken(resultToken));
 
-      return Promise.resolve(data);
-    } catch (error) {
-      dispatch(loginError(error));
-      return Promise.reject(error);
-    }
-  };
+    return await Promise.resolve(data);
+  } catch (error) {
+    dispatch(loginError(error));
+
+    return Promise.reject(error);
+  }
 };
 
-export const recoverPassword = (email: string) => {
-  return async (dispatch: Dispatch) => {
-    dispatch(recoverStarted());
-    try {
-      const result = (await services.user.recoverPassword(email)) as any;
+export const recoverPassword = (email: string) => async (dispatch: Dispatch) => {
+  dispatch(recoverStarted());
+  try {
+    const result = (await services.user.recoverPassword(email)) as any;
 
-      dispatch(recoverSuccess());
-      return Promise.resolve(result);
-    } catch (error) {
-      dispatch(recoverError(error));
-      return Promise.reject(error);
-    }
-  };
+    dispatch(recoverSuccess());
+
+    return await Promise.resolve(result);
+  } catch (error) {
+    dispatch(recoverError(error));
+
+    return Promise.reject(error);
+  }
 };
 
-export const checkRecoverHash = (hash: string) => {
-  return async (dispatch: Dispatch) => {
-    dispatch(recoverStarted());
-    try {
-      const result = (await services.user.checkRecoverHash(hash)) as any;
+export const checkRecoverHash = (hash: string) => async (dispatch: Dispatch) => {
+  dispatch(recoverStarted());
+  try {
+    const result = (await services.user.checkRecoverHash(hash)) as any;
 
-      dispatch(recoverSuccess());
-      return Promise.resolve(result);
-    } catch (error) {
-      dispatch(recoverError(error));
-      return Promise.reject(error);
-    }
-  };
+    dispatch(recoverSuccess());
+
+    return await Promise.resolve(result);
+  } catch (error) {
+    dispatch(recoverError(error));
+
+    return Promise.reject(error);
+  }
 };
 
-export const restorePassword = (password: string, hash: string) => {
-  return async (dispatch: Dispatch) => {
-    dispatch(recoverStarted());
-    try {
-      const result = (await services.user.restorePassword(
-        password,
-        hash
-      )) as any;
-      const userInfo = result.response.data.account;
+export const restorePassword = (password: string, hash: string) => async (dispatch: Dispatch) => {
+  dispatch(recoverStarted());
+  try {
+    const result = (await services.user.restorePassword(
+      password,
+      hash,
+    )) as any;
+    const userInfo = result.response.data.account;
 
-      dispatch(recoverSuccess());
-      dispatch(loginSuccess(userInfo, null));
-      dispatch(setToken(userInfo.token));
-      return Promise.resolve(result.response.data);
-    } catch (error) {
-      dispatch(recoverError(error));
-      return Promise.reject(error);
-    }
-  };
+    dispatch(recoverSuccess());
+    dispatch(loginSuccess(userInfo, null));
+    dispatch(setToken(userInfo.token));
+
+    return await Promise.resolve(result.response.data);
+  } catch (error) {
+    dispatch(recoverError(error));
+
+    return Promise.reject(error);
+  }
 };

@@ -1,19 +1,20 @@
-import _ from "lodash";
-import axios from "axios";
-import config from "../config/config";
-import { getToken } from "utilities/token";
-import store from "../store";
+import _ from 'lodash';
+import axios from 'axios';
+import { getToken } from 'utilities/tokenHelper';
+import config from '../config/config';
+import store from '../store';
 
 class V7HttpRequest {
   configRequest: any;
+
   baseUrl: any;
 
   constructor() {
     this.configRequest = {
       headers: {
-        "Accept-Language": "en",
-        "Content-Type": "application/json",
-        "x-api-key": process.env.REACT_APP_API_KEY,
+        'Accept-Language': 'en',
+        'Content-Type': 'application/json',
+        'x-api-key': process.env.REACT_APP_API_KEY,
       },
     };
     this.baseUrl = config.urlEnv;
@@ -28,6 +29,7 @@ class V7HttpRequest {
 
   getConfigRequest(isGet: boolean) {
     this.getToken(isGet);
+
     return this.configRequest;
   }
 
@@ -37,12 +39,12 @@ class V7HttpRequest {
         .post(
           `${process.env.REACT_APP_API}${url}`,
           data,
-          this.getConfigRequest(false)
+          this.getConfigRequest(false),
         )
-        .then(function (response) {
+        .then((response) => {
           resolve(response.data);
         })
-        .catch(function (error) {
+        .catch((error) => {
           reject(Error(error));
         });
     });
@@ -54,12 +56,12 @@ class V7HttpRequest {
         .put(
           `${process.env.REACT_APP_API}${url}`,
           data,
-          this.getConfigRequest(false)
+          this.getConfigRequest(false),
         )
-        .then(function (response) {
+        .then((response) => {
           resolve(response.data);
         })
-        .catch(function (error) {
+        .catch((error) => {
           reject(Error(error));
         });
     });
@@ -69,10 +71,10 @@ class V7HttpRequest {
     return new Promise((resolve, reject) => {
       axios
         .get(`${process.env.REACT_APP_API}${url}`, this.getConfigRequest(true))
-        .then(function (response) {
+        .then((response) => {
           resolve(response.data);
         })
-        .catch(function (error) {
+        .catch((error) => {
           reject(Error(error));
         });
     });
