@@ -1,145 +1,166 @@
-import React, { useEffect } from "react";
-import styles from "./v7Header.module.scss";
-import cx from "classnames";
-import { Row, Col, Grid } from "react-flexbox-grid";
-import {
-  faSignOutAlt,
-  faUser,
-  faIndustry,
-} from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
-import { COLORS } from "variables/constants";
-import {
-  V7Logo,
-  V7LanguageSelector,
-  V7Button,
-  V7Link,
-  V7Menu,
-  V7Icon,
-} from "components";
-import { IUserState } from "store/user/reducer";
-import { useTranslation } from "react-i18next";
-import { useHistory } from "react-router-dom";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { WithTranslation, withTranslation } from 'react-i18next';
 
-interface v7HeaderProps {
-  userReducer: IUserState;
-  onLogOut?: () => void;
+import {
+  Nav,
+  NavItem,
+  NavLink,
+  Navbar,
+  NavbarBrand,
+  Collapse,
+} from 'reactstrap';
+
+import {
+  V7HeaderNotificator,
+  V7HeaderProfiler,
+} from 'components';
+
+import { physicalPaths } from 'router/router.app';
+
+import logov7icon from '../../assets/images/logo-vol7er-icon.png';
+import logov7text from '../../assets/images/logo-vol7er-text.png';
+
+interface IV7HeaderProps extends WithTranslation {
+  data: any;
 }
 
-const V7Header: React.SFC<v7HeaderProps> = (props) => {
-  const { t } = useTranslation();
-  const [isScroll, setIsScroll] = React.useState<boolean>(false);
-  const history = useHistory();
+const V7Header: React.FC<IV7HeaderProps> = ({ t, data }) => {
+  const location = useLocation();
 
-  const validateScrollPosition = () => {
-    setIsScroll(window.scrollY > 0);
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", validateScrollPosition);
-    return () => {
-      window.removeEventListener("scroll", validateScrollPosition);
-    };
+  const [stateHeader, setStateHeader] = useState({
+    isOpen: false,
   });
 
-  const handleMenuUserClick = (index: number) => {
-    switch (index) {
-      case 0:
-        history.push("/profile");
-        break;
-      case 1:
-        history.push("/company");
-        break;
-      case 2:
-        if (props.onLogOut) {
-          props.onLogOut();
+  const [stateNameActiveRoute, setStateNameActiveRoute] = useState('');
+
+  const toggle = () => {
+    setStateHeader({
+      ...stateHeader,
+      isOpen: !stateHeader.isOpen,
+    });
+  };
+
+  const showMobilemenu = () => {
+    document.getElementById('main-wrapper')?.classList.toggle('show-sidebar');
+  };
+
+  const sidebarHandler = () => {
+    const element = document.getElementById('main-wrapper');
+    switch (data.settings[0].sidebartype) {
+      case 'full':
+      case 'iconbar':
+        element?.classList.toggle('mini-sidebar');
+        if (element?.classList.contains('mini-sidebar')) {
+          element?.setAttribute('data-sidebartype', 'mini-sidebar');
+        } else {
+          element?.setAttribute(
+            'data-sidebartype',
+            data.settings[0].sidebartype,
+          );
         }
         break;
+      case 'overlay':
+      case 'mini-sidebar':
+        element?.classList.toggle('full');
+        if (element?.classList.contains('full')) {
+          element?.setAttribute('data-sidebartype', 'full');
+        } else {
+          element?.setAttribute(
+            'data-sidebartype',
+            data.settings[0].sidebartype,
+          );
+        }
+        break;
+
+      default:
     }
   };
 
+  useEffect(() => {
+    const actualRoute: string = window.location.pathname;
+
+    setStateNameActiveRoute(physicalPaths[actualRoute].name);
+  }, [location]);
+
   return (
-    <header className={cx(styles.v7Header, isScroll ? styles.isScroll : "")}>
-      <Grid>
-        <Row className={isScroll ? styles.maxHeight : ""} middle="xs">
-          <Col xs={4}>
-            <Link to="/">
-              <V7Logo isScrollTop={false} fontSize={28} />
-            </Link>
-          </Col>
-          <Col xs={8}>
-            <Row end="xs">
-              {!props.userReducer.isFetching && (
-                <React.Fragment>
-                  {props.userReducer.authenticated && (
-                    <V7Link to={"/dashboard"} color={COLORS.white} size={12}>
-                      <V7Button type="submit" visualType="outlined">
-                        {t("components.header.menu.dashboard")}
-                      </V7Button>
-                    </V7Link>
-                  )}
-                  {!props.userReducer.authenticated && (
-                    <V7Link to={"/signup"} color={COLORS.white} size={12}>
-                      <V7Button type="submit" visualType="outlined">
-                        {t("components.header.menu.signup")}
-                      </V7Button>
-                    </V7Link>
-                  )}
-                  {!props.userReducer.authenticated && (
-                    <V7Link to={"/signin"} color={COLORS.white} size={12}>
-                      <V7Button type="submit" visualType="outlined">
-                        {t("components.header.menu.signin")}
-                      </V7Button>
-                    </V7Link>
-                  )}
-                  {props.userReducer.authenticated &&
-                    props.userReducer.userInfo && (
-                      <V7Menu
-                        width={140}
-                        onItemClick={handleMenuUserClick}
-                        menuImage={props.userReducer.userInfo.avatar}
-                        listItems={[
-                          <React.Fragment>
-                            <div className={styles.menuItemContainer}>
-                              <V7Icon icon={faUser} size={"1x"} />
-                              <span className={styles.menuItemText}>
-                                {" "}
-                                {t(`components.header.menu.profile`)}
-                              </span>
-                            </div>
-                          </React.Fragment>,
-                          <React.Fragment>
-                            <div className={styles.menuItemContainer}>
-                              <V7Icon icon={faIndustry} size={"1x"} />
-                              <span className={styles.menuItemText}>
-                                {" "}
-                                {t(`components.header.menu.company`)}
-                              </span>
-                            </div>
-                          </React.Fragment>,
-                          <React.Fragment>
-                            <div className={styles.menuItemContainer}>
-                              <V7Icon icon={faSignOutAlt} size={"1x"} />
-                              <span className={styles.menuItemText}>
-                                {" "}
-                                {t(`components.header.menu.closeSession`)}
-                              </span>
-                            </div>
-                          </React.Fragment>,
-                        ]}
-                      />
-                    )}
-                </React.Fragment>
-              )}
-              <Col>
-                <V7LanguageSelector />
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-      </Grid>
+    <header
+      className="topbar navbarbg"
+      data-navbarbg={data.settings[0].navbarbg}
+    >
+      <Navbar
+        className={`top-navbar ${(data.settings[0].navbarbg === 'skin6' ? 'navbar-light' : 'navbar-dark')}`}
+        expand="md"
+      >
+        <div className="navbar-header" id="logobg" data-logobg={data.settings[0].logobg}>
+          <span
+            className="nav-toggler d-block d-md-none text-white"
+            onClick={showMobilemenu}
+            onKeyDown={showMobilemenu}
+            role="button"
+            tabIndex={0}
+          >
+            <i className="ti-menu ti-close" />
+          </span>
+          <NavbarBrand href="/">
+            <b className="logo-icon">
+              <img
+                src={logov7icon}
+                alt="homepage"
+                className="light-logo"
+              />
+            </b>
+            <span className="logo-text">
+              <img
+                src={logov7text}
+                className="light-logo"
+                alt="homepage"
+              />
+            </span>
+          </NavbarBrand>
+          <span
+            className="topbartoggler d-block d-md-none text-white"
+            onClick={toggle}
+            onKeyDown={toggle}
+            role="button"
+            tabIndex={-1}
+          >
+            <i className="ti-more" />
+          </span>
+        </div>
+        <Collapse
+          className="navbarbg"
+          isOpen={stateHeader.isOpen}
+          navbar
+          data-navbarbg={data.settings[0].navbarbg}
+        >
+          <Nav className="float-left" navbar>
+            <NavItem>
+              <NavLink
+                href="#"
+                className="d-none d-md-block"
+                onClick={sidebarHandler}
+              >
+                <i className="ti-menu" />
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink
+                className="text-white d-none d-md-block"
+              >
+                {t(`appRouter.${stateNameActiveRoute}`)}
+              </NavLink>
+            </NavItem>
+          </Nav>
+          <Nav className="ml-auto float-right" navbar>
+            <V7HeaderNotificator />
+            <V7HeaderProfiler />
+          </Nav>
+        </Collapse>
+      </Navbar>
     </header>
   );
 };
 
-export default V7Header;
+export default withTranslation('translation')(V7Header);

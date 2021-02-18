@@ -1,6 +1,6 @@
 export enum LANGUAGES {
-  ES = "es",
-  EN = "en",
+  ES = 'es',
+  EN = 'en',
 }
 
 export interface ILanguagesOptions {

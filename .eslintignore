@@ -1,0 +1,8 @@
+node_modules/
+src/serviceWorker.js
+src/setupProxy.js
+src/uiComponents/
+config/
+public/
+scripts/
+Jenkinsfile

@@ -3,6 +3,13 @@
     "en": "Ingles",
     "es": "Español"
   },
+  "appRouter": {
+    "Principal": "Principal",
+    "Dashboards": "Tableros",
+    "Main dashboard": "Tablero principal",
+    "Device register": "Registro de dispositivos",
+    "Profile": "Perfil"
+  },
   "toast": {
     "welcome": "Bienvenido",
     "invalidCredentials": "Credenciales invalidas",
@@ -31,13 +38,20 @@
     },
     "signin": {
       "title": "Ingresar",
-      "welcome": "Bienvenido !!",
+      "hi": "Hola, ",
+      "welcome": "bienvenido a",
+      "message": "Este es el comienzo de la nueva forma de automatizar sus tareas diarias de control de mantenimiento.",
       "invalidCredentials": "Credenciales invalidas"
     },
     "signup": {
       "title": "Registrarse",
-      "welcome": "Bienvenido !!",
+      "hi": "Hola, ",
+      "welcome": "seamos socios",
+      "message": "Ingrese los detalles de su información básica y comience este camino con nosotros",
       "errorOnUserCreation": "Error en la creacion del usuario"
+    },
+    "verificationCode": {
+      "title": "Código de verificación"
     },
     "recover": {
       "title": "Recuperar contraseña"
@@ -77,6 +91,13 @@
         "dashboard": "Tablero",
         "logout": "Salir"
       }
+    },
+    "headerProfiler": {
+      "profile": "Perfil",
+      "myCompany": "Mi compañía",
+      "myAccount": "Mi cuenta",
+      "settings": "Configuración",
+      "logout": "Cerrar sessión"
     }
   },
   "errors": {
@@ -101,9 +122,14 @@
       "submit": "Enviar",
       "save": "Guardar",
       "pay": "Pagar",
-      "recoverPassword": "Recuperar contraseña",
-      "dontHaveAccount": "¿ No tienes una cuenta ?",
-      "doYouHaveAnAccount": "¿ Ya tienes una cuenta ?",
+      "forgotPassword": "¿Olvidaste tu contraseña?",
+      "dontHaveAnAccount": "¿No tienes una cuenta?",
+      "doYouHaveAVerificationCode": "¿Tienes un código de verificación?",
+      "alreadyHaveAnAccount": "¿Ya tienes una cuenta?",
+      "rememberMe": "Recuérdame",
+      "agreeAllTerms": "Acepto todos los términos",
+      "logIn": "Iniciar sesión",
+      "signUp": "Registrarme",
       "firstName": "Nombre",
       "companyName": "Nombre de la compañia",
       "lastName": "Apellido",
@@ -118,7 +144,8 @@
       "city": "Ciudad",
       "address": "Direccion",
       "contactName": "Nombre de contacto",
-      "contactPhone": "Telefono de contacto"
+      "contactPhone": "Telefono de contacto",
+      "userName": "Nombre de usuario"
     }
   }
 }

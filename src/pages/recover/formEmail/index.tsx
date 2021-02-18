@@ -1,9 +1,9 @@
-import React from "react";
-import { Formik } from "formik";
-import * as Yup from "yup";
-import { Row, Col } from "react-flexbox-grid";
-import { V7TextField, V7Button, V7Icon } from "components";
-import { faAt } from "@fortawesome/free-solid-svg-icons";
+import React from 'react';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
+import { Row, Col } from 'react-flexbox-grid';
+import { V7TextField, V7Button, V7Icon } from 'components';
+import { faAt } from '@fortawesome/free-solid-svg-icons';
 
 interface IFormEmail {
   t: any;
@@ -15,7 +15,7 @@ interface IFormModel {
 }
 
 const initFormValue: IFormModel = {
-  email: "",
+  email: '',
 };
 
 const FormEmail: React.SFC<IFormEmail> = (props) => {
@@ -23,8 +23,8 @@ const FormEmail: React.SFC<IFormEmail> = (props) => {
 
   const validationsForm = Yup.object().shape({
     email: Yup.string()
-      .email(t("errors.forms.notValidEmail"))
-      .required(t("errors.forms.required")),
+      .email(t('errors.forms.notValidEmail'))
+      .required(t('errors.forms.required')),
   });
 
   const onSubmit = async (email: string, resetForm: any) => {
@@ -35,8 +35,8 @@ const FormEmail: React.SFC<IFormEmail> = (props) => {
   return (
     <Formik
       initialValues={initFormValue}
-      validateOnChange={true}
-      validateOnBlur={true}
+      validateOnChange
+      validateOnBlur
       validationSchema={validationsForm}
       onSubmit={(values, { setSubmitting, resetForm }) => {
         onSubmit(values.email, resetForm);
@@ -58,20 +58,20 @@ const FormEmail: React.SFC<IFormEmail> = (props) => {
           <Row center="xs">
             <Col xs={12} md={6} xl={4}>
               <V7TextField
-                id={"email"}
-                name={"email"}
-                type={"text"}
-                label={t("labels.forms.email")}
+                id="email"
+                name="email"
+                type="text"
+                label={t('labels.forms.email')}
                 disabled={isSubmitting}
                 error={errors.email !== undefined && touched.email}
                 value={values.email}
                 onBlur={handleBlur}
                 onChange={handleChange}
-                icon={<V7Icon icon={faAt} size={"2x"} />}
+                icon={<V7Icon icon={faAt} size="2x" />}
                 errorText={
                   errors.email !== undefined && touched.email
                     ? errors.email
-                    : ""
+                    : ''
                 }
               />
             </Col>
@@ -83,7 +83,7 @@ const FormEmail: React.SFC<IFormEmail> = (props) => {
                 disabled={!(isValid && dirty)}
                 size="large"
               >
-                {t("labels.forms.submit")}
+                {t('labels.forms.submit')}
               </V7Button>
             </Col>
           </Row>

@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import "./v7Select.module.scss";
-import Select from "react-select";
+import React, { useState } from 'react';
+import './v7Select.module.scss';
+import Select from 'react-select';
 
 interface v7SelectProps {}
 
@@ -10,16 +10,16 @@ interface ISelectOption {
 }
 
 const options: ISelectOption[] = [
-  { value: "chocolate", label: "Chocolate" },
-  { value: "strawberry", label: "Strawberry" },
-  { value: "vanilla", label: "Vanilla" },
+  { value: 'chocolate', label: 'Chocolate' },
+  { value: 'strawberry', label: 'Strawberry' },
+  { value: 'vanilla', label: 'Vanilla' },
 ];
 
-const V7Select: React.SFC<v7SelectProps> = (props) => {
+const V7Select: React.SFC<v7SelectProps> = () => {
   const [selectedOption, setSelectedOption] = useState(options[0]);
 
-  const handleChange = (selectedOption: any) => {
-    setSelectedOption(selectedOption);
+  const handleChange = (selectOption: any) => {
+    setSelectedOption(selectOption);
   };
 
   return (

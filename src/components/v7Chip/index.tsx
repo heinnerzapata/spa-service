@@ -1,8 +1,8 @@
-import React from "react";
-import styles from "./v7Chip.module.scss";
-import cx from "classnames";
-import { createUseStyles } from "react-jss";
-import { COLORS } from "variables/constants";
+import React from 'react';
+import cx from 'classnames';
+import { createUseStyles } from 'react-jss';
+import { COLORS } from 'variables/constants';
+import styles from './v7Chip.module.scss';
 
 interface v7ChipProps {
   className?: string;
@@ -18,6 +18,7 @@ const useStyles = createUseStyles({
 
 const V7Chip: React.SFC<v7ChipProps> = (props) => {
   const classes = useStyles(props);
+
   return (
     <div className={cx(props.className, styles.vol7erChip, classes.v7Chip)}>
       {props.children}

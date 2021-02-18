@@ -1,5 +1,5 @@
-import { IAction } from "./actions";
-import { companyActionType } from "./types";
+import { IAction } from './actions';
+import { companyActionType } from './types';
 
 export interface ICompanyState {
   isFetching: boolean;
@@ -15,11 +15,13 @@ const initState: ICompanyState = {
 
 const companyReducer = (
   state: ICompanyState = initState,
-  action: IAction
+  action: IAction,
 ): ICompanyState => {
   switch (action.type) {
     case companyActionType.GET_COMPANY_STARTED:
-      return { ...state, isFetching: true, error: false, company: null };
+      return {
+        ...state, isFetching: true, error: false, company: null,
+      };
     case companyActionType.GET_COMPANY_SUCCESS:
       return {
         ...state,

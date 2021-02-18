@@ -1,25 +1,32 @@
-import * as Yup from "yup";
+/* eslint-disable react/no-unused-state */
+import React from 'react';
+import * as Yup from 'yup';
 
-import { Col, Row } from "react-flexbox-grid";
-import { V7Button, V7Icon, V7Link, V7PageTitle, V7TextField } from "components";
 import {
-  faAt,
-  faKey,
-  faPhone,
-  faUser,
-} from "@fortawesome/free-solid-svg-icons";
+  Input,
+  CustomInput,
+  FormGroup,
+  Form,
+  Row,
+  Col,
+  Label,
+  Button,
+} from 'reactstrap';
 
-import { Formik } from "formik";
-import { IUserState } from "store/user/reducer";
-import React from "react";
-import { RouteComponentProps } from "react-router-dom";
-import { V7PageContainer } from "containers";
-import { WithTranslation } from "react-i18next";
-import _ from "lodash";
-import queryString from "query-string";
-import { setToken } from "utilities/token";
-import styles from "./signUp.module.scss";
-import { toast } from "react-toastify";
+import { Formik } from 'formik';
+
+import { V7Logo } from 'components';
+
+import { IUserState } from 'store/user/reducer';
+
+import { RouteComponentProps } from 'react-router-dom';
+import { WithTranslation } from 'react-i18next';
+import _ from 'lodash';
+import queryString from 'query-string';
+import { setToken } from 'utilities/tokenHelper';
+import { toast } from 'react-toastify';
+
+import authBg2 from 'assets/images/big/v7-auth-bg2.jpg';
 
 interface ISignInProps extends WithTranslation, RouteComponentProps {
   t: any;
@@ -44,16 +51,16 @@ interface IFormModel {
 }
 
 const initFormValue: IFormModel = {
-  email: "",
-  display_name: "",
-  password: "",
-  password_conf: "",
-  first_name: "",
-  last_name: "",
-  phone_contact: "",
+  email: '',
+  display_name: '',
+  password: '',
+  password_conf: '',
+  first_name: '',
+  last_name: '',
+  phone_contact: '',
 };
 
-const defaultSignInRedirectionUrl = "/dashboard";
+const defaultSignInRedirectionUrl = '/dashboard';
 
 class SignUp extends React.PureComponent<ISignInProps, ISignInState> {
   formRef = React.createRef<any>();
@@ -63,7 +70,7 @@ class SignUp extends React.PureComponent<ISignInProps, ISignInState> {
 
     this.state = {
       canSubmit: false,
-      nextPage: "",
+      nextPage: '',
       resetForm: false,
     };
   }
@@ -77,7 +84,7 @@ class SignUp extends React.PureComponent<ISignInProps, ISignInState> {
     const queryParams = queryString.parse(this.props.location.search);
 
     if (!_.isNil(queryParams.next)) {
-      toast.info(`${t("toast.pleaseValidateCredentials")}`);
+      toast.info(`${t('toast.pleaseValidateCredentials')}`);
     }
 
     return !_.isNil(queryParams.next)
@@ -113,7 +120,7 @@ class SignUp extends React.PureComponent<ISignInProps, ISignInState> {
             this.registerSuccess();
           }
         })
-        .catch((error: any) => {
+        .catch(() => {
           this.errorOnUserRegister();
         });
     }
@@ -122,14 +129,14 @@ class SignUp extends React.PureComponent<ISignInProps, ISignInState> {
   registerSuccess = () => {
     const { t } = this.props;
     toast.success(
-      `${t("toast.welcome")} ${this.props.userReducer.userInfo.display_name} !!`
+      `${t('toast.welcome')} ${this.props.userReducer.userInfo.display_name} !!`,
     );
-    this.props.history.push("/dashboard");
+    this.props.history.push('/dashboard');
   };
 
   errorOnUserRegister = () => {
     const { t } = this.props;
-    toast.error(`${t("toast.errorInProcess")}`);
+    toast.error(`${t('toast.errorInProcess')}`);
     this.setState({ resetForm: true }, () => {
       this.setState({ resetForm: false });
     });
@@ -145,241 +152,210 @@ class SignUp extends React.PureComponent<ISignInProps, ISignInState> {
 
     const getTextError = (
       touched: boolean | undefined,
-      error: string | undefined
-    ): string => {
-      return error !== undefined && touched && error !== undefined ? error : "";
-    };
+      error: string | undefined,
+    ): string => (error !== undefined && touched && error !== undefined ? error : '');
+
+    const showError = (info: any) => (
+      <span className="error">
+        *
+        {info}
+        <br />
+      </span>
+    );
 
     const validationsForm = Yup.object().shape({
       first_name: Yup.string()
-        .min(3, t("errors.forms.notValidFirstName"))
-        .required(t("errors.forms.required")),
+        .min(3, t('errors.forms.notValidFirstName'))
+        .required(t('errors.forms.required')),
       last_name: Yup.string()
-        .min(3, t("errors.forms.notValidLastName"))
-        .required(t("errors.forms.required")),
+        .min(3, t('errors.forms.notValidLastName'))
+        .required(t('errors.forms.required')),
       display_name: Yup.string()
-        .required(t("errors.forms.required"))
-        .min(3, t("errors.forms.notValidDisplayName")),
+        .required(t('errors.forms.required'))
+        .min(3, t('errors.forms.notValidDisplayName')),
       email: Yup.string()
-        .email(t("errors.forms.notValidEmail"))
-        .required(t("errors.forms.required")),
+        .email(t('errors.forms.notValidEmail'))
+        .required(t('errors.forms.required')),
       phone_contact: Yup.string()
-        .required(t("errors.forms.required"))
-        .min(10, t("errors.forms.notValidPhoneContact")),
+        .required(t('errors.forms.required'))
+        .min(10, t('errors.forms.notValidPhoneContact')),
       password: Yup.string()
-        .min(8, t("errors.forms.notValidPassword"))
-        .required(t("errors.forms.required")),
+        .min(8, t('errors.forms.notValidPassword'))
+        .required(t('errors.forms.required')),
       password_conf: Yup.string()
-        .min(8, t("errors.forms.notValidPassword"))
-        .required(t("errors.forms.required"))
-        .oneOf([Yup.ref("password"), ""], t("errors.forms.confirmNewPassword")),
+        .min(8, t('errors.forms.notValidPassword'))
+        .required(t('errors.forms.required'))
+        .oneOf([Yup.ref('password'), ''], t('errors.forms.confirmNewPassword')),
     });
 
     return (
-      <section className={styles.vol7erSignIn}>
-        <V7PageTitle title={t("pages.signup.title")} />
-        <V7PageContainer
-          page="signup"
-          marginTop={100}
-          isFull
-          showPreloader={this.props.userReducer.isFetching}
-        >
-          <Formik
-            initialValues={initFormValue}
-            validateOnChange={true}
-            validateOnBlur={true}
-            validationSchema={validationsForm}
-            onSubmit={(values, { setSubmitting, resetForm }) => {
-              this.onSubmit(values, resetForm);
-              setSubmitting(false);
-            }}
-          >
-            {({
-              values,
-              errors,
-              touched,
-              handleChange,
-              handleBlur,
-              handleSubmit,
-              isSubmitting,
-              isValid,
-              dirty,
-            }) => (
-              <form onSubmit={handleSubmit} autoComplete="off">
-                <Row center="xs">
-                  <Col xs={12} md={6} xl={4}>
-                    <V7TextField
-                      id={"first_name"}
-                      name={"first_name"}
-                      type={"text"}
-                      label={t("labels.forms.firstName")}
-                      disabled={isSubmitting}
-                      error={
-                        errors.first_name !== undefined && touched.first_name
-                      }
-                      value={values.first_name}
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      icon={<V7Icon icon={faUser} size={"2x"} />}
-                      errorText={getTextError(
-                        touched.first_name,
-                        errors.first_name
-                      )}
-                    />
-                  </Col>
-                </Row>
-                <Row center="xs">
-                  <Col xs={12} md={6} xl={4}>
-                    <V7TextField
-                      id={"last_name"}
-                      name={"last_name"}
-                      type={"text"}
-                      label={t("labels.forms.lastName")}
-                      disabled={isSubmitting}
-                      error={
-                        errors.last_name !== undefined && touched.last_name
-                      }
-                      value={values.last_name}
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      icon={<V7Icon icon={faUser} size={"2x"} />}
-                      errorText={getTextError(
-                        touched.last_name,
-                        errors.last_name
-                      )}
-                    />
-                  </Col>
-                </Row>
-                <Row center="xs">
-                  <Col xs={12} md={6} xl={4}>
-                    <V7TextField
-                      id={"last_name"}
-                      name={"display_name"}
-                      type={"text"}
-                      label={t("labels.forms.displayName")}
-                      disabled={isSubmitting}
-                      error={
-                        errors.display_name !== undefined &&
-                        touched.display_name
-                      }
-                      value={values.display_name}
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      icon={<V7Icon icon={faUser} size={"2x"} />}
-                      errorText={getTextError(
-                        touched.display_name,
-                        errors.display_name
-                      )}
-                    />
-                  </Col>
-                </Row>
-                <Row center="xs">
-                  <Col xs={12} md={6} xl={4}>
-                    <V7TextField
-                      id={"email"}
-                      name={"email"}
-                      type={"text"}
-                      label={t("labels.forms.email")}
-                      disabled={isSubmitting}
-                      error={errors.email !== undefined && touched.email}
-                      value={values.email}
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      icon={<V7Icon icon={faAt} size={"2x"} />}
-                      errorText={getTextError(touched.email, errors.email)}
-                    />
-                  </Col>
-                </Row>
-                <Row center="xs">
-                  <Col xs={12} md={6} xl={4}>
-                    <V7TextField
-                      id={"phone_contact"}
-                      name={"phone_contact"}
-                      type={"number"}
-                      label={t("labels.forms.phoneContact")}
-                      disabled={isSubmitting}
-                      error={
-                        errors.phone_contact !== undefined &&
-                        touched.phone_contact
-                      }
-                      value={values.phone_contact}
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      icon={<V7Icon icon={faPhone} size={"2x"} />}
-                      errorText={getTextError(
-                        touched.phone_contact,
-                        errors.phone_contact
-                      )}
-                    />
-                  </Col>
-                </Row>
-                <Row center="xs">
-                  <Col xs={12} md={6} xl={4}>
-                    <V7TextField
-                      id={"password"}
-                      name={"password"}
-                      type={"password"}
-                      label={t("labels.forms.password")}
-                      disabled={isSubmitting}
-                      error={errors.password !== undefined && touched.password}
-                      value={values.password}
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      icon={<V7Icon icon={faKey} size={"2x"} />}
-                      errorText={getTextError(
-                        touched.password,
-                        errors.password
-                      )}
-                    />
-                  </Col>
-                </Row>
-                <Row center="xs">
-                  <Col xs={12} md={6} xl={4}>
-                    <V7TextField
-                      id={"password_conf"}
-                      name={"password_conf"}
-                      type={"password"}
-                      label={t("labels.forms.passwordConf")}
-                      disabled={isSubmitting}
-                      error={
-                        errors.password_conf !== undefined &&
-                        touched.password_conf
-                      }
-                      value={values.password_conf}
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      icon={<V7Icon icon={faKey} size={"2x"} />}
-                      errorText={getTextError(
-                        touched.password_conf,
-                        errors.password_conf
-                      )}
-                    />
-                  </Col>
-                </Row>
-                <Row center="xs">
-                  <Col xs={12}>
-                    <V7Button
-                      type="submit"
-                      disabled={!(isValid && dirty)}
-                      size="large"
-                    >
-                      {t("labels.forms.submit")}
-                    </V7Button>
-                  </Col>
-                </Row>
-                <Row center="xs" className="">
-                  <Col xs={12} className={styles.recover}>
-                    <V7Link
-                      to={"/signin"}
-                      text={t("labels.forms.doYouHaveAnAccount")}
-                    />
-                  </Col>
-                </Row>
-              </form>
-            )}
-          </Formik>
-        </V7PageContainer>
-      </section>
+      <div
+        className="auth-wrapper align-items-center d-flex"
+        style={{
+          backgroundImage: `url(${authBg2})`,
+          backgroundSize: 'cover',
+          height: '100vh',
+          flexDirection: 'column-reverse',
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundRepeat: 'no-repeat',
+        }}
+      >
+        <div className="container">
+          <div>
+            <Row className="no-gutters justify-content-center">
+              <Col md="6" lg="4" className="text-white" style={{ backgroundColor: '#263238fa' }}>
+                <div className="p-4">
+                  <h2 className="text-white display-5">
+                    {t('pages.signup.hi')}
+                    <br />
+                    <span style={{ color: '#ffb22b' }} className="font-bold">
+                      {t('pages.signup.welcome')}
+                      <V7Logo className="vol7er-preloader__logo" isScrollTop={false} fontSize={34} />
+                    </span>
+                  </h2>
+                  <br />
+                  <br />
+                  <br />
+                  <p className="op-1 mt-4" style={{ fontSize: '26px', borderTop: 'solid 3px #ffb22b' }}>
+                    {t('pages.signup.message')}
+                  </p>
+                </div>
+              </Col>
+              <Col md="6" lg="4" className="text-white" style={{ backgroundColor: '#2b2c2d70' }}>
+                <div className="p-4">
+                  <h3 className="font-medium mb-3 text-info">
+                    {t('pages.signup.title')}
+                  </h3>
+                  <Formik
+                    initialValues={initFormValue}
+                    validateOnChange
+                    validateOnBlur
+                    validationSchema={validationsForm}
+                    onSubmit={(values, { setSubmitting, resetForm }) => {
+                      this.onSubmit(values, resetForm);
+                      setSubmitting(false);
+                    }}
+                  >
+                    {({
+                      values,
+                      errors,
+                      touched,
+                      handleChange,
+                      handleBlur,
+                      // handleSubmit,
+                      // isSubmitting,
+                      isValid,
+                      dirty,
+                    }) => (
+                      <Form className="mt-3" id="signupform" action="/dashbaords">
+                        <FormGroup className="mb-3">
+                          <Label for="username" className="font-medium">
+                            {t('labels.forms.userName')}
+                          </Label>
+                          <Input
+                            type="text"
+                            value={values.display_name}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            name="username"
+                            id="username"
+                            placeholder={t('labels.forms.userName')}
+                            bsSize="lg"
+                          />
+                        </FormGroup>
+                        {
+                          getTextError(touched.display_name, errors.display_name)
+                            && showError(getTextError(touched.display_name, errors.display_name))
+                            && touched.display_name
+                        }
+                        <FormGroup className="mb-3">
+                          <Label for="email" className="font-medium">
+                            {t('labels.forms.email')}
+                          </Label>
+                          <Input
+                            type="email"
+                            value={values.email}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            name="email"
+                            id="email"
+                            placeholder={t('labels.forms.email')}
+                            bsSize="lg"
+                          />
+                        </FormGroup>
+                        {
+                          getTextError(touched.email, errors.email)
+                          && showError(getTextError(touched.email, errors.email))
+                          && touched.email
+                        }
+                        <FormGroup className="mb-3">
+                          <Label for="password" className="font-medium">
+                            {t('labels.forms.password')}
+                          </Label>
+                          <Input
+                            type="password"
+                            value={values.password}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            name="password"
+                            id="password"
+                            placeholder={t('labels.forms.password')}
+                            bsSize="lg"
+                          />
+                        </FormGroup>
+                        {
+                          getTextError(touched.password, errors.password)
+                          && showError(getTextError(touched.password, errors.password))
+                          && touched.password
+                        }
+                        <CustomInput
+                          type="checkbox"
+                          id="exampleCustomCheckbox"
+                          label={t('labels.forms.agreeAllTerms')}
+                        />
+                        <br />
+                        <Row className="mb-3 mt-3">
+                          <Col xs="12">
+                            <Button
+                              type="submit"
+                              // onClick={this.doRegister}
+                              className={`text-uppercase ${!(isValid && dirty) ? '' : 'disabled'}`}
+                              style={{
+                                backgroundColor: '#44a0ff',
+                                borderColor: '#44a0ff',
+                              }}
+                              color="primary"
+                              size="lg"
+                              block
+                              disabled={!(isValid && dirty)}
+                            >
+                              {t('labels.forms.signUp')}
+                            </Button>
+                          </Col>
+                        </Row>
+                        <br />
+                        <div style={{ fontSize: '12px' }} className="text-center float-right">
+                          {t('labels.forms.alreadyHaveAnAccount')}
+                          <a
+                            href="/auth/login"
+                            className="text-info ml-1"
+                          >
+                            <b>
+                              {t('labels.forms.logIn')}
+                            </b>
+                          </a>
+                        </div>
+                        <br />
+                      </Form>
+                    )}
+                  </Formik>
+                </div>
+              </Col>
+            </Row>
+          </div>
+        </div>
+      </div>
     );
   }
 }

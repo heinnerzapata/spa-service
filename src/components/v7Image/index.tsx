@@ -1,14 +1,14 @@
-import "./v7Image.scss";
+import React, { useEffect } from 'react';
 
-import React, { useEffect } from "react";
+import './v7Image.scss';
 
-import cx from "classnames";
+import cx from 'classnames';
 
 interface v7ImageProps {
   style?: React.CSSProperties;
   className?: string;
   src: string;
-  type?: "round" | "square";
+  type?: 'round' | 'square';
   noShadow: boolean;
   flip: boolean;
   width: number;
@@ -17,19 +17,20 @@ interface v7ImageProps {
 
 const V7Image: React.SFC<v7ImageProps> = (props) => {
   const getImageTypeClass = (type: string) => {
-    let result = "";
+    let result = '';
     switch (type) {
-      case "round": {
-        result = "vol7er-image__round";
+      case 'round': {
+        result = 'vol7er-image__round';
         break;
       }
-      case "square": {
-        result = "vol7er-image__square";
+      case 'square': {
+        result = 'vol7er-image__square';
         break;
       }
       default:
         break;
     }
+
     return result;
   };
 
@@ -43,10 +44,10 @@ const V7Image: React.SFC<v7ImageProps> = (props) => {
       alt="render"
       className={cx(
         props.className,
-        "vol7er-image",
-        getImageTypeClass(props.type ? props.type : ""),
-        props.noShadow ? "" : "vol7er-image__shadow",
-        props.flip ? "vol7er-image__flip" : ""
+        'vol7er-image',
+        getImageTypeClass(props.type ? props.type : ''),
+        props.noShadow ? '' : 'vol7er-image__shadow',
+        props.flip ? 'vol7er-image__flip' : '',
       )}
       width={props.width}
       height={props.height}

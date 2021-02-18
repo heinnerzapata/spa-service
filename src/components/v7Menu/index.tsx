@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import styles from "./v7Menu.module.scss";
-import { V7Avatar } from "components";
-import { createUseStyles } from "react-jss";
-import OutsideClickHandler from "react-outside-click-handler";
-import cx from "classnames";
+import React, { useState } from 'react';
+import { V7Avatar } from 'components';
+import { createUseStyles } from 'react-jss';
+import OutsideClickHandler from 'react-outside-click-handler';
+import cx from 'classnames';
+import styles from './v7Menu.module.scss';
 
 interface v7MenuProps {
   height?: number;
@@ -15,9 +15,8 @@ interface v7MenuProps {
 
 const useStyles = createUseStyles({
   menu: {
-    height: (props: v7MenuProps) =>
-      props.height ? `${props.height}px` : "auto",
-    width: (props: v7MenuProps) => (props.width ? `${props.width}px` : "auto"),
+    height: (props: v7MenuProps) => (props.height ? `${props.height}px` : 'auto'),
+    width: (props: v7MenuProps) => (props.width ? `${props.width}px` : 'auto'),
   },
 });
 const V7Menu: React.SFC<v7MenuProps> = (props) => {
@@ -38,7 +37,7 @@ const V7Menu: React.SFC<v7MenuProps> = (props) => {
   return (
     <div className={styles.v7Menu}>
       <div onClick={handleClickMenu}>
-        <V7Avatar alt={`item-language-selected`} src={props.menuImage} />
+        <V7Avatar alt="item-language-selected" src={props.menuImage} />
       </div>
       {menuOpen && (
         <OutsideClickHandler
@@ -48,9 +47,7 @@ const V7Menu: React.SFC<v7MenuProps> = (props) => {
         >
           <div className={cx(classes.menu, styles.menuContainer)}>
             <ul className={styles.list}>
-              {props.listItems.map((item, i) => {
-                return <li onClick={() => handleItem(i)}>{item}</li>;
-              })}
+              {props.listItems.map((item, i) => <li onClick={() => handleItem(i)}>{item}</li>)}
             </ul>
           </div>
         </OutsideClickHandler>

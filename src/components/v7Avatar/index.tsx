@@ -1,10 +1,10 @@
-import React from "react";
-import styles from "./v7Avatar.module.scss";
-import Avatar from "@material-ui/core/Avatar";
-import { createUseStyles } from "react-jss";
-import cx from "classnames";
+import React from 'react';
+import Avatar from '@material-ui/core/Avatar';
+import { createUseStyles } from 'react-jss';
+import cx from 'classnames';
+import styles from './v7Avatar.module.scss';
 
-interface v7AvatarProps {
+interface IV7AvatarProps {
   src?: string;
   alt?: string;
   className?: string;
@@ -19,19 +19,20 @@ export enum AVATAR_SIZES {
 
 const useStyles = createUseStyles({
   size: {
-    width: (props: v7AvatarProps) => `${props.size}px`,
-    height: (props: v7AvatarProps) => `${props.size}px`,
+    width: (props: IV7AvatarProps) => `${props.size}px`,
+    height: (props: IV7AvatarProps) => `${props.size}px`,
   },
 });
 
-const V7Avatar: React.SFC<v7AvatarProps> = (props) => {
+const V7Avatar: React.SFC<IV7AvatarProps> = (props) => {
   const classes = useStyles(props.size ? props.size : AVATAR_SIZES.MEDIUM);
+
   return (
     <div className={styles.v7Avatar}>
       <Avatar
         alt={props.alt}
         src={props.src}
-        className={cx(props.className ? props.className : "", classes.size)}
+        className={cx(props.className ? props.className : '', classes.size)}
       >
         {props.children}
       </Avatar>

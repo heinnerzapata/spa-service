@@ -1,9 +1,10 @@
-import { createStore, applyMiddleware, compose } from "redux";
-import thunk from "redux-thunk";
-import reducers from "store/reducers";
+/* eslint-disable no-underscore-dangle */
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
+import reducers from 'store/reducers';
 
-import { IUserState } from "./user/reducer";
-import { ICompanyState } from "./company/reducer";
+import { IUserState } from './user/reducer';
+import { ICompanyState } from './company/reducer';
 
 export interface IAppState {
   userReducer: IUserState;
@@ -18,4 +19,5 @@ const middleware = [
 ];
 
 const store = createStore(reducers, compose(...middleware));
+
 export default store;
