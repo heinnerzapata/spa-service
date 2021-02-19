@@ -159,6 +159,22 @@ class SignIn extends React.PureComponent<ISignInProps, ISignInState> {
         <div className="container">
           <div>
             <Row className="no-gutters justify-content-center">
+              <Col md="6" lg="4" className="text-white" style={{ backgroundColor: '#263238fa' }}>
+                <div className="p-4">
+                  <h2 className="text-white display-5">
+                    {t('pages.signin.hi')}
+                    <br />
+                    <span style={{ color: '#ffb22b' }} className="font-bold">
+                      {t('pages.signin.welcome')}
+                      <V7Logo className="vol7er-preloader__logo" isScrollTop={false} fontSize={34} />
+                    </span>
+                  </h2>
+                  <br />
+                  <p className="op-1 mt-4" style={{ fontSize: '26px', borderTop: 'solid 3px #ffb22b' }}>
+                    {t('pages.signin.message')}
+                  </p>
+                </div>
+              </Col>
               <Col md="6" lg="4" className="text-white" style={{ backgroundColor: '#2b2c2de3' }}>
                 <div className="p-4">
                   <h3 className="font-medium mb-3 text-info">
@@ -300,22 +316,6 @@ class SignIn extends React.PureComponent<ISignInProps, ISignInState> {
                       </Form>
                     )}
                   </Formik>
-                </div>
-              </Col>
-              <Col md="6" lg="4" className="text-white" style={{ backgroundColor: '#263238fa' }}>
-                <div className="p-4">
-                  <h2 className="text-white display-5">
-                    {t('pages.signin.hi')}
-                    <br />
-                    <span style={{ color: '#ffb22b' }} className="font-bold">
-                      {t('pages.signin.welcome')}
-                      <V7Logo className="vol7er-preloader__logo" isScrollTop={false} fontSize={34} />
-                    </span>
-                  </h2>
-                  <br />
-                  <p className="op-1 mt-4" style={{ fontSize: '26px', borderTop: 'solid 3px #ffb22b' }}>
-                    {t('pages.signin.message')}
-                  </p>
                 </div>
               </Col>
             </Row>

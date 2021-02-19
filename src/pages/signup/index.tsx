@@ -309,6 +309,26 @@ class SignUp extends React.PureComponent<ISignInProps, ISignInState> {
                           && showError(getTextError(touched.password, errors.password))
                           && touched.password
                         }
+                        <FormGroup className="mb-3">
+                          <Label for="password_conf" className="font-medium">
+                            {t('labels.forms.passwordConf')}
+                          </Label>
+                          <Input
+                            type="password"
+                            value={values.password_conf}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            name="password_conf"
+                            id="password_conf"
+                            placeholder={t('labels.forms.passwordConf')}
+                            bsSize="lg"
+                          />
+                        </FormGroup>
+                        {
+                          getTextError(touched.password_conf, errors.password_conf)
+                          && showError(getTextError(touched.password_conf, errors.password_conf))
+                          && touched.password_conf
+                        }
                         <CustomInput
                           type="checkbox"
                           id="exampleCustomCheckbox"
