@@ -4,11 +4,11 @@
   position: relative;
 
   .menuContainer {
+    font-family: "Poppins", sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     position: absolute;
-    left: 3px;
     top: 15px;
     background-color: $vol7er-main-dark;
     border-radius: 5px;

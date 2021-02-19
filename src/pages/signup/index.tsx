@@ -3,9 +3,11 @@ import React from 'react';
 import * as Yup from 'yup';
 
 import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
   Input,
   CustomInput,
-  FormGroup,
   Form,
   Row,
   Col,
@@ -25,8 +27,6 @@ import _ from 'lodash';
 import queryString from 'query-string';
 import { setToken } from 'utilities/tokenHelper';
 import { toast } from 'react-toastify';
-
-import authBg2 from 'assets/images/big/v7-auth-bg2.jpg';
 
 interface ISignInProps extends WithTranslation, RouteComponentProps {
   t: any;
@@ -189,18 +189,7 @@ class SignUp extends React.PureComponent<ISignInProps, ISignInState> {
     });
 
     return (
-      <div
-        className="auth-wrapper align-items-center d-flex"
-        style={{
-          backgroundImage: `url(${authBg2})`,
-          backgroundSize: 'cover',
-          height: '100vh',
-          flexDirection: 'column-reverse',
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundRepeat: 'no-repeat',
-        }}
-      >
+      <div className="auth-wrapper align-items-center d-flex">
         <div className="container">
           <div>
             <Row className="no-gutters justify-content-center">
@@ -249,10 +238,15 @@ class SignUp extends React.PureComponent<ISignInProps, ISignInState> {
                       dirty,
                     }) => (
                       <Form className="mt-3" id="signupform" action="/dashbaords">
-                        <FormGroup className="mb-3">
-                          <Label for="username" className="font-medium">
-                            {t('labels.forms.userName')}
-                          </Label>
+                        <Label for="username" className="font-medium">
+                          {t('labels.forms.userName')}
+                        </Label>
+                        <InputGroup className="mb-2" size="lg">
+                          <InputGroupAddon addonType="prepend">
+                            <InputGroupText>
+                              <i className="fas fa-user" />
+                            </InputGroupText>
+                          </InputGroupAddon>
                           <Input
                             type="text"
                             value={values.display_name}
@@ -263,16 +257,21 @@ class SignUp extends React.PureComponent<ISignInProps, ISignInState> {
                             placeholder={t('labels.forms.userName')}
                             bsSize="lg"
                           />
-                        </FormGroup>
+                        </InputGroup>
                         {
                           getTextError(touched.display_name, errors.display_name)
                             && showError(getTextError(touched.display_name, errors.display_name))
                             && touched.display_name
                         }
-                        <FormGroup className="mb-3">
-                          <Label for="email" className="font-medium">
-                            {t('labels.forms.email')}
-                          </Label>
+                        <Label for="email" className="font-medium">
+                          {t('labels.forms.email')}
+                        </Label>
+                        <InputGroup className="mb-2" size="lg">
+                          <InputGroupAddon addonType="prepend">
+                            <InputGroupText>
+                              <i className="fas fa-at" />
+                            </InputGroupText>
+                          </InputGroupAddon>
                           <Input
                             type="email"
                             value={values.email}
@@ -283,16 +282,21 @@ class SignUp extends React.PureComponent<ISignInProps, ISignInState> {
                             placeholder={t('labels.forms.email')}
                             bsSize="lg"
                           />
-                        </FormGroup>
+                        </InputGroup>
                         {
                           getTextError(touched.email, errors.email)
                           && showError(getTextError(touched.email, errors.email))
                           && touched.email
                         }
-                        <FormGroup className="mb-3">
-                          <Label for="password" className="font-medium">
-                            {t('labels.forms.password')}
-                          </Label>
+                        <Label for="password" className="font-medium">
+                          {t('labels.forms.password')}
+                        </Label>
+                        <InputGroup className="mb-2" size="lg">
+                          <InputGroupAddon addonType="prepend">
+                            <InputGroupText>
+                              <i className="fas fa-key" />
+                            </InputGroupText>
+                          </InputGroupAddon>
                           <Input
                             type="password"
                             value={values.password}
@@ -303,16 +307,21 @@ class SignUp extends React.PureComponent<ISignInProps, ISignInState> {
                             placeholder={t('labels.forms.password')}
                             bsSize="lg"
                           />
-                        </FormGroup>
+                        </InputGroup>
                         {
                           getTextError(touched.password, errors.password)
                           && showError(getTextError(touched.password, errors.password))
                           && touched.password
                         }
-                        <FormGroup className="mb-3">
-                          <Label for="password_conf" className="font-medium">
-                            {t('labels.forms.passwordConf')}
-                          </Label>
+                        <Label for="password_conf" className="font-medium">
+                          {t('labels.forms.passwordConf')}
+                        </Label>
+                        <InputGroup className="mb-2" size="lg">
+                          <InputGroupAddon addonType="prepend">
+                            <InputGroupText>
+                              <i className="fas fa-key" />
+                            </InputGroupText>
+                          </InputGroupAddon>
                           <Input
                             type="password"
                             value={values.password_conf}
@@ -322,13 +331,15 @@ class SignUp extends React.PureComponent<ISignInProps, ISignInState> {
                             id="password_conf"
                             placeholder={t('labels.forms.passwordConf')}
                             bsSize="lg"
+                            autoComplete="new-password"
                           />
-                        </FormGroup>
+                        </InputGroup>
                         {
                           getTextError(touched.password_conf, errors.password_conf)
                           && showError(getTextError(touched.password_conf, errors.password_conf))
                           && touched.password_conf
                         }
+                        <br />
                         <CustomInput
                           type="checkbox"
                           id="exampleCustomCheckbox"

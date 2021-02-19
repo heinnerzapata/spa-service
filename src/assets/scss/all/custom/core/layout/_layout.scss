@@ -27,6 +27,12 @@
   min-height: calc(100vh - 116px);
 }
 
+.page-auth-wrapper-with-footer > .page-content {
+  padding: 30px;
+  min-height: calc(100vh - 116px);
+  overflow: hidden;
+}
+
 .page-breadcrumb {
   padding: 30px 30px 0px;
 }
