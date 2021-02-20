@@ -56,7 +56,8 @@ const V7LanguageSelector: React.SFC<v7LanguageSelectorProps> = () => {
   return (
     <>
       <V7Menu
-        width={140}
+        openLeft
+        width={160}
         onItemClick={(index) => {
           handleClick(LANGUAGES_OPTIONS[index].language);
         }}
