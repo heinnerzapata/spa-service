@@ -3,20 +3,19 @@ import React from 'react';
 import * as Yup from 'yup';
 
 import {
+  FormGroup,
   InputGroup,
   InputGroupAddon,
   InputGroupText,
-  Input,
-  CustomInput,
   Form,
   Row,
   Col,
-  Label,
+  Input,
   Button,
+  Label,
 } from 'reactstrap';
 
 import { Formik } from 'formik';
-
 import { V7Logo } from 'components';
 
 import { IUserState } from 'store/user/reducer';
@@ -28,13 +27,15 @@ import queryString from 'query-string';
 import { setToken } from 'utilities/tokenHelper';
 import { toast } from 'react-toastify';
 
-interface ISignUpProps extends WithTranslation, RouteComponentProps {
+const defaultSignInRedirectionUrl = '/dashboard';
+
+interface IVerificationCodeProps extends WithTranslation, RouteComponentProps {
   t: any;
   userReducer: IUserState;
   onSignUp?: (userInfo: any) => any;
 }
 
-interface ISignUpState {
+interface IVerificationCodeState {
   canSubmit: boolean;
   nextPage: string;
   resetForm: boolean;
@@ -42,30 +43,22 @@ interface ISignUpState {
 
 interface IFormModel {
   email: string;
-  display_name: string;
   password: string;
-  password_conf: string;
-  first_name: string;
-  last_name: string;
-  phone_contact: string;
+  passwordConfirm: string;
+  verificationCode: string;
 }
 
 const initFormValue: IFormModel = {
   email: '',
-  display_name: '',
   password: '',
-  password_conf: '',
-  first_name: '',
-  last_name: '',
-  phone_contact: '',
+  passwordConfirm: '',
+  verificationCode: '',
 };
 
-const defaultSignInRedirectionUrl = '/dashboard';
-
-class SignUp extends React.PureComponent<ISignUpProps, ISignUpState> {
+class VerificationCode extends React.PureComponent<IVerificationCodeProps, IVerificationCodeState> {
   formRef = React.createRef<any>();
 
-  constructor(props: ISignUpProps) {
+  constructor(props: IVerificationCodeProps) {
     super(props);
 
     this.state = {
@@ -105,11 +98,9 @@ class SignUp extends React.PureComponent<ISignUpProps, ISignUpState> {
 
     const signUpModel = {
       email: model.email,
-      display_name: model.display_name,
       password: model.password,
-      first_name: model.first_name,
-      last_name: model.last_name,
-      phone_contact: model.phone_contact,
+      passwordConfirm: model.passwordConfirm,
+      verificationCode: model.verificationCode,
     };
 
     if (onSignUp) {
@@ -189,80 +180,51 @@ class SignUp extends React.PureComponent<ISignUpProps, ISignUpState> {
     });
 
     return (
-      <div className="auth-wrapper align-items-center d-flex">
-        <div className="container">
-          <div>
-            <Row className="no-gutters justify-content-center">
-              <Col md="6" lg="4" className="text-white" style={{ backgroundColor: '#263238fa' }}>
-                <div className="p-4">
-                  <h2 className="text-white display-5">
-                    {t('pages.signup.hi')}
-                    <br />
-                    <span style={{ color: '#ffb22b' }} className="font-bold">
-                      {t('pages.signup.welcome')}
-                      <V7Logo className="vol7er-preloader__logo" isScrollTop={false} fontSize={34} />
-                    </span>
-                  </h2>
-                  <br />
-                  <br />
-                  <br />
-                  <p className="op-1 mt-4" style={{ fontSize: '26px', borderTop: 'solid 3px #ffb22b' }}>
-                    {t('pages.signup.message')}
-                  </p>
-                </div>
-              </Col>
-              <Col md="6" lg="4" className="text-white" style={{ backgroundColor: '#2b2c2d70' }}>
-                <div className="p-4">
-                  <h3 className="font-medium mb-3 text-info">
-                    {t('pages.signup.title')}
-                  </h3>
-                  <Formik
-                    initialValues={initFormValue}
-                    validateOnChange
-                    validateOnBlur
-                    validationSchema={validationsForm}
-                    onSubmit={(values, { setSubmitting, resetForm }) => {
-                      this.onSubmit(values, resetForm);
-                      setSubmitting(false);
-                    }}
-                  >
-                    {({
-                      values,
-                      errors,
-                      touched,
-                      handleChange,
-                      handleBlur,
-                      // handleSubmit,
-                      // isSubmitting,
-                      isValid,
-                      dirty,
-                    }) => (
-                      <Form className="mt-3" id="signupform" action="/dashbaords">
-                        <Label for="username" className="font-medium">
-                          {t('labels.forms.userName')}
-                        </Label>
-                        <InputGroup className="mb-2" size="lg">
-                          <InputGroupAddon addonType="prepend">
-                            <InputGroupText>
-                              <i className="fas fa-user" />
-                            </InputGroupText>
-                          </InputGroupAddon>
-                          <Input
-                            type="text"
-                            value={values.display_name}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            name="username"
-                            id="username"
-                            placeholder={t('labels.forms.userName')}
-                            bsSize="lg"
-                          />
-                        </InputGroup>
-                        {
-                          getTextError(touched.display_name, errors.display_name)
-                            && showError(getTextError(touched.display_name, errors.display_name))
-                            && touched.display_name
-                        }
+      <div className="auth-wrapper d-flex no-block justify-content-center align-items-center">
+        <div className="auth-box text-white" style={{ backgroundColor: '#263238fa' }}>
+          <div id="loginform">
+            <div className="logo text-white display-5">
+              <span className="db">
+                <V7Logo className="vol7er-preloader__logo" isScrollTop={false} fontSize={34} />
+              </span>
+              <h5 className="text-white font-medium mb-3" style={{ fontSize: '18px' }}>
+                {t('pages.verificationCode.title')}
+              </h5>
+              <p className="op-1 mt-4" style={{ fontSize: '18px', borderTop: 'solid 3px #ffb22b' }}>
+                {t('pages.verificationCode.message')}
+              </p>
+            </div>
+            <Row>
+              <Col xs="12">
+                <Formik
+                  initialValues={initFormValue}
+                  validateOnChange
+                  validateOnBlur
+                  validationSchema={validationsForm}
+                  onSubmit={(values, { setSubmitting, resetForm }) => {
+                    this.onSubmit(values, resetForm);
+                    setSubmitting(false);
+                  }}
+                >
+                  {({
+                    values,
+                    errors,
+                    touched,
+                    handleChange,
+                    handleBlur,
+                    handleSubmit,
+                    isSubmitting,
+                    isValid,
+                    dirty,
+                  }) => (
+                    <Form
+                      onSubmit={handleSubmit}
+                      autoComplete="false"
+                      className="mt-3"
+                      id="loginform"
+                      action="/dashboards"
+                    >
+                      <FormGroup>
                         <Label for="email" className="font-medium">
                           {t('labels.forms.email')}
                         </Label>
@@ -289,7 +251,7 @@ class SignUp extends React.PureComponent<ISignUpProps, ISignUpState> {
                           && touched.email
                         }
                         <Label for="password" className="font-medium">
-                          {t('labels.forms.password')}
+                          {t('labels.forms.newPassword')}
                         </Label>
                         <InputGroup className="mb-2" size="lg">
                           <InputGroupAddon addonType="prepend">
@@ -298,13 +260,14 @@ class SignUp extends React.PureComponent<ISignUpProps, ISignUpState> {
                             </InputGroupText>
                           </InputGroupAddon>
                           <Input
+                            disabled={isSubmitting}
                             type="password"
                             value={values.password}
                             onChange={handleChange}
                             onBlur={handleBlur}
                             name="password"
                             id="password"
-                            placeholder={t('labels.forms.password')}
+                            placeholder={t('labels.forms.newPassword')}
                             bsSize="lg"
                           />
                         </InputGroup>
@@ -323,8 +286,9 @@ class SignUp extends React.PureComponent<ISignUpProps, ISignUpState> {
                             </InputGroupText>
                           </InputGroupAddon>
                           <Input
+                            disabled={isSubmitting}
                             type="password"
-                            value={values.password_conf}
+                            value={values.passwordConfirm}
                             onChange={handleChange}
                             onBlur={handleBlur}
                             name="password_conf"
@@ -335,55 +299,70 @@ class SignUp extends React.PureComponent<ISignUpProps, ISignUpState> {
                           />
                         </InputGroup>
                         {
-                          getTextError(touched.password_conf, errors.password_conf)
-                          && showError(getTextError(touched.password_conf, errors.password_conf))
-                          && touched.password_conf
+                          getTextError(touched.passwordConfirm, errors.passwordConfirm)
+                          && showError(getTextError(touched.passwordConfirm, errors.passwordConfirm))
+                          && touched.passwordConfirm
                         }
-                        <br />
-                        <CustomInput
-                          type="checkbox"
-                          id="exampleCustomCheckbox"
-                          label={t('labels.forms.agreeAllTerms')}
-                        />
-                        <br />
-                        <Row className="mb-3 mt-3">
-                          <Col xs="12">
-                            <Button
-                              type="submit"
-                              // onClick={this.doRegister}
-                              className={`text-uppercase ${!(isValid && dirty) ? '' : 'disabled'}`}
-                              style={{
-                                backgroundColor: '#44a0ff',
-                                borderColor: '#44a0ff',
-                              }}
-                              color="primary"
-                              size="lg"
-                              block
-                              disabled={!(isValid && dirty)}
-                            >
-                              {t('labels.forms.signUp')}
-                            </Button>
-                          </Col>
-                        </Row>
-                        <br />
-                        <div style={{ fontSize: '12px' }} className="text-center float-right">
-                          {t('labels.forms.alreadyHaveAnAccount')}
-                          <a
-                            href="/auth/login"
-                            className="text-info ml-1"
+                        <Label for="verifiactionCode" className="font-medium">
+                          {t('labels.forms.verificationCode')}
+                        </Label>
+                        <InputGroup className="mb-2" size="lg">
+                          <InputGroupAddon addonType="prepend">
+                            <InputGroupText>
+                              <i className="fas fa-unlock-alt" />
+                            </InputGroupText>
+                          </InputGroupAddon>
+                          <Input
+                            type="text"
+                            value={values.verificationCode}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            name="verifiactionCode"
+                            id="verifiactionCode"
+                            placeholder={t('labels.forms.verificationCode')}
+                            bsSize="lg"
+                          />
+                        </InputGroup>
+                        {
+                          getTextError(touched.verificationCode, errors.verificationCode)
+                          && showError(getTextError(touched.verificationCode, errors.verificationCode))
+                          && touched.verificationCode
+                        }
+                      </FormGroup>
+                      <Row className="mb-4">
+                        <Col xs="12">
+                          <Button
+                            color="primary"
+                            size="lg"
+                            type="submit"
+                            className="text-uppercase"
+                            block
+                            disabled={!(isValid && dirty)}
+                            style={{
+                              backgroundColor: '#44a0ff',
+                              borderColor: '#44a0ff',
+                            }}
                           >
-                            <b>
-                              {t('labels.forms.logIn')}
-                            </b>
-                          </a>
-                        </div>
-                        <br />
-                      </Form>
-                    )}
-                  </Formik>
-                </div>
+                            {t('labels.forms.submit')}
+                          </Button>
+                        </Col>
+                      </Row>
+                    </Form>
+                  )}
+                </Formik>
               </Col>
             </Row>
+            <div style={{ fontSize: '12px' }} className="text-center float-right">
+              {t('labels.forms.alreadyHaveAnAccount')}
+              <a
+                href="/auth/login"
+                className="text-info ml-1"
+              >
+                <b>
+                  {t('labels.forms.logIn')}
+                </b>
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -391,4 +370,4 @@ class SignUp extends React.PureComponent<ISignUpProps, ISignUpState> {
   }
 }
 
-export default SignUp;
+export default VerificationCode;

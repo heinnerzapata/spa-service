@@ -2,6 +2,7 @@ import {
   SignInWrapper,
   SignUpWrapper,
   RecoverWrapper,
+  VerificationCodeWrapper,
 } from 'containers/wrappers';
 
 import authBg from 'assets/images/big/v7-auth-bg.png';
@@ -21,6 +22,9 @@ export const physicalPaths: IAuthPhysicalRoutes = {
   '/auth/recover': {
     background: authBg,
   },
+  '/auth/verification-code': {
+    background: authBg,
+  },
 };
 
 export const authRoutes = [
@@ -37,10 +41,16 @@ export const authRoutes = [
     component: SignInWrapper,
   },
   {
-    path: '/auth/recover',
+    path: '/auth/recover/:hash?',
     name: 'Recover',
     icon: 'mdi mdi-account-convert',
     component: RecoverWrapper,
+  },
+  {
+    path: '/auth/verification-code',
+    name: 'Verification',
+    icon: 'mdi mdi-account-convert',
+    component: VerificationCodeWrapper,
   },
   {
     redirect: true,

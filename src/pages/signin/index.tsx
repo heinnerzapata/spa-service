@@ -291,7 +291,7 @@ class SignIn extends React.PureComponent<ISignInProps, ISignInState> {
                           </div>
                           <div style={{ fontSize: '12px' }} className="text-center float-right">
                             {t('labels.forms.doYouHaveAVerificationCode')}
-                            <a href="/auth/verification" className="text-info ml-1">
+                            <a href="/auth/verification-code" className="text-info ml-1">
                               <b>
                                 {t('pages.verificationCode.title')}
                               </b>
