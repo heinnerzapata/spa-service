@@ -6,7 +6,7 @@ import V7Logo from 'components/v7Logo';
 import V7Chip from 'components/v7Chip';
 import V7Preloader from 'components/v7Preloader';
 import V7Footer from 'components/v7Footer';
-import V7AuthHeader from 'components/v7AuthHeader';
+import V7HeaderAuth from 'components/v7HeaderAuth';
 import V7Header from 'components/v7Header';
 import V7HeaderNotificator from 'components/v7HeaderNotificator';
 import V7HeaderProfiler from 'components/v7HeaderProfiler';
@@ -30,7 +30,7 @@ export {
   V7Chip,
   V7Preloader,
   V7Footer,
-  V7AuthHeader,
+  V7HeaderAuth,
   V7HeaderNotificator,
   V7HeaderProfiler,
   V7Header,

@@ -1,9 +1,21 @@
 import React from 'react';
+
+import {
+  FormGroup,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
+  Form,
+  Row,
+  Col,
+  Input,
+  Button,
+  Label,
+} from 'reactstrap';
+
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { Row, Col } from 'react-flexbox-grid';
-import { V7TextField, V7Button, V7Icon } from 'components';
-import { faAt } from '@fortawesome/free-solid-svg-icons';
+import { V7Logo } from 'components';
 
 interface IFormPassword {
   t: any;
@@ -21,7 +33,7 @@ const initFormValue: IFormModel = {
   passwordConfirm: '',
 };
 
-const FormPassword: React.SFC<IFormPassword> = (props) => {
+const FormPassword: React.FC<IFormPassword> = (props) => {
   const { t } = props;
 
   const validationsForm = Yup.object().shape({
@@ -37,89 +49,145 @@ const FormPassword: React.SFC<IFormPassword> = (props) => {
     resetForm({});
   };
 
+  const getTextError = (
+    touched: boolean | undefined,
+    error: string | undefined,
+  ): string => (error !== undefined && touched && error !== undefined ? error : '');
+
+  const showError = (info: any) => (
+    <span className="error">
+      *
+      {info}
+      <br />
+    </span>
+  );
+
   return (
-    <Formik
-      initialValues={initFormValue}
-      validateOnChange
-      validateOnBlur
-      validationSchema={validationsForm}
-      onSubmit={(values, { setSubmitting, resetForm }) => {
-        onSubmit(values.password, resetForm);
-        setSubmitting(false);
-      }}
-    >
-      {({
-        values,
-        errors,
-        touched,
-        handleChange,
-        handleBlur,
-        handleSubmit,
-        isSubmitting,
-        isValid,
-        dirty,
-      }) => (
-        <form onSubmit={handleSubmit} autoComplete="off">
-          <Row center="xs">
-            <Col xs={12} md={6} xl={4}>
-              <V7TextField
-                id="password"
-                name="password"
-                type="password"
-                label={t('labels.forms.newPassword')}
-                disabled={isSubmitting}
-                error={errors.password !== undefined && touched.password}
-                value={values.password}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                icon={<V7Icon icon={faAt} size="2x" />}
-                errorText={
-                  errors.password !== undefined && touched.password
-                    ? errors.password
-                    : ''
-                }
-              />
-            </Col>
-          </Row>
-          <Row center="xs">
-            <Col xs={12} md={6} xl={4}>
-              <V7TextField
-                id="passwordConfirm"
-                name="passwordConfirm"
-                type="password"
-                label={t('labels.forms.passwordConf')}
-                disabled={isSubmitting}
-                error={
-                  errors.passwordConfirm !== undefined
-                  && touched.passwordConfirm
-                }
-                value={values.passwordConfirm}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                icon={<V7Icon icon={faAt} size="2x" />}
-                errorText={
-                  errors.passwordConfirm !== undefined
-                  && touched.passwordConfirm
-                    ? errors.passwordConfirm
-                    : ''
-                }
-              />
-            </Col>
-          </Row>
-          <Row center="xs">
-            <Col xs={12} md={6} xl={4}>
-              <V7Button
-                type="submit"
-                disabled={!(isValid && dirty)}
-                size="large"
+    <div className="auth-wrapper d-flex no-block justify-content-center align-items-center">
+      <div className="auth-box text-white" style={{ backgroundColor: '#263238fa' }}>
+        <div id="loginform">
+          <div className="logo text-white display-5">
+            <span className="db">
+              <V7Logo className="vol7er-preloader__logo" isScrollTop={false} fontSize={34} />
+            </span>
+            <h5 className="text-white font-medium mb-3" style={{ fontSize: '18px' }}>
+              {t('pages.recover.title')}
+            </h5>
+            <p className="op-1 mt-4" style={{ fontSize: '18px', borderTop: 'solid 3px #ffb22b' }}>
+              {t('pages.recover.messagePassword')}
+            </p>
+          </div>
+          <Row>
+            <Col xs="12">
+              <Formik
+                initialValues={initFormValue}
+                validateOnChange
+                validateOnBlur
+                validationSchema={validationsForm}
+                onSubmit={(values, { setSubmitting, resetForm }) => {
+                  onSubmit(values.password, resetForm);
+                  setSubmitting(false);
+                }}
               >
-                {t('labels.forms.submit')}
-              </V7Button>
+                {({
+                  values,
+                  errors,
+                  touched,
+                  handleChange,
+                  handleBlur,
+                  handleSubmit,
+                  isSubmitting,
+                  isValid,
+                  dirty,
+                }) => (
+                  <Form
+                    onSubmit={handleSubmit}
+                    autoComplete="false"
+                    className="mt-3"
+                    id="loginform"
+                    action="/dashboards"
+                  >
+                    <FormGroup>
+                      <Label for="password" className="font-medium">
+                        {t('labels.forms.newPassword')}
+                      </Label>
+                      <InputGroup className="mb-2" size="lg">
+                        <InputGroupAddon addonType="prepend">
+                          <InputGroupText>
+                            <i className="fas fa-key" />
+                          </InputGroupText>
+                        </InputGroupAddon>
+                        <Input
+                          disabled={isSubmitting}
+                          type="password"
+                          value={values.password}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          name="password"
+                          id="password"
+                          placeholder={t('labels.forms.newPassword')}
+                          bsSize="lg"
+                        />
+                      </InputGroup>
+                      {
+                        getTextError(touched.password, errors.password)
+                        && showError(getTextError(touched.password, errors.password))
+                        && touched.password
+                      }
+                      <Label for="password_conf" className="font-medium">
+                        {t('labels.forms.passwordConf')}
+                      </Label>
+                      <InputGroup className="mb-2" size="lg">
+                        <InputGroupAddon addonType="prepend">
+                          <InputGroupText>
+                            <i className="fas fa-key" />
+                          </InputGroupText>
+                        </InputGroupAddon>
+                        <Input
+                          disabled={isSubmitting}
+                          type="password"
+                          value={values.passwordConfirm}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          name="password_conf"
+                          id="password_conf"
+                          placeholder={t('labels.forms.passwordConf')}
+                          bsSize="lg"
+                          autoComplete="new-password"
+                        />
+                      </InputGroup>
+                      {
+                        getTextError(touched.passwordConfirm, errors.passwordConfirm)
+                        && showError(getTextError(touched.passwordConfirm, errors.passwordConfirm))
+                        && touched.passwordConfirm
+                      }
+                    </FormGroup>
+                    <Row className="mb-4">
+                      <Col xs="12">
+                        <Button
+                          color="primary"
+                          size="lg"
+                          type="submit"
+                          className="text-uppercase"
+                          block
+                          disabled={!(isValid && dirty)}
+                          style={{
+                            backgroundColor: '#44a0ff',
+                            borderColor: '#44a0ff',
+                          }}
+                        >
+                          {t('labels.forms.submit')}
+                        </Button>
+                      </Col>
+                    </Row>
+                  </Form>
+                )}
+              </Formik>
             </Col>
           </Row>
-        </form>
-      )}
-    </Formik>
+        </div>
+      </div>
+    </div>
   );
 };
 

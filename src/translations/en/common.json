@@ -51,10 +51,13 @@
       "errorOnUserCreation": "Error on user creation"
     },
     "verificationCode": {
-      "title": "Verification code"
+      "title": "Verification code",
+      "message": "Enter the details to complete registration"
     },
     "recover": {
-      "title": "Recover password"
+      "title": "Recover password",
+      "message": "Seems like you forgot your password... Don't worry, you just need to give us your email and we'll send you a link to restore it",
+      "messagePassword": "Enter your new password"
     },
     "company": {
       "title": "Company"
@@ -135,6 +138,7 @@
       "lastName": "Last name",
       "phoneContact": "Phone contact",
       "passwordConf": "Confirm password",
+      "verificationCode": "Verification code",
       "emailRecoverSent": "A confirmation message has been sent to your email with a link to reset your password",
       "emailRecoverTokenError": "Password reset link is invalid or has expired",
       "emailRecoverSuccess": "Account password has been changed successfully",

@@ -9935,8 +9935,7 @@ customizer
     padding: 20px;
     box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.05);
     max-width: 400px;
-    width: 90%;
-    margin: 10% 0; }
+    width: 90%; }
     .auth-wrapper .auth-box .logo {
       text-align: center; }
     .auth-wrapper .auth-box.on-sidebar {

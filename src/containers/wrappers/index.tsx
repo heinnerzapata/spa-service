@@ -4,6 +4,7 @@ import ProfileWrapper from './wrapper.profile';
 import RecoverWrapper from './wrapper.recover';
 import SignInWrapper from './wrapper.signin';
 import SignUpWrapper from './wrapper.signup';
+import VerificationCodeWrapper from './wrapper.verificationCode';
 import CompanyWrapper from './wrapper.company';
 
 export {
@@ -12,6 +13,7 @@ export {
   DashboardMainWrapper,
   SignUpWrapper,
   RecoverWrapper,
+  VerificationCodeWrapper,
   ProfileWrapper,
   CompanyWrapper,
 };

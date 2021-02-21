@@ -5,9 +5,9 @@ import {
 } from '@material-ui/core';
 import { V7LanguageSelector } from 'components';
 
-interface v7AuthHeaderProps {}
+interface v7HeaderAuthProps {}
 
-const V7AuthHeader: React.FC<v7AuthHeaderProps> = () => (
+const V7HeaderAuth: React.FC<v7HeaderAuthProps> = () => (
   <>
     <AppBar position="static" style={{ background: 'transparent', boxShadow: 'none' }}>
       <Toolbar>
@@ -19,4 +19,4 @@ const V7AuthHeader: React.FC<v7AuthHeaderProps> = () => (
   </>
 );
 
-export default V7AuthHeader;
+export default V7HeaderAuth;
