@@ -1,11 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import { connect } from 'react-redux';
-import {
-  Redirect,
-  RouteComponentProps,
-  withRouter,
-} from 'react-router-dom';
+import { Redirect, RouteComponentProps, withRouter } from 'react-router-dom';
 
 import { ThunkDispatch } from 'redux-thunk';
 import _ from 'lodash';
@@ -24,56 +20,85 @@ interface IV7MainProps extends RouteComponentProps {
   onLoginFromToken?: (token: string) => any;
 }
 
-class V7MainContainer extends React.PureComponent<IV7MainProps> {
-  token = getToken();
+interface IV7MainState {
+  token: string | null;
+  validated: boolean;
+}
+
+class V7MainContainer extends React.PureComponent<IV7MainProps, IV7MainState> {
+  constructor(props: IV7MainProps) {
+    super(props);
+    this.state = {
+      token: getToken(),
+      validated: false,
+    };
+  }
 
   getPathName = () => window.location.pathname;
 
   validateProtectedRoute = () => {
-    const token = getToken();
-
-    if (token && !_.isEmpty(getToken()) && this.props.onLoginFromToken) {
-      const decodedToken: any = jwt.decode(token);
+    if (
+      this.state.token &&
+      !_.isEmpty(getToken()) &&
+      this.props.onLoginFromToken
+    ) {
+      const decodedToken: any = jwt.decode(this.state.token);
 
       if (decodedToken) {
         if (moment().unix() < decodedToken.exp) {
-          this.props.onLoginFromToken(token);
+          if (this.props.onLoginFromToken && this.state.token) {
+            this.props.onLoginFromToken(this.state.token);
+          }
         }
       }
     }
   };
 
   componentDidMount() {
+    debugger;
     this.validateProtectedRoute();
   }
 
+  componentDidUpdate(prevProps: IV7MainProps) {
+    if (prevProps.userReducer !== this.props.userReducer) {
+      debugger;
+      this.setState({ validated: true });
+    }
+  }
+
   render() {
+    debugger;
     if (this.props.userReducer.isFetching) {
       return <V7Preloader />;
     }
-    if (this.props.shouldAuth) {
-      if (this.token) {
-        const { exp }: any = jwt.decode(this.token);
+
+    if (!this.props.userReducer.authenticated && this.state.validated) {
+      return <Redirect to='/auth/login' />;
+    }
+
+    if (this.props.shouldAuth && !this.state.validated) {
+      if (this.state.token) {
+        const { exp }: any = jwt.decode(this.state.token);
 
         if (!exp || moment().unix() > exp) {
-          return <Redirect to="/auth/login" />;
+          return <Redirect to='/auth/login' />;
         }
 
         return this.props.children;
       }
 
-      return <Redirect to="/auth/login" />;
+      return <Redirect to='/auth/login' />;
     }
 
-    if (this.token) {
-      const { exp }: any = jwt.decode(this.token);
+    // if (this.state.token) {
+    //   const { exp }: any = jwt.decode(this.state.token);
 
-      if (!exp || moment().unix() > exp) {
-        return this.props.children;
-      }
+    //   if (!exp || moment().unix() > exp) {
+    //     return this.props.children;
+    //   }
 
-      return <Redirect to="/" />;
-    }
+    //   return <Redirect to='/' />;
+    // }
 
     return this.props.children;
   }
@@ -89,5 +114,5 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, any>) => ({
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(withRouter(V7MainContainer));

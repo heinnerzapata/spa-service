@@ -29,18 +29,12 @@ const V7HeaderProfiler: React.FC<IV7HeaderProfiler> = ({ t }) => {
 
   const {
     userInfo,
-    userInfo: {
-      admin,
-      email,
-      avatar,
-      display_name: displayName,
-    },
   } = useSelector((state: RootStateOrAny) => state.userReducer);
 
   const handlerLogout = (e: any) => {
     e.preventDefault();
     removeToken('token');
-    dispatch(userLogOut(email));
+    dispatch(userLogOut(userInfo.email));
     history.push('/auth/login');
   };
 
@@ -80,7 +74,7 @@ const V7HeaderProfiler: React.FC<IV7HeaderProfiler> = ({ t }) => {
             <div className="d-flex no-block align-items-center p-3 mb-2 border-bottom">
               <div className="">
                 <img
-                  src={avatar}
+                  src={userInfo.avatar}
                   alt="user"
                   className="rounded-circle"
                   width="80"
@@ -88,10 +82,10 @@ const V7HeaderProfiler: React.FC<IV7HeaderProfiler> = ({ t }) => {
               </div>
               <div className="ml-3">
                 <h4 className="mb-0">
-                  {displayName}
+                  {userInfo.displayName}
                 </h4>
                 <p className="text-muted mb-0">
-                  {email}
+                  {userInfo.email}
                 </p>
                 <Button href="/profile" color="danger" className="btn-rounded mt-2">
                   {t('components.headerProfiler.profile')}
@@ -99,7 +93,7 @@ const V7HeaderProfiler: React.FC<IV7HeaderProfiler> = ({ t }) => {
               </div>
             </div>
             {
-              admin ? (
+              userInfo.admin ? (
                 <>
                   <DropdownItem href="/company">
                     <i className="fas fa-building mr-1 ml-1" />
