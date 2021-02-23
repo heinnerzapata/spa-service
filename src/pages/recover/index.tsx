@@ -3,7 +3,6 @@ import {
   ALERT_TYPES,
   V7Alert,
   V7Link,
-  V7PageTitle,
 } from 'components';
 import { Col, Row } from 'react-flexbox-grid';
 
@@ -26,10 +25,8 @@ interface IRecoverProps extends WithTranslation, RouteComponentProps {
 }
 
 interface IRecoverState {
-  isPasswordView: boolean;
   isValidHash: boolean;
   isEmailSent: boolean;
-  hash: string;
 }
 
 class Recover extends React.PureComponent<IRecoverProps, IRecoverState> {
@@ -37,27 +34,14 @@ class Recover extends React.PureComponent<IRecoverProps, IRecoverState> {
     super(props);
 
     this.state = {
-      isPasswordView: false,
-      isValidHash: false,
+      isValidHash: true,
       isEmailSent: false,
-      hash: '',
     };
   }
 
-  componentDidMount() {
-    const { hash } = this.props.match.params;
-    if (hash) {
-      this.setState({ isPasswordView: true });
-      this.props
-        .onCheckRecoverHash(hash)
-        .then(() => {
-          this.setState({ isValidHash: true, hash });
-        })
-        .catch(() => {
-          this.setState({ isValidHash: false });
-        });
-    }
-  }
+  invalidateHash = () => {
+    this.setState({ isValidHash: false });
+  };
 
   onFormEmailSubmit = async (email: string) => {
     const { t } = this.props;
@@ -75,7 +59,7 @@ class Recover extends React.PureComponent<IRecoverProps, IRecoverState> {
     try {
       const userInfo = await this.props.onRestorePassword(
         password,
-        this.state.hash,
+        this.props.match.params.hash,
       );
       toast.success(`${t('password changed')}`);
       setToken(userInfo.token);
@@ -88,10 +72,11 @@ class Recover extends React.PureComponent<IRecoverProps, IRecoverState> {
   render() {
     const { t } = this.props;
 
+    const { hash } = this.props.match.params;
+
     return (
-      <section>
-        <V7PageTitle title={t('pages.recover.title')} />
-        {this.state.isPasswordView && (
+      <>
+        {hash && (
         <>
           {this.state.isValidHash && (
           <FormPassword
@@ -120,8 +105,7 @@ class Recover extends React.PureComponent<IRecoverProps, IRecoverState> {
           )}
         </>
         )}
-
-        {!this.state.isPasswordView && (
+        {!hash && (
         <>
           <FormEmail onFormEmailSubmit={this.onFormEmailSubmit} t={t} />
           <br />
@@ -139,7 +123,7 @@ class Recover extends React.PureComponent<IRecoverProps, IRecoverState> {
           )}
         </>
         )}
-      </section>
+      </>
     );
   }
 }

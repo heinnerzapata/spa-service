@@ -1,24 +1,28 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable react/no-unused-state */
+/* eslint-disable max-len */
+/* eslint-disable react/no-did-update-set-state */
 import React from 'react';
-import * as Yup from 'yup';
-import { Col, Row } from 'react-flexbox-grid';
+
 import {
-  V7Button,
-  V7Icon,
-  V7Image,
-  // V7PageTitle,
-  V7TextField,
-} from 'components';
-import { faAt, faPhone, faUser } from '@fortawesome/free-solid-svg-icons';
+  Row,
+  Col,
+  Card,
+  CardBody,
+  CardTitle,
+  CardSubtitle,
+  Button,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+} from 'reactstrap';
+
+import * as Yup from 'yup';
 
 import { Formik } from 'formik';
 import { IUserState } from 'store/user/reducer';
-
 import { RouteComponentProps } from 'react-router-dom';
 import { WithTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import styles from './profile.module.scss';
 
 interface IProfileProps extends WithTranslation, RouteComponentProps {
   t: any;
@@ -39,7 +43,7 @@ interface IFormModel {
 }
 
 class Profile extends React.PureComponent<IProfileProps, IProfileState> {
-  constructor(props: any) {
+  constructor(props: IProfileProps) {
     super(props);
 
     this.state = {
@@ -53,243 +57,234 @@ class Profile extends React.PureComponent<IProfileProps, IProfileState> {
     };
   }
 
-  render() {
-    return (<div>Profile</div>);
+  componentDidUpdate(prevProps: IProfileProps) {
+    if (
+      prevProps.userReducer !== this.props.userReducer
+      && this.props.userReducer.userInfo !== null
+    ) {
+      const { userInfo } = this.props.userReducer;
+      if (this.state.initFormValue.email === '') {
+        this.setState({
+          initFormValue: {
+            first_name: userInfo.first_name,
+            last_name: userInfo.last_name,
+            display_name: userInfo.display_name,
+            email: userInfo.email,
+            phone_contact: userInfo.phone_contact,
+          },
+        });
+      }
+    }
   }
 
-  // componentDidUpdate(prevProps: IProfileProps) {
-  //   if (
-  //     prevProps.userReducer !== this.props.userReducer
-  //     && this.props.userReducer.userInfo !== null
-  //   ) {
-  //     // const { userInfo } = this.props.userReducer;
-  //     if (this.state.initFormValue.email === '') {
-  //       // this.setState({
-  //       //   initFormValue: {
-  //       //     first_name: userInfo.first_name,
-  //       //     last_name: userInfo.last_name,
-  //       //     display_name: userInfo.display_name,
-  //       //     email: userInfo.email,
-  //       //     phone_contact: userInfo.phone_contact,
-  //       //   },
-  //       // });
-  //     }
-  //   }
-  // }
+  submit(model: IFormModel, resetForm: any) {
+    const { t } = this.props;
+    if (this.props.updateUser) {
+      this.props
+        .updateUser(model, this.props.userReducer.userInfo.hex_id)
+        .catch(() => {
+          toast.error(`${t('toast.errorInProcess')}`);
+          this.props.history.push('/');
+        });
 
-  // submit(model: IFormModel, resetForm: any) {
-  //   const { t } = this.props;
-  //   if (this.props.updateUser) {
-  //     this.props
-  //       .updateUser(model, this.props.userReducer.userInfo.hex_id)
-  //       .catch(() => {
-  //         toast.error(`${t('toast.errorInProcess')}`);
-  //         this.props.history.push('/');
-  //       });
+      this.setState(
+        {
+          initFormValue: {
+            first_name: model.first_name,
+            last_name: model.last_name,
+            display_name: model.display_name,
+            email: model.email,
+            phone_contact: model.phone_contact,
+          },
+        },
+        () => {
+          resetForm({ values: this.state.initFormValue });
+        },
+      );
+    }
+  }
 
-  //     this.setState(
-  //       {
-  //         initFormValue: {
-  //           first_name: model.first_name,
-  //           last_name: model.last_name,
-  //           display_name: model.display_name,
-  //           email: model.email,
-  //           phone_contact: model.phone_contact,
-  //         },
-  //       },
-  //       () => {
-  //         resetForm({ values: this.state.initFormValue });
-  //       },
-  //     );
-  //   }
-  // }
+  onSubmit = async (model: IFormModel, resetForm: any) => {
+    this.submit(model, resetForm);
+  };
 
-  // onSubmit = async (model: IFormModel, resetForm: any) => {
-  //   this.submit(model, resetForm);
-  // };
+  render() {
+    const { t } = this.props;
 
-  // render() {
-  //   const { t } = this.props;
-  //   const getTextError = (
-  //     touched: boolean | undefined,
-  //     error: string | undefined,
-  //   ): string => (error !== undefined && touched && error !== undefined ? error : '');
-  //   const validationsForm = Yup.object().shape({
-  //     first_name: Yup.string()
-  //       .min(3, t('errors.forms.notValidFirstName'))
-  //       .required(t('errors.forms.required')),
-  //     last_name: Yup.string()
-  //       .min(3, t('errors.forms.notValidLastName'))
-  //       .required(t('errors.forms.required')),
-  //     display_name: Yup.string()
-  //       .required(t('errors.forms.required'))
-  //       .min(3, t('errors.forms.notValidDisplayName')),
-  //     email: Yup.string()
-  //       .email(t('errors.forms.notValidEmail'))
-  //       .required(t('errors.forms.required')),
-  //     phone_contact: Yup.string()
-  //       .required(t('errors.forms.required'))
-  //       .min(10, t('errors.forms.notValidPhoneContact')),
-  //   });
+    const getTextError = (
+      touched: boolean | undefined,
+      error: string | undefined,
+    ): string => (error !== undefined && touched && error !== undefined ? error : '');
 
-  //   return (
-  //     <section>
-  //       {/* <V7PageTitle title={t("pages.profile.title")} /> */}
-  //       <Row center="xs">
-  //         <Col xs={12} sm={12} md={6} lg={4}>
-  //           <V7Image
-  //             className={styles.image}
-  //             noShadow={false}
-  //             type="round"
-  //             flip
-  //             src={this.props.userReducer?.userInfo?.avatar}
-  //             width={300}
-  //             height={300}
-  //           />
-  //         </Col>
-  //         <Col xs={12} sm={12} md={6} lg={8}>
-  //           <Formik
-  //             initialValues={this.state.initFormValue}
-  //             validateOnChange
-  //             validateOnBlur
-  //             validationSchema={validationsForm}
-  //             onSubmit={(
-  //               values: IFormModel,
-  //               { setSubmitting, resetForm },
-  //             ) => {
-  //               this.onSubmit(values, resetForm);
-  //               setSubmitting(false);
-  //             }}
-  //           >
-  //             {({
-  //               values,
-  //               errors,
-  //               touched,
-  //               handleChange,
-  //               handleBlur,
-  //               handleSubmit,
-  //               isSubmitting,
-  //               isValid,
-  //               dirty,
-  //             }) => (
-  //               <form onSubmit={handleSubmit} autoComplete="off">
-  //                 <Row>
-  //                   <Col xs={12} xl={6}>
-  //                     <V7TextField
-  //                       id="first_name"
-  //                       name="first_name"
-  //                       type="text"
-  //                       label={t('labels.forms.firstName')}
-  //                       disabled={isSubmitting}
-  //                       error={
-  //                           errors.first_name !== undefined
-  //                           && touched.first_name
-  //                         }
-  //                       value={values.first_name}
-  //                       onBlur={handleBlur}
-  //                       onChange={handleChange}
-  //                       icon={<V7Icon icon={faUser} size="2x" />}
-  //                       errorText={getTextError(
-  //                         touched.first_name,
-  //                         errors.first_name,
-  //                       )}
-  //                     />
-  //                   </Col>
-  //                   <Col xs={12} xl={6}>
-  //                     <V7TextField
-  //                       id="last_name"
-  //                       name="last_name"
-  //                       type="text"
-  //                       label={t('labels.forms.lastName')}
-  //                       disabled={isSubmitting}
-  //                       error={
-  //                           errors.last_name !== undefined && touched.last_name
-  //                         }
-  //                       value={values.last_name}
-  //                       onBlur={handleBlur}
-  //                       onChange={handleChange}
-  //                       icon={<V7Icon icon={faUser} size="2x" />}
-  //                       errorText={getTextError(
-  //                         touched.last_name,
-  //                         errors.last_name,
-  //                       )}
-  //                     />
-  //                   </Col>
-  //                   <Col xs={12} xl={6}>
-  //                     <V7TextField
-  //                       id="last_name"
-  //                       name="display_name"
-  //                       type="text"
-  //                       label={t('labels.forms.displayName')}
-  //                       disabled={isSubmitting}
-  //                       error={
-  //                           errors.display_name !== undefined
-  //                           && touched.display_name
-  //                         }
-  //                       value={values.display_name}
-  //                       onBlur={handleBlur}
-  //                       onChange={handleChange}
-  //                       icon={<V7Icon icon={faUser} size="2x" />}
-  //                       errorText={getTextError(
-  //                         touched.display_name,
-  //                         errors.display_name,
-  //                       )}
-  //                     />
-  //                   </Col>
-  //                   <Col xs={12} xl={6}>
-  //                     <V7TextField
-  //                       id="email"
-  //                       name="email"
-  //                       type="text"
-  //                       label={t('labels.forms.email')}
-  //                       disabled
-  //                       error={errors.email !== undefined && touched.email}
-  //                       value={values.email}
-  //                       onBlur={handleBlur}
-  //                       onChange={handleChange}
-  //                       icon={<V7Icon icon={faAt} size="2x" />}
-  //                       errorText={getTextError(touched.email, errors.email)}
-  //                     />
-  //                   </Col>
-  //                   <Col xs={12} xl={6}>
-  //                     <V7TextField
-  //                       id="phone_contact"
-  //                       name="phone_contact"
-  //                       type="number"
-  //                       label={t('labels.forms.phoneContact')}
-  //                       disabled={isSubmitting}
-  //                       error={
-  //                           errors.phone_contact !== undefined
-  //                           && touched.phone_contact
-  //                         }
-  //                       value={values.phone_contact}
-  //                       onBlur={handleBlur}
-  //                       onChange={handleChange}
-  //                       icon={<V7Icon icon={faPhone} size="2x" />}
-  //                       errorText={getTextError(
-  //                         touched.phone_contact,
-  //                         errors.phone_contact,
-  //                       )}
-  //                     />
-  //                   </Col>
-  //                   <Col xs={12}>
-  //                     <V7Button
-  //                       type="submit"
-  //                       disabled={!(isValid && dirty)}
-  //                       size="large"
-  //                     >
-  //                       {t('labels.forms.submit')}
-  //                     </V7Button>
-  //                   </Col>
-  //                 </Row>
-  //               </form>
-  //             )}
-  //           </Formik>
-  //         </Col>
-  //       </Row>
-  //     </section>
-  //   );
-  // }
+    const showError = (info: any) => (
+      <span className="error">
+        *
+        {info}
+        <br />
+      </span>
+    );
+
+    const validationsForm = Yup.object().shape({
+      first_name: Yup.string()
+        .min(3, t('errors.forms.notValidFirstName'))
+        .required(t('errors.forms.required')),
+      last_name: Yup.string()
+        .min(3, t('errors.forms.notValidLastName'))
+        .required(t('errors.forms.required')),
+      display_name: Yup.string()
+        .required(t('errors.forms.required'))
+        .min(3, t('errors.forms.notValidDisplayName')),
+      email: Yup.string()
+        .email(t('errors.forms.notValidEmail'))
+        .required(t('errors.forms.required')),
+      phone_contact: Yup.string()
+        .required(t('errors.forms.required'))
+        .min(10, t('errors.forms.notValidPhoneContact')),
+    });
+
+    return (
+      <div>
+        <Row>
+          <Col xs="12" md="12" lg="4">
+            <Card>
+              <CardBody>
+                <div className="text-center mt-4">
+                  <img
+                    src={this.props.userReducer?.userInfo?.avatar}
+                    className="rounded-circle"
+                    width="150"
+                    alt=""
+                  />
+                  <CardTitle className="mt-2">
+                    {this.props.userReducer?.userInfo?.display_name}
+                  </CardTitle>
+                  <CardSubtitle>
+                    Account Manager
+                  </CardSubtitle>
+                </div>
+              </CardBody>
+            </Card>
+          </Col>
+          <Col xs="12" md="12" lg="8" sm="12">
+            <Card>
+              <CardBody>
+                <Formik
+                  initialValues={this.state.initFormValue}
+                  validateOnChange
+                  validateOnBlur
+                  validationSchema={validationsForm}
+                  onSubmit={(values, { setSubmitting, resetForm }) => {
+                    this.onSubmit(values, resetForm);
+                    setSubmitting(false);
+                  }}
+                >
+                  {({
+                    values,
+                    errors,
+                    touched,
+                    handleChange,
+                    handleBlur,
+                    handleSubmit,
+                    isSubmitting,
+                    isValid,
+                    dirty,
+                  }) => (
+                    <Form onSubmit={handleSubmit} autoComplete="off">
+                      <FormGroup>
+                        <Label>
+                          {t('labels.forms.displayName')}
+                        </Label>
+                        <Input
+                          disabled={isSubmitting}
+                          id="display_name"
+                          name="display_name"
+                          type="text"
+                          defaultValue={this.state.initFormValue.display_name}
+                          onBlur={handleBlur}
+                          onChange={handleChange}
+                          placeholder={t('labels.forms.displayName')}
+                        />
+                        {
+                          getTextError(touched.display_name, errors.display_name)
+                            && showError(getTextError(touched.display_name, errors.display_name))
+                            && touched.display_name
+                        }
+                      </FormGroup>
+                      <FormGroup>
+                        <Label>
+                          {t('labels.forms.email')}
+                        </Label>
+                        <Input
+                          disabled={isSubmitting}
+                          id="email"
+                          name="email"
+                          type="email"
+                          defaultValue={this.state.initFormValue.email}
+                          onBlur={handleBlur}
+                          onChange={handleChange}
+                          placeholder={t('labels.forms.email')}
+                        />
+                        {
+                          getTextError(touched.email, errors.email)
+                            && showError(getTextError(touched.email, errors.email))
+                            && touched.email
+                        }
+                      </FormGroup>
+                      <FormGroup>
+                        <Label>
+                          {t('labels.forms.phoneContact')}
+                        </Label>
+                        <Input
+                          disabled={isSubmitting}
+                          id="phone_contact"
+                          name="phone_contact"
+                          type="text"
+                          defaultValue={this.state.initFormValue.phone_contact}
+                          onBlur={handleBlur}
+                          onChange={handleChange}
+                          placeholder={t('labels.forms.phoneContact')}
+                        />
+                        {
+                          getTextError(touched.email, errors.email)
+                            && showError(getTextError(touched.email, errors.email))
+                            && touched.email
+                        }
+                      </FormGroup>
+                      <FormGroup>
+                        <Label>
+                          {t('labels.forms.password')}
+                        </Label>
+                        <Input
+                          disabled={isSubmitting}
+                          type="password"
+                          id="password"
+                          name="password"
+                          defaultValue={this.state.initFormValue.phone_contact}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          placeholder={t('labels.forms.password')}
+                        />
+                      </FormGroup>
+                      <Button
+                        disabled={!(isValid && dirty && values)}
+                        color="primary"
+                        style={{
+                          backgroundColor: '#44a0ff',
+                          borderColor: '#44a0ff',
+                        }}
+                      >
+                        {t('labels.forms.updateProfile')}
+                      </Button>
+                    </Form>
+                  )}
+                </Formik>
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
+      </div>
+    );
+  }
 }
 
 export default Profile;

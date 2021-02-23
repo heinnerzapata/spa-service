@@ -8,6 +8,7 @@ import styles from './v7Menu.module.scss';
 interface v7MenuProps {
   height?: number;
   width?: number;
+  openLeft?: boolean;
   menuImage: string;
   onItemClick?: (index: number) => void;
   listItems: React.ReactNode[];
@@ -15,6 +16,7 @@ interface v7MenuProps {
 
 const useStyles = createUseStyles({
   menu: {
+    left: (props: v7MenuProps) => (props.openLeft ? `-${props.width && props.width - 30}px` : '30px'),
     height: (props: v7MenuProps) => (props.height ? `${props.height}px` : 'auto'),
     width: (props: v7MenuProps) => (props.width ? `${props.width}px` : 'auto'),
   },

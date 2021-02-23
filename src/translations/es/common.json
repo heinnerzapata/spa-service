@@ -1,6 +1,6 @@
 {
   "languages": {
-    "en": "Ingles",
+    "en": "Inglés",
     "es": "Español"
   },
   "appRouter": {
@@ -51,10 +51,13 @@
       "errorOnUserCreation": "Error en la creacion del usuario"
     },
     "verificationCode": {
-      "title": "Código de verificación"
+      "title": "Código de verificación",
+      "message": "Ingrese los detalles para completar el registro"
     },
     "recover": {
-      "title": "Recuperar contraseña"
+      "title": "Recuperar contraseña",
+      "message": "Parece que olvidó su contraseña ... No se preocupe, solo ingrese su correo electrónico y le enviaremos un enlace para restaurarlo",
+      "messagePassword": "Ingrese su nueva contraseña"
     },
     "company": {
       "title": "Compañia"
@@ -122,6 +125,7 @@
       "submit": "Enviar",
       "save": "Guardar",
       "pay": "Pagar",
+      "updateProfile": "Actualizar Perfil",
       "forgotPassword": "¿Olvidaste tu contraseña?",
       "dontHaveAnAccount": "¿No tienes una cuenta?",
       "doYouHaveAVerificationCode": "¿Tienes un código de verificación?",
@@ -135,6 +139,7 @@
       "lastName": "Apellido",
       "phoneContact": "Telefono de la compañia",
       "passwordConf": "Confirmar contraseña",
+      "verificationCode": "Código de verificación",
       "emailRecoverSent": "Un hipervinculo de confirmación ha sido enviado a su correo electrónico para restablecer la contraseña",
       "emailRecoverTokenError": "Este link de restablecimiento es invalido o ha expirado",
       "emailRecoverSuccess": "La contraseña de la cuenta ha sido cambiada exitosamente",

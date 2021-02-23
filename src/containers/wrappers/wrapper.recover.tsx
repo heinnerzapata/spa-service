@@ -11,7 +11,7 @@ const mapStateToProps = (state: IAppState) => ({
 });
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, any>) => ({
-  onCheckRecoverHash: (email: string) => dispatch(checkRecoverHash(email)),
+  onCheckRecoverHash: (hash: string) => dispatch(checkRecoverHash(hash)),
   onRestorePassword: (password: string, hash: string) => dispatch(restorePassword(password, hash)),
   onRecoverPassword: (email: string) => dispatch(recoverPassword(email)),
 });
