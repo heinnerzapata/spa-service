@@ -51,34 +51,47 @@ const FormPassword: React.FC<IFormPassword> = (props) => {
 
   const getTextError = (
     touched: boolean | undefined,
-    error: string | undefined,
-  ): string => (error !== undefined && touched && error !== undefined ? error : '');
+    error: string | undefined
+  ): string =>
+    error !== undefined && touched && error !== undefined ? error : '';
 
   const showError = (info: any) => (
-    <span className="error">
-      *
-      {info}
+    <span className='error'>
+      *{info}
       <br />
     </span>
   );
 
   return (
-    <div className="auth-wrapper d-flex no-block justify-content-center align-items-center">
-      <div className="auth-box text-white" style={{ backgroundColor: '#263238fa' }}>
-        <div id="loginform">
-          <div className="logo text-white display-5">
-            <span className="db">
-              <V7Logo className="vol7er-preloader__logo" isScrollTop={false} fontSize={34} />
+    <div className='auth-wrapper d-flex no-block justify-content-center align-items-center'>
+      <div
+        className='auth-box text-white'
+        style={{ backgroundColor: '#263238fa' }}
+      >
+        <div id='loginform'>
+          <div className='logo text-white display-5'>
+            <span className='db'>
+              <V7Logo
+                className='vol7er-preloader__logo'
+                isScrollTop={false}
+                fontSize={34}
+              />
             </span>
-            <h5 className="text-white font-medium mb-3" style={{ fontSize: '18px' }}>
+            <h5
+              className='text-white font-medium mb-3'
+              style={{ fontSize: '18px' }}
+            >
               {t('pages.recover.title')}
             </h5>
-            <p className="op-1 mt-4" style={{ fontSize: '18px', borderTop: 'solid 3px #ffb22b' }}>
+            <p
+              className='op-1 mt-4'
+              style={{ fontSize: '18px', borderTop: 'solid 3px #ffb22b' }}
+            >
               {t('pages.recover.messagePassword')}
             </p>
           </div>
           <Row>
-            <Col xs="12">
+            <Col xs='12'>
               <Formik
                 initialValues={initFormValue}
                 validateOnChange
@@ -102,73 +115,79 @@ const FormPassword: React.FC<IFormPassword> = (props) => {
                 }) => (
                   <Form
                     onSubmit={handleSubmit}
-                    autoComplete="false"
-                    className="mt-3"
-                    id="loginform"
-                    action="/dashboards"
+                    autoComplete='false'
+                    className='mt-3'
+                    id='loginform'
+                    action='/dashboards'
                   >
                     <FormGroup>
-                      <Label for="password" className="font-medium">
+                      <Label for='password' className='font-medium'>
                         {t('labels.forms.newPassword')}
                       </Label>
-                      <InputGroup className="mb-2" size="lg">
-                        <InputGroupAddon addonType="prepend">
+                      <InputGroup className='mb-2' size='lg'>
+                        <InputGroupAddon addonType='prepend'>
                           <InputGroupText>
-                            <i className="fas fa-key" />
+                            <i className='fas fa-key' />
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input
                           disabled={isSubmitting}
-                          type="password"
+                          type='password'
                           value={values.password}
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          name="password"
-                          id="password"
+                          name='password'
+                          id='password'
                           placeholder={t('labels.forms.newPassword')}
-                          bsSize="lg"
+                          bsSize='lg'
                         />
                       </InputGroup>
-                      {
-                        getTextError(touched.password, errors.password)
-                        && showError(getTextError(touched.password, errors.password))
-                        && touched.password
-                      }
-                      <Label for="password_conf" className="font-medium">
+                      {getTextError(touched.password, errors.password) &&
+                        showError(
+                          getTextError(touched.password, errors.password)
+                        ) &&
+                        touched.password}
+                      <Label for='password_conf' className='font-medium'>
                         {t('labels.forms.passwordConf')}
                       </Label>
-                      <InputGroup className="mb-2" size="lg">
-                        <InputGroupAddon addonType="prepend">
+                      <InputGroup className='mb-2' size='lg'>
+                        <InputGroupAddon addonType='prepend'>
                           <InputGroupText>
-                            <i className="fas fa-key" />
+                            <i className='fas fa-key' />
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input
                           disabled={isSubmitting}
-                          type="password"
+                          type='password'
                           value={values.passwordConfirm}
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          name="password_conf"
-                          id="password_conf"
+                          name='password_conf'
+                          id='password_conf'
                           placeholder={t('labels.forms.passwordConf')}
-                          bsSize="lg"
-                          autoComplete="new-password"
+                          bsSize='lg'
+                          autoComplete='new-password'
                         />
                       </InputGroup>
-                      {
-                        getTextError(touched.passwordConfirm, errors.passwordConfirm)
-                        && showError(getTextError(touched.passwordConfirm, errors.passwordConfirm))
-                        && touched.passwordConfirm
-                      }
+                      {getTextError(
+                        touched.passwordConfirm,
+                        errors.passwordConfirm
+                      ) &&
+                        showError(
+                          getTextError(
+                            touched.passwordConfirm,
+                            errors.passwordConfirm
+                          )
+                        ) &&
+                        touched.passwordConfirm}
                     </FormGroup>
-                    <Row className="mb-4">
-                      <Col xs="12">
+                    <Row className='mb-4'>
+                      <Col xs='12'>
                         <Button
-                          color="primary"
-                          size="lg"
-                          type="submit"
-                          className="text-uppercase"
+                          color='primary'
+                          size='lg'
+                          type='submit'
+                          className='text-uppercase'
                           block
                           disabled={!(isValid && dirty)}
                           style={{

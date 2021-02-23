@@ -55,7 +55,10 @@ const initFormValue: IFormModel = {
   verificationCode: '',
 };
 
-class VerificationCode extends React.PureComponent<IVerificationCodeProps, IVerificationCodeState> {
+class VerificationCode extends React.PureComponent<
+  IVerificationCodeProps,
+  IVerificationCodeState
+> {
   formRef = React.createRef<any>();
 
   constructor(props: IVerificationCodeProps) {
@@ -120,7 +123,7 @@ class VerificationCode extends React.PureComponent<IVerificationCodeProps, IVeri
   registerSuccess = () => {
     const { t } = this.props;
     toast.success(
-      `${t('toast.welcome')} ${this.props.userReducer.userInfo.display_name} !!`,
+      `${t('toast.welcome')} ${this.props.userReducer.userInfo.display_name} !!`
     );
     this.props.history.push('/dashboard');
   };
@@ -143,13 +146,13 @@ class VerificationCode extends React.PureComponent<IVerificationCodeProps, IVeri
 
     const getTextError = (
       touched: boolean | undefined,
-      error: string | undefined,
-    ): string => (error !== undefined && touched && error !== undefined ? error : '');
+      error: string | undefined
+    ): string =>
+      error !== undefined && touched && error !== undefined ? error : '';
 
     const showError = (info: any) => (
-      <span className="error">
-        *
-        {info}
+      <span className='error'>
+        *{info}
         <br />
       </span>
     );
@@ -180,22 +183,35 @@ class VerificationCode extends React.PureComponent<IVerificationCodeProps, IVeri
     });
 
     return (
-      <div className="auth-wrapper d-flex no-block justify-content-center align-items-center">
-        <div className="auth-box text-white" style={{ backgroundColor: '#263238fa' }}>
-          <div id="loginform">
-            <div className="logo text-white display-5">
-              <span className="db">
-                <V7Logo className="vol7er-preloader__logo" isScrollTop={false} fontSize={34} />
+      <div className='auth-wrapper d-flex no-block justify-content-center align-items-center'>
+        <div
+          className='auth-box text-white'
+          style={{ backgroundColor: '#263238fa' }}
+        >
+          <div id='loginform'>
+            <div className='logo text-white display-5'>
+              <span className='db'>
+                <V7Logo
+                  className='vol7er-preloader__logo'
+                  isScrollTop={false}
+                  fontSize={34}
+                />
               </span>
-              <h5 className="text-white font-medium mb-3" style={{ fontSize: '18px' }}>
+              <h5
+                className='text-white font-medium mb-3'
+                style={{ fontSize: '18px' }}
+              >
                 {t('pages.verificationCode.title')}
               </h5>
-              <p className="op-1 mt-4" style={{ fontSize: '18px', borderTop: 'solid 3px #ffb22b' }}>
+              <p
+                className='op-1 mt-4'
+                style={{ fontSize: '18px', borderTop: 'solid 3px #ffb22b' }}
+              >
                 {t('pages.verificationCode.message')}
               </p>
             </div>
             <Row>
-              <Col xs="12">
+              <Col xs='12'>
                 <Formik
                   initialValues={initFormValue}
                   validateOnChange
@@ -219,123 +235,135 @@ class VerificationCode extends React.PureComponent<IVerificationCodeProps, IVeri
                   }) => (
                     <Form
                       onSubmit={handleSubmit}
-                      autoComplete="false"
-                      className="mt-3"
-                      id="loginform"
-                      action="/dashboards"
+                      autoComplete='false'
+                      className='mt-3'
+                      id='loginform'
+                      action='/dashboards'
                     >
                       <FormGroup>
-                        <Label for="email" className="font-medium">
+                        <Label for='email' className='font-medium'>
                           {t('labels.forms.email')}
                         </Label>
-                        <InputGroup className="mb-2" size="lg">
-                          <InputGroupAddon addonType="prepend">
+                        <InputGroup className='mb-2' size='lg'>
+                          <InputGroupAddon addonType='prepend'>
                             <InputGroupText>
-                              <i className="fas fa-at" />
+                              <i className='fas fa-at' />
                             </InputGroupText>
                           </InputGroupAddon>
                           <Input
-                            type="email"
+                            type='email'
                             value={values.email}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            name="email"
-                            id="email"
+                            name='email'
+                            id='email'
                             placeholder={t('labels.forms.email')}
-                            bsSize="lg"
+                            bsSize='lg'
                           />
                         </InputGroup>
-                        {
-                          getTextError(touched.email, errors.email)
-                          && showError(getTextError(touched.email, errors.email))
-                          && touched.email
-                        }
-                        <Label for="password" className="font-medium">
+                        {getTextError(touched.email, errors.email) &&
+                          showError(
+                            getTextError(touched.email, errors.email)
+                          ) &&
+                          touched.email}
+                        <Label for='password' className='font-medium'>
                           {t('labels.forms.newPassword')}
                         </Label>
-                        <InputGroup className="mb-2" size="lg">
-                          <InputGroupAddon addonType="prepend">
+                        <InputGroup className='mb-2' size='lg'>
+                          <InputGroupAddon addonType='prepend'>
                             <InputGroupText>
-                              <i className="fas fa-key" />
+                              <i className='fas fa-key' />
                             </InputGroupText>
                           </InputGroupAddon>
                           <Input
                             disabled={isSubmitting}
-                            type="password"
+                            type='password'
                             value={values.password}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            name="password"
-                            id="password"
+                            name='password'
+                            id='password'
                             placeholder={t('labels.forms.newPassword')}
-                            bsSize="lg"
+                            bsSize='lg'
                           />
                         </InputGroup>
-                        {
-                          getTextError(touched.password, errors.password)
-                          && showError(getTextError(touched.password, errors.password))
-                          && touched.password
-                        }
-                        <Label for="password_conf" className="font-medium">
+                        {getTextError(touched.password, errors.password) &&
+                          showError(
+                            getTextError(touched.password, errors.password)
+                          ) &&
+                          touched.password}
+                        <Label for='password_conf' className='font-medium'>
                           {t('labels.forms.passwordConf')}
                         </Label>
-                        <InputGroup className="mb-2" size="lg">
-                          <InputGroupAddon addonType="prepend">
+                        <InputGroup className='mb-2' size='lg'>
+                          <InputGroupAddon addonType='prepend'>
                             <InputGroupText>
-                              <i className="fas fa-key" />
+                              <i className='fas fa-key' />
                             </InputGroupText>
                           </InputGroupAddon>
                           <Input
                             disabled={isSubmitting}
-                            type="password"
+                            type='password'
                             value={values.passwordConfirm}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            name="password_conf"
-                            id="password_conf"
+                            name='password_conf'
+                            id='password_conf'
                             placeholder={t('labels.forms.passwordConf')}
-                            bsSize="lg"
-                            autoComplete="new-password"
+                            bsSize='lg'
+                            autoComplete='new-password'
                           />
                         </InputGroup>
-                        {
-                          getTextError(touched.passwordConfirm, errors.passwordConfirm)
-                          && showError(getTextError(touched.passwordConfirm, errors.passwordConfirm))
-                          && touched.passwordConfirm
-                        }
-                        <Label for="verifiactionCode" className="font-medium">
+                        {getTextError(
+                          touched.passwordConfirm,
+                          errors.passwordConfirm
+                        ) &&
+                          showError(
+                            getTextError(
+                              touched.passwordConfirm,
+                              errors.passwordConfirm
+                            )
+                          ) &&
+                          touched.passwordConfirm}
+                        <Label for='verifiactionCode' className='font-medium'>
                           {t('labels.forms.verificationCode')}
                         </Label>
-                        <InputGroup className="mb-2" size="lg">
-                          <InputGroupAddon addonType="prepend">
+                        <InputGroup className='mb-2' size='lg'>
+                          <InputGroupAddon addonType='prepend'>
                             <InputGroupText>
-                              <i className="fas fa-unlock-alt" />
+                              <i className='fas fa-unlock-alt' />
                             </InputGroupText>
                           </InputGroupAddon>
                           <Input
-                            type="text"
+                            type='text'
                             value={values.verificationCode}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            name="verifiactionCode"
-                            id="verifiactionCode"
+                            name='verifiactionCode'
+                            id='verifiactionCode'
                             placeholder={t('labels.forms.verificationCode')}
-                            bsSize="lg"
+                            bsSize='lg'
                           />
                         </InputGroup>
-                        {
-                          getTextError(touched.verificationCode, errors.verificationCode)
-                          && showError(getTextError(touched.verificationCode, errors.verificationCode))
-                          && touched.verificationCode
-                        }
+                        {getTextError(
+                          touched.verificationCode,
+                          errors.verificationCode
+                        ) &&
+                          showError(
+                            getTextError(
+                              touched.verificationCode,
+                              errors.verificationCode
+                            )
+                          ) &&
+                          touched.verificationCode}
                       </FormGroup>
-                      <Row className="mb-4">
-                        <Col xs="12">
+                      <Row className='mb-4'>
+                        <Col xs='12'>
                           <Button
-                            color="primary"
-                            size="lg"
-                            type="submit"
-                            className="text-uppercase"
+                            color='primary'
+                            size='lg'
+                            type='submit'
+                            className='text-uppercase'
                             block
                             disabled={!(isValid && dirty)}
                             style={{
@@ -352,15 +380,13 @@ class VerificationCode extends React.PureComponent<IVerificationCodeProps, IVeri
                 </Formik>
               </Col>
             </Row>
-            <div style={{ fontSize: '12px' }} className="text-center float-right">
+            <div
+              style={{ fontSize: '12px' }}
+              className='text-center float-right'
+            >
               {t('labels.forms.alreadyHaveAnAccount')}
-              <a
-                href="/auth/login"
-                className="text-info ml-1"
-              >
-                <b>
-                  {t('labels.forms.logIn')}
-                </b>
+              <a href='/auth/login' className='text-info ml-1'>
+                <b>{t('labels.forms.logIn')}</b>
               </a>
             </div>
           </div>

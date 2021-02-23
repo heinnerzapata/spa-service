@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  ALERT_TYPES,
-  V7Alert,
-  V7Link,
-} from 'components';
+import { ALERT_TYPES, V7Alert, V7Link } from 'components';
 import { Col, Row } from 'react-flexbox-grid';
 
 import { IUserState } from 'store/user/reducer';
@@ -59,7 +55,7 @@ class Recover extends React.PureComponent<IRecoverProps, IRecoverState> {
     try {
       const userInfo = await this.props.onRestorePassword(
         password,
-        this.props.match.params.hash,
+        this.props.match.params.hash
       );
       toast.success(`${t('password changed')}`);
       setToken(userInfo.token);
@@ -77,51 +73,51 @@ class Recover extends React.PureComponent<IRecoverProps, IRecoverState> {
     return (
       <>
         {hash && (
-        <>
-          {this.state.isValidHash && (
-          <FormPassword
-            history={this.props.history}
-            onFormEmailSubmit={this.onFormPasswordSubmit}
-            t={t}
-          />
-          )}
-          {!this.state.isValidHash && (
           <>
-            <Row center="xs">
-              <Col xs={12} md={9} lg={6} xl={4}>
-                <V7Alert
-                  type={ALERT_TYPES.ERROR}
-                  message={t('labels.forms.emailRecoverTokenError')}
-                />
-              </Col>
-            </Row>
-            <br />
-            <Row center="xs">
-              <Col xs={12} md={9} lg={6} xl={4}>
-                <V7Link to="/" text={t('labels.forms.return')} />
-              </Col>
-            </Row>
+            {this.state.isValidHash && (
+              <FormPassword
+                history={this.props.history}
+                onFormEmailSubmit={this.onFormPasswordSubmit}
+                t={t}
+              />
+            )}
+            {!this.state.isValidHash && (
+              <>
+                <Row center='xs'>
+                  <Col xs={12} md={9} lg={6} xl={4}>
+                    <V7Alert
+                      type={ALERT_TYPES.ERROR}
+                      message={t('labels.forms.emailRecoverTokenError')}
+                    />
+                  </Col>
+                </Row>
+                <br />
+                <Row center='xs'>
+                  <Col xs={12} md={9} lg={6} xl={4}>
+                    <V7Link to='/' text={t('labels.forms.return')} />
+                  </Col>
+                </Row>
+              </>
+            )}
           </>
-          )}
-        </>
         )}
         {!hash && (
-        <>
-          <FormEmail onFormEmailSubmit={this.onFormEmailSubmit} t={t} />
-          <br />
-          {this.state.isEmailSent && (
           <>
-            <Row center="xs">
-              <Col xs={12} md={6} xl={4}>
-                <V7Alert
-                  type={ALERT_TYPES.SUCCESS}
-                  message={t('labels.forms.emailRecoverSent')}
-                />
-              </Col>
-            </Row>
+            <FormEmail onFormEmailSubmit={this.onFormEmailSubmit} t={t} />
+            <br />
+            {this.state.isEmailSent && (
+              <>
+                <Row center='xs'>
+                  <Col xs={12} md={6} xl={4}>
+                    <V7Alert
+                      type={ALERT_TYPES.SUCCESS}
+                      message={t('labels.forms.emailRecoverSent')}
+                    />
+                  </Col>
+                </Row>
+              </>
+            )}
           </>
-          )}
-        </>
         )}
       </>
     );

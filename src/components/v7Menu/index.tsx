@@ -16,8 +16,10 @@ interface v7MenuProps {
 
 const useStyles = createUseStyles({
   menu: {
-    left: (props: v7MenuProps) => (props.openLeft ? `-${props.width && props.width - 30}px` : '30px'),
-    height: (props: v7MenuProps) => (props.height ? `${props.height}px` : 'auto'),
+    left: (props: v7MenuProps) =>
+      props.openLeft ? `-${props.width && props.width - 30}px` : '30px',
+    height: (props: v7MenuProps) =>
+      props.height ? `${props.height}px` : 'auto',
     width: (props: v7MenuProps) => (props.width ? `${props.width}px` : 'auto'),
   },
 });
@@ -39,7 +41,7 @@ const V7Menu: React.SFC<v7MenuProps> = (props) => {
   return (
     <div className={styles.v7Menu}>
       <div onClick={handleClickMenu}>
-        <V7Avatar alt="item-language-selected" src={props.menuImage} />
+        <V7Avatar alt='item-language-selected' src={props.menuImage} />
       </div>
       {menuOpen && (
         <OutsideClickHandler
@@ -49,7 +51,9 @@ const V7Menu: React.SFC<v7MenuProps> = (props) => {
         >
           <div className={cx(classes.menu, styles.menuContainer)}>
             <ul className={styles.list}>
-              {props.listItems.map((item, i) => <li onClick={() => handleItem(i)}>{item}</li>)}
+              {props.listItems.map((item, i) => (
+                <li onClick={() => handleItem(i)}>{item}</li>
+              ))}
             </ul>
           </div>
         </OutsideClickHandler>

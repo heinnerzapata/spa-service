@@ -129,7 +129,7 @@ class SignUp extends React.PureComponent<ISignUpProps, ISignUpState> {
   registerSuccess = () => {
     const { t } = this.props;
     toast.success(
-      `${t('toast.welcome')} ${this.props.userReducer.userInfo.display_name} !!`,
+      `${t('toast.welcome')} ${this.props.userReducer.userInfo.display_name} !!`
     );
     this.props.history.push('/dashboard');
   };
@@ -152,13 +152,13 @@ class SignUp extends React.PureComponent<ISignUpProps, ISignUpState> {
 
     const getTextError = (
       touched: boolean | undefined,
-      error: string | undefined,
-    ): string => (error !== undefined && touched && error !== undefined ? error : '');
+      error: string | undefined
+    ): string =>
+      error !== undefined && touched && error !== undefined ? error : '';
 
     const showError = (info: any) => (
-      <span className="error">
-        *
-        {info}
+      <span className='error'>
+        *{info}
         <br />
       </span>
     );
@@ -189,31 +189,48 @@ class SignUp extends React.PureComponent<ISignUpProps, ISignUpState> {
     });
 
     return (
-      <div className="auth-wrapper align-items-center d-flex">
-        <div className="container">
+      <div className='auth-wrapper align-items-center d-flex'>
+        <div className='container'>
           <div>
-            <Row className="no-gutters justify-content-center">
-              <Col md="6" lg="4" className="text-white" style={{ backgroundColor: '#263238fa' }}>
-                <div className="p-4">
-                  <h2 className="text-white display-5">
+            <Row className='no-gutters justify-content-center'>
+              <Col
+                md='6'
+                lg='4'
+                className='text-white'
+                style={{ backgroundColor: '#263238fa' }}
+              >
+                <div className='p-4'>
+                  <h2 className='text-white display-5'>
                     {t('pages.signup.hi')}
                     <br />
-                    <span style={{ color: '#ffb22b' }} className="font-bold">
+                    <span style={{ color: '#ffb22b' }} className='font-bold'>
                       {t('pages.signup.welcome')}
-                      <V7Logo className="vol7er-preloader__logo" isScrollTop={false} fontSize={34} />
+                      <V7Logo
+                        className='vol7er-preloader__logo'
+                        isScrollTop={false}
+                        fontSize={34}
+                      />
                     </span>
                   </h2>
                   <br />
                   <br />
                   <br />
-                  <p className="op-1 mt-4" style={{ fontSize: '26px', borderTop: 'solid 3px #ffb22b' }}>
+                  <p
+                    className='op-1 mt-4'
+                    style={{ fontSize: '26px', borderTop: 'solid 3px #ffb22b' }}
+                  >
                     {t('pages.signup.message')}
                   </p>
                 </div>
               </Col>
-              <Col md="6" lg="4" className="text-white" style={{ backgroundColor: '#2b2c2d70' }}>
-                <div className="p-4">
-                  <h3 className="font-medium mb-3 text-info">
+              <Col
+                md='6'
+                lg='4'
+                className='text-white'
+                style={{ backgroundColor: '#2b2c2d70' }}
+              >
+                <div className='p-4'>
+                  <h3 className='font-medium mb-3 text-info'>
                     {t('pages.signup.title')}
                   </h3>
                   <Formik
@@ -237,127 +254,145 @@ class SignUp extends React.PureComponent<ISignUpProps, ISignUpState> {
                       isValid,
                       dirty,
                     }) => (
-                      <Form className="mt-3" id="signupform" action="/dashbaords">
-                        <Label for="username" className="font-medium">
+                      <Form
+                        className='mt-3'
+                        id='signupform'
+                        action='/dashbaords'
+                      >
+                        <Label for='username' className='font-medium'>
                           {t('labels.forms.userName')}
                         </Label>
-                        <InputGroup className="mb-2" size="lg">
-                          <InputGroupAddon addonType="prepend">
+                        <InputGroup className='mb-2' size='lg'>
+                          <InputGroupAddon addonType='prepend'>
                             <InputGroupText>
-                              <i className="fas fa-user" />
+                              <i className='fas fa-user' />
                             </InputGroupText>
                           </InputGroupAddon>
                           <Input
-                            type="text"
+                            type='text'
                             value={values.display_name}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            name="username"
-                            id="username"
+                            name='username'
+                            id='username'
                             placeholder={t('labels.forms.userName')}
-                            bsSize="lg"
+                            bsSize='lg'
                           />
                         </InputGroup>
-                        {
-                          getTextError(touched.display_name, errors.display_name)
-                            && showError(getTextError(touched.display_name, errors.display_name))
-                            && touched.display_name
-                        }
-                        <Label for="email" className="font-medium">
+                        {getTextError(
+                          touched.display_name,
+                          errors.display_name
+                        ) &&
+                          showError(
+                            getTextError(
+                              touched.display_name,
+                              errors.display_name
+                            )
+                          ) &&
+                          touched.display_name}
+                        <Label for='email' className='font-medium'>
                           {t('labels.forms.email')}
                         </Label>
-                        <InputGroup className="mb-2" size="lg">
-                          <InputGroupAddon addonType="prepend">
+                        <InputGroup className='mb-2' size='lg'>
+                          <InputGroupAddon addonType='prepend'>
                             <InputGroupText>
-                              <i className="fas fa-at" />
+                              <i className='fas fa-at' />
                             </InputGroupText>
                           </InputGroupAddon>
                           <Input
-                            type="email"
+                            type='email'
                             value={values.email}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            name="email"
-                            id="email"
+                            name='email'
+                            id='email'
                             placeholder={t('labels.forms.email')}
-                            bsSize="lg"
+                            bsSize='lg'
                           />
                         </InputGroup>
-                        {
-                          getTextError(touched.email, errors.email)
-                          && showError(getTextError(touched.email, errors.email))
-                          && touched.email
-                        }
-                        <Label for="password" className="font-medium">
+                        {getTextError(touched.email, errors.email) &&
+                          showError(
+                            getTextError(touched.email, errors.email)
+                          ) &&
+                          touched.email}
+                        <Label for='password' className='font-medium'>
                           {t('labels.forms.password')}
                         </Label>
-                        <InputGroup className="mb-2" size="lg">
-                          <InputGroupAddon addonType="prepend">
+                        <InputGroup className='mb-2' size='lg'>
+                          <InputGroupAddon addonType='prepend'>
                             <InputGroupText>
-                              <i className="fas fa-key" />
+                              <i className='fas fa-key' />
                             </InputGroupText>
                           </InputGroupAddon>
                           <Input
-                            type="password"
+                            type='password'
                             value={values.password}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            name="password"
-                            id="password"
+                            name='password'
+                            id='password'
                             placeholder={t('labels.forms.password')}
-                            bsSize="lg"
+                            bsSize='lg'
                           />
                         </InputGroup>
-                        {
-                          getTextError(touched.password, errors.password)
-                          && showError(getTextError(touched.password, errors.password))
-                          && touched.password
-                        }
-                        <Label for="password_conf" className="font-medium">
+                        {getTextError(touched.password, errors.password) &&
+                          showError(
+                            getTextError(touched.password, errors.password)
+                          ) &&
+                          touched.password}
+                        <Label for='password_conf' className='font-medium'>
                           {t('labels.forms.passwordConf')}
                         </Label>
-                        <InputGroup className="mb-2" size="lg">
-                          <InputGroupAddon addonType="prepend">
+                        <InputGroup className='mb-2' size='lg'>
+                          <InputGroupAddon addonType='prepend'>
                             <InputGroupText>
-                              <i className="fas fa-key" />
+                              <i className='fas fa-key' />
                             </InputGroupText>
                           </InputGroupAddon>
                           <Input
-                            type="password"
+                            type='password'
                             value={values.password_conf}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            name="password_conf"
-                            id="password_conf"
+                            name='password_conf'
+                            id='password_conf'
                             placeholder={t('labels.forms.passwordConf')}
-                            bsSize="lg"
-                            autoComplete="new-password"
+                            bsSize='lg'
+                            autoComplete='new-password'
                           />
                         </InputGroup>
-                        {
-                          getTextError(touched.password_conf, errors.password_conf)
-                          && showError(getTextError(touched.password_conf, errors.password_conf))
-                          && touched.password_conf
-                        }
+                        {getTextError(
+                          touched.password_conf,
+                          errors.password_conf
+                        ) &&
+                          showError(
+                            getTextError(
+                              touched.password_conf,
+                              errors.password_conf
+                            )
+                          ) &&
+                          touched.password_conf}
                         <br />
                         <CustomInput
-                          type="checkbox"
-                          id="exampleCustomCheckbox"
+                          type='checkbox'
+                          id='exampleCustomCheckbox'
                           label={t('labels.forms.agreeAllTerms')}
                         />
                         <br />
-                        <Row className="mb-3 mt-3">
-                          <Col xs="12">
+                        <Row className='mb-3 mt-3'>
+                          <Col xs='12'>
                             <Button
-                              type="submit"
+                              type='submit'
                               // onClick={this.doRegister}
-                              className={`text-uppercase ${!(isValid && dirty) ? '' : 'disabled'}`}
+                              className={`text-uppercase ${
+                                !(isValid && dirty) ? '' : 'disabled'
+                              }`}
                               style={{
                                 backgroundColor: '#44a0ff',
                                 borderColor: '#44a0ff',
                               }}
-                              color="primary"
-                              size="lg"
+                              color='primary'
+                              size='lg'
                               block
                               disabled={!(isValid && dirty)}
                             >
@@ -366,15 +401,13 @@ class SignUp extends React.PureComponent<ISignUpProps, ISignUpState> {
                           </Col>
                         </Row>
                         <br />
-                        <div style={{ fontSize: '12px' }} className="text-center float-right">
+                        <div
+                          style={{ fontSize: '12px' }}
+                          className='text-center float-right'
+                        >
                           {t('labels.forms.alreadyHaveAnAccount')}
-                          <a
-                            href="/auth/login"
-                            className="text-info ml-1"
-                          >
-                            <b>
-                              {t('labels.forms.logIn')}
-                            </b>
+                          <a href='/auth/login' className='text-info ml-1'>
+                            <b>{t('labels.forms.logIn')}</b>
                           </a>
                         </div>
                         <br />

@@ -98,7 +98,7 @@ class SignIn extends React.PureComponent<ISignInProps, ISignInState> {
   validCredentials = () => {
     const { t } = this.props;
     toast.success(
-      `${t('toast.welcome')} ${this.props.userReducer.userInfo.display_name} !!`,
+      `${t('toast.welcome')} ${this.props.userReducer.userInfo.display_name} !!`
     );
     this.props.history.push(this.state.nextPage);
   };
@@ -130,41 +130,58 @@ class SignIn extends React.PureComponent<ISignInProps, ISignInState> {
 
     const getTextError = (
       touched: boolean | undefined,
-      error: string | undefined,
-    ): string => (error !== undefined && touched && error !== undefined ? error : '');
+      error: string | undefined
+    ): string =>
+      error !== undefined && touched && error !== undefined ? error : '';
 
     const showError = (info: any) => (
-      <span className="error">
-        *
-        {info}
+      <span className='error'>
+        *{info}
         <br />
       </span>
     );
 
     return (
-      <div className="auth-wrapper align-items-center d-flex">
-        <div className="container">
+      <div className='auth-wrapper align-items-center d-flex'>
+        <div className='container'>
           <div>
-            <Row className="no-gutters justify-content-center">
-              <Col md="6" lg="4" className="text-white" style={{ backgroundColor: '#263238fa' }}>
-                <div className="p-4">
-                  <h2 className="text-white display-5">
+            <Row className='no-gutters justify-content-center'>
+              <Col
+                md='6'
+                lg='4'
+                className='text-white'
+                style={{ backgroundColor: '#263238fa' }}
+              >
+                <div className='p-4'>
+                  <h2 className='text-white display-5'>
                     {t('pages.signin.hi')}
                     <br />
-                    <span style={{ color: '#ffb22b' }} className="font-bold">
+                    <span style={{ color: '#ffb22b' }} className='font-bold'>
                       {t('pages.signin.welcome')}
-                      <V7Logo className="vol7er-preloader__logo" isScrollTop={false} fontSize={34} />
+                      <V7Logo
+                        className='vol7er-preloader__logo'
+                        isScrollTop={false}
+                        fontSize={34}
+                      />
                     </span>
                   </h2>
                   <br />
-                  <p className="op-1 mt-4" style={{ fontSize: '26px', borderTop: 'solid 3px #ffb22b' }}>
+                  <p
+                    className='op-1 mt-4'
+                    style={{ fontSize: '26px', borderTop: 'solid 3px #ffb22b' }}
+                  >
                     {t('pages.signin.message')}
                   </p>
                 </div>
               </Col>
-              <Col md="6" lg="4" className="text-white" style={{ backgroundColor: '#2b2c2de3' }}>
-                <div className="p-4">
-                  <h3 className="font-medium mb-3 text-info">
+              <Col
+                md='6'
+                lg='4'
+                className='text-white'
+                style={{ backgroundColor: '#2b2c2de3' }}
+              >
+                <div className='p-4'>
+                  <h3 className='font-medium mb-3 text-info'>
                     {t('pages.signin.title')}
                   </h3>
                   <Formik
@@ -189,91 +206,93 @@ class SignIn extends React.PureComponent<ISignInProps, ISignInState> {
                       dirty,
                     }) => (
                       <Form
-                        autoComplete="off"
+                        autoComplete='off'
                         onSubmit={handleSubmit}
-                        className="mt-3"
-                        id="loginform"
-                        action="/dashbaords"
+                        className='mt-3'
+                        id='loginform'
+                        action='/dashbaords'
                       >
                         <>
-                          <Label for="email" className="font-medium">
+                          <Label for='email' className='font-medium'>
                             {t('labels.forms.email')}
                           </Label>
-                          <InputGroup className="mb-2" size="lg">
-                            <InputGroupAddon addonType="prepend">
+                          <InputGroup className='mb-2' size='lg'>
+                            <InputGroupAddon addonType='prepend'>
                               <InputGroupText>
-                                <i className="fas fa-user" />
+                                <i className='fas fa-user' />
                               </InputGroupText>
                             </InputGroupAddon>
                             <Input
                               disabled={isSubmitting}
-                              type="email"
-                              id="email"
-                              name="email"
+                              type='email'
+                              id='email'
+                              name='email'
                               value={values.email}
                               onChange={handleChange}
                               onBlur={handleBlur}
                               placeholder={t('labels.forms.email')}
                             />
                           </InputGroup>
-                          {
-                            getTextError(touched.email, errors.email)
-                              && showError(getTextError(touched.email, errors.email))
-                              && touched.email
-                          }
-                          <Label for="password" className="mt-3 font-medium">
+                          {getTextError(touched.email, errors.email) &&
+                            showError(
+                              getTextError(touched.email, errors.email)
+                            ) &&
+                            touched.email}
+                          <Label for='password' className='mt-3 font-medium'>
                             {t('labels.forms.password')}
                           </Label>
-                          <InputGroup className="mb-3" size="lg">
-                            <InputGroupAddon addonType="prepend">
+                          <InputGroup className='mb-3' size='lg'>
+                            <InputGroupAddon addonType='prepend'>
                               <InputGroupText>
-                                <i className="fas fa-key" />
+                                <i className='fas fa-key' />
                               </InputGroupText>
                             </InputGroupAddon>
                             <Input
                               disabled={isSubmitting}
-                              type="password"
-                              id="password"
-                              name="password"
+                              type='password'
+                              id='password'
+                              name='password'
                               value={values.password}
                               onChange={handleChange}
                               onBlur={handleBlur}
                               placeholder={t('labels.forms.password')}
                             />
                           </InputGroup>
-                          {
-                            getTextError(touched.password, errors.password)
-                              && showError(getTextError(touched.password, errors.password))
-                              && touched.password
-                          }
-                          <div className="d-flex no-block align-items-center mb-4 mt-4">
+                          {getTextError(touched.password, errors.password) &&
+                            showError(
+                              getTextError(touched.password, errors.password)
+                            ) &&
+                            touched.password}
+                          <div className='d-flex no-block align-items-center mb-4 mt-4'>
                             <CustomInput
-                              type="checkbox"
-                              id="exampleCustomCheckbox"
+                              type='checkbox'
+                              id='exampleCustomCheckbox'
                               label={t('labels.forms.rememberMe')}
                             />
-                            <div className="ml-auto">
+                            <div className='ml-auto'>
                               <a
-                                href="/auth/recover"
-                                id="to-recover"
-                                className="forgot text-white float-right"
+                                href='/auth/recover'
+                                id='to-recover'
+                                className='forgot text-white float-right'
                               >
-                                <i className="fa fa-lock mr-1" />
+                                <i className='fa fa-lock mr-1' />
                                 {t('labels.forms.forgotPassword')}
                               </a>
                             </div>
                           </div>
-                          <Row className="mb-3">
-                            <Col xs="12">
+                          <Row className='mb-3'>
+                            <Col xs='12'>
                               <Button
-                                color="primary"
-                                className={`${(isValid && dirty) ? '' : 'disabled'}`}
+                                color='primary'
+                                className={`${
+                                  isValid && dirty ? '' : 'disabled'
+                                }`}
                                 style={{
                                   backgroundColor: '#44a0ff',
                                   borderColor: '#44a0ff',
                                 }}
-                                size="lg"
-                                type="submit"
+                                size='lg'
+                                type='submit'
                                 block
                                 disabled={!(isValid && dirty)}
                               >
@@ -281,20 +300,25 @@ class SignIn extends React.PureComponent<ISignInProps, ISignInState> {
                               </Button>
                             </Col>
                           </Row>
-                          <div style={{ fontSize: '12px' }} className="text-center float-right">
+                          <div
+                            style={{ fontSize: '12px' }}
+                            className='text-center float-right'
+                          >
                             {t('labels.forms.dontHaveAnAccount')}
-                            <a href="/auth/register" className="text-info ml-1">
-                              <b>
-                                {t('labels.forms.signUp')}
-                              </b>
+                            <a href='/auth/register' className='text-info ml-1'>
+                              <b>{t('labels.forms.signUp')}</b>
                             </a>
                           </div>
-                          <div style={{ fontSize: '12px' }} className="text-center float-right">
+                          <div
+                            style={{ fontSize: '12px' }}
+                            className='text-center float-right'
+                          >
                             {t('labels.forms.doYouHaveAVerificationCode')}
-                            <a href="/auth/verification-code" className="text-info ml-1">
-                              <b>
-                                {t('pages.verificationCode.title')}
-                              </b>
+                            <a
+                              href='/auth/verification-code'
+                              className='text-info ml-1'
+                            >
+                              <b>{t('pages.verificationCode.title')}</b>
                             </a>
                           </div>
                           <br />
