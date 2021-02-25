@@ -22,7 +22,6 @@ interface IV7MainProps extends RouteComponentProps {
 
 interface IV7MainState {
   token: string | null;
-  validated: boolean;
 }
 
 class V7MainContainer extends React.PureComponent<IV7MainProps, IV7MainState> {
@@ -30,7 +29,6 @@ class V7MainContainer extends React.PureComponent<IV7MainProps, IV7MainState> {
     super(props);
     this.state = {
       token: getToken(),
-      validated: false,
     };
   }
 
@@ -38,9 +36,7 @@ class V7MainContainer extends React.PureComponent<IV7MainProps, IV7MainState> {
 
   validateProtectedRoute = () => {
     if (
-      this.state.token &&
-      !_.isEmpty(getToken()) &&
-      this.props.onLoginFromToken
+      this.state.token && !_.isEmpty(getToken()) && this.props.onLoginFromToken
     ) {
       const decodedToken: any = jwt.decode(this.state.token);
 
@@ -55,49 +51,30 @@ class V7MainContainer extends React.PureComponent<IV7MainProps, IV7MainState> {
   };
 
   componentDidMount() {
-    debugger;
     this.validateProtectedRoute();
   }
 
-  componentDidUpdate(prevProps: IV7MainProps) {
-    if (prevProps.userReducer !== this.props.userReducer) {
-      debugger;
-      this.setState({ validated: true });
-    }
-  }
-
   render() {
-    debugger;
     if (this.props.userReducer.isFetching) {
       return <V7Preloader />;
     }
 
-    if (!this.props.userReducer.authenticated && this.state.validated) {
-      return <Redirect to='/auth/login' />;
+    if (
+      !this.props.userReducer.authenticated && this.props.location.pathname !== '/auth/login' && !this.props.shouldAuth
+    ) {
+      return <Redirect to="/auth/login" />;
     }
 
-    if (this.props.shouldAuth && !this.state.validated) {
-      if (this.state.token) {
-        const { exp }: any = jwt.decode(this.state.token);
+    // if (this.props.shouldAuth) {
+    //   if (this.state.token) {
+    //     const { exp }: any = jwt.decode(this.state.token);
 
-        if (!exp || moment().unix() > exp) {
-          return <Redirect to='/auth/login' />;
-        }
+    //     if (!exp || moment().unix() > exp) {
+    //       return <Redirect to="/auth/login" />;
+    //     }
 
-        return this.props.children;
-      }
-
-      return <Redirect to='/auth/login' />;
-    }
-
-    // if (this.state.token) {
-    //   const { exp }: any = jwt.decode(this.state.token);
-
-    //   if (!exp || moment().unix() > exp) {
     //     return this.props.children;
     //   }
-
-    //   return <Redirect to='/' />;
     // }
 
     return this.props.children;
@@ -114,5 +91,5 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, any>) => ({
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(withRouter(V7MainContainer));

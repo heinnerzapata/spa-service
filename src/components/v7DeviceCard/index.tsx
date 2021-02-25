@@ -5,10 +5,11 @@ import styles from './v7DeviceCard.module.scss';
 
 interface v7DeviceCardProps {}
 
-const V7DeviceCard: React.FC<v7DeviceCardProps> = (props) => (
+const V7DeviceCard: React.FC<v7DeviceCardProps> = () => (
   <div className={styles.container}>
     <article className={styles.card}>
-      <div className={styles.cardLink}>
+      <div className={styles.status} />
+      <div className={styles.imageContainer}>
         <V7Image
           className={styles.image}
           src={imgIOT}
@@ -18,6 +19,9 @@ const V7DeviceCard: React.FC<v7DeviceCardProps> = (props) => (
           noShadow={false}
           flip={false}
         />
+      </div>
+      <div className={styles.contentContainer}>
+        <h1 className={styles.title}>Device 1</h1>
       </div>
     </article>
   </div>

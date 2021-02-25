@@ -10,23 +10,57 @@
 .card {
   position: relative;
   width: 100%;
-  background-color: #292929;
+  background-color: #263238;
   transition: all 0.3s ease-in-out;
   min-height: 400px;
 
+  .status {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    background-color: lime;
+  }
+
+  .imageContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1em;
+    text-decoration: none;
+
+    .image {
+      transition: all .5s;
+    }
+  }
+
+  .contentContainer {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+
+    .title {
+      transition: all .5s;
+    }
+  }
+
   &:hover {
     box-shadow: 0 10px 20px 10px rgba(black, 0.2);
-  }
-}
+    cursor: pointer;
 
-.cardLink {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 1em;
-  text-decoration: none;
+    .image {
+      transform: translateY(-40px) scale(1.1);
+      transition: all .5s;
+      box-shadow: 0 0 10px 5px;
+    }
 
-  .image {
-    transform: translateY(-40px);
+    .title {
+      margin-top: 30px;
+      transition: all .5s;
+    }
   }
 }
