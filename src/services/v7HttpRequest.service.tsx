@@ -45,7 +45,7 @@ class V7HttpRequest {
           resolve(response.data);
         })
         .catch((error) => {
-          reject(Error(error));
+          reject(error);
         });
     });
   }
@@ -62,7 +62,7 @@ class V7HttpRequest {
           resolve(response.data);
         })
         .catch((error) => {
-          reject(Error(error));
+          reject(error);
         });
     });
   }
@@ -75,7 +75,7 @@ class V7HttpRequest {
           resolve(response.data);
         })
         .catch((error) => {
-          reject(Error(error));
+          reject(error);
         });
     });
   }

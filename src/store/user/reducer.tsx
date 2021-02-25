@@ -71,7 +71,7 @@ const userReducer = (
     case userActionType.SIGNUP_ERROR:
       return {
         ...state,
-        userInfo: initState.userInfo,
+        userInfo: null,
         authenticated: false,
         error: initState.error,
         isFetching: false,

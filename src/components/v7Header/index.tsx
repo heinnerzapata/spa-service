@@ -155,7 +155,7 @@ const V7Header: React.FC<IV7HeaderProps> = ({ t, data }) => {
           </Nav>
           <Nav className="ml-auto float-right" navbar>
             <V7HeaderNotificator />
-            <V7HeaderProfiler />
+            {/* <V7HeaderProfiler /> */}
           </Nav>
         </Collapse>
       </Navbar>

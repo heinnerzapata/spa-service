@@ -12,9 +12,11 @@ const AuthLayout: React.FC = () => {
 
   return (
     <div
-      className="authentications page-auth-wrapper-with-footer"
+      className='authentications page-auth-wrapper-with-footer'
       style={{
-        backgroundImage: `url(${physicalPaths[pathname]?.background || authBg})`,
+        backgroundImage: `url(${
+          physicalPaths[pathname]?.background || authBg
+        })`,
         backgroundSize: 'cover',
         height: '100vh',
         flexDirection: 'column-reverse',

@@ -59,8 +59,8 @@ class Profile extends React.PureComponent<IProfileProps, IProfileState> {
 
   componentDidUpdate(prevProps: IProfileProps) {
     if (
-      prevProps.userReducer !== this.props.userReducer
-      && this.props.userReducer.userInfo !== null
+      prevProps.userReducer !== this.props.userReducer &&
+      this.props.userReducer.userInfo !== null
     ) {
       const { userInfo } = this.props.userReducer;
       if (this.state.initFormValue.email === '') {
@@ -99,7 +99,7 @@ class Profile extends React.PureComponent<IProfileProps, IProfileState> {
         },
         () => {
           resetForm({ values: this.state.initFormValue });
-        },
+        }
       );
     }
   }
@@ -113,13 +113,13 @@ class Profile extends React.PureComponent<IProfileProps, IProfileState> {
 
     const getTextError = (
       touched: boolean | undefined,
-      error: string | undefined,
-    ): string => (error !== undefined && touched && error !== undefined ? error : '');
+      error: string | undefined
+    ): string =>
+      error !== undefined && touched && error !== undefined ? error : '';
 
     const showError = (info: any) => (
-      <span className="error">
-        *
-        {info}
+      <span className='error'>
+        *{info}
         <br />
       </span>
     );
@@ -145,27 +145,25 @@ class Profile extends React.PureComponent<IProfileProps, IProfileState> {
     return (
       <div>
         <Row>
-          <Col xs="12" md="12" lg="4">
+          <Col xs='12' md='12' lg='4'>
             <Card>
               <CardBody>
-                <div className="text-center mt-4">
+                <div className='text-center mt-4'>
                   <img
                     src={this.props.userReducer?.userInfo?.avatar}
-                    className="rounded-circle"
-                    width="150"
-                    alt=""
+                    className='rounded-circle'
+                    width='150'
+                    alt=''
                   />
-                  <CardTitle className="mt-2">
+                  <CardTitle className='mt-2'>
                     {this.props.userReducer?.userInfo?.display_name}
                   </CardTitle>
-                  <CardSubtitle>
-                    Account Manager
-                  </CardSubtitle>
+                  <CardSubtitle>Account Manager</CardSubtitle>
                 </div>
               </CardBody>
             </Card>
           </Col>
-          <Col xs="12" md="12" lg="8" sm="12">
+          <Col xs='12' md='12' lg='8' sm='12'>
             <Card>
               <CardBody>
                 <Formik
@@ -189,76 +187,74 @@ class Profile extends React.PureComponent<IProfileProps, IProfileState> {
                     isValid,
                     dirty,
                   }) => (
-                    <Form onSubmit={handleSubmit} autoComplete="off">
+                    <Form onSubmit={handleSubmit} autoComplete='off'>
                       <FormGroup>
-                        <Label>
-                          {t('labels.forms.displayName')}
-                        </Label>
+                        <Label>{t('labels.forms.displayName')}</Label>
                         <Input
                           disabled={isSubmitting}
-                          id="display_name"
-                          name="display_name"
-                          type="text"
+                          id='display_name'
+                          name='display_name'
+                          type='text'
                           defaultValue={this.state.initFormValue.display_name}
                           onBlur={handleBlur}
                           onChange={handleChange}
                           placeholder={t('labels.forms.displayName')}
                         />
-                        {
-                          getTextError(touched.display_name, errors.display_name)
-                            && showError(getTextError(touched.display_name, errors.display_name))
-                            && touched.display_name
-                        }
+                        {getTextError(
+                          touched.display_name,
+                          errors.display_name
+                        ) &&
+                          showError(
+                            getTextError(
+                              touched.display_name,
+                              errors.display_name
+                            )
+                          ) &&
+                          touched.display_name}
                       </FormGroup>
                       <FormGroup>
-                        <Label>
-                          {t('labels.forms.email')}
-                        </Label>
+                        <Label>{t('labels.forms.email')}</Label>
                         <Input
                           disabled={isSubmitting}
-                          id="email"
-                          name="email"
-                          type="email"
+                          id='email'
+                          name='email'
+                          type='email'
                           defaultValue={this.state.initFormValue.email}
                           onBlur={handleBlur}
                           onChange={handleChange}
                           placeholder={t('labels.forms.email')}
                         />
-                        {
-                          getTextError(touched.email, errors.email)
-                            && showError(getTextError(touched.email, errors.email))
-                            && touched.email
-                        }
+                        {getTextError(touched.email, errors.email) &&
+                          showError(
+                            getTextError(touched.email, errors.email)
+                          ) &&
+                          touched.email}
                       </FormGroup>
                       <FormGroup>
-                        <Label>
-                          {t('labels.forms.phoneContact')}
-                        </Label>
+                        <Label>{t('labels.forms.phoneContact')}</Label>
                         <Input
                           disabled={isSubmitting}
-                          id="phone_contact"
-                          name="phone_contact"
-                          type="text"
+                          id='phone_contact'
+                          name='phone_contact'
+                          type='text'
                           defaultValue={this.state.initFormValue.phone_contact}
                           onBlur={handleBlur}
                           onChange={handleChange}
                           placeholder={t('labels.forms.phoneContact')}
                         />
-                        {
-                          getTextError(touched.email, errors.email)
-                            && showError(getTextError(touched.email, errors.email))
-                            && touched.email
-                        }
+                        {getTextError(touched.email, errors.email) &&
+                          showError(
+                            getTextError(touched.email, errors.email)
+                          ) &&
+                          touched.email}
                       </FormGroup>
                       <FormGroup>
-                        <Label>
-                          {t('labels.forms.password')}
-                        </Label>
+                        <Label>{t('labels.forms.password')}</Label>
                         <Input
                           disabled={isSubmitting}
-                          type="password"
-                          id="password"
-                          name="password"
+                          type='password'
+                          id='password'
+                          name='password'
                           defaultValue={this.state.initFormValue.phone_contact}
                           onChange={handleChange}
                           onBlur={handleBlur}
@@ -267,7 +263,7 @@ class Profile extends React.PureComponent<IProfileProps, IProfileState> {
                       </FormGroup>
                       <Button
                         disabled={!(isValid && dirty && values)}
-                        color="primary"
+                        color='primary'
                         style={{
                           backgroundColor: '#44a0ff',
                           borderColor: '#44a0ff',
