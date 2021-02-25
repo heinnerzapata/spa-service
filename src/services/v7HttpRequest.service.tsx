@@ -45,7 +45,6 @@ class V7HttpRequest {
           resolve(response.data);
         })
         .catch((error) => {
-          debugger;
           reject(error);
         });
     });

@@ -245,7 +245,6 @@ export const signUp = (newUserInfo: any) => async (dispatch: Dispatch) => {
 export const loginFromToken = (token: string) => async (dispatch: Dispatch) => {
   dispatch(loginStarted());
   try {
-    debugger;
     const result = (await services.user.checkUserToken(token)) as any;
     const userInfo = result.response.data.account;
     const { company } = result.response.data;
@@ -261,7 +260,6 @@ export const loginFromToken = (token: string) => async (dispatch: Dispatch) => {
 
     return await Promise.resolve(data);
   } catch (error) {
-    debugger;
     dispatch(loginError(error));
 
     return Promise.reject(error);

@@ -69,7 +69,6 @@ const userReducer = (
       };
     case userActionType.LOGIN_ERROR:
     case userActionType.SIGNUP_ERROR:
-      debugger;
       return {
         ...state,
         userInfo: null,
