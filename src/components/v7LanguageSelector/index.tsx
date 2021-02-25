@@ -43,13 +43,14 @@ const V7LanguageSelector: React.SFC<v7LanguageSelectorProps> = () => {
             size={AVATAR_SIZES.SMALL}
             alt={`item-language-${index}`}
             src={getAvatarByLang(item.language)}
-          />{' '}
+          />
+          {' '}
           <span className={styles.menuItemText}>
             {t(`languages.${item.language}`)}
           </span>
         </div>
       </>
-    )
+    ),
   );
 
   return (

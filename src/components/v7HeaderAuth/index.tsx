@@ -8,11 +8,11 @@ interface v7HeaderAuthProps {}
 const V7HeaderAuth: React.FC<v7HeaderAuthProps> = () => (
   <>
     <AppBar
-      position='static'
+      position="static"
       style={{ background: 'transparent', boxShadow: 'none' }}
     >
       <Toolbar>
-        <Grid container spacing={2} justify='flex-end'>
+        <Grid container spacing={2} justify="flex-end">
           <V7LanguageSelector />
         </Grid>
       </Toolbar>

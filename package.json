@@ -170,8 +170,8 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "coverage": "node scripts/test.js --env=jsdom --coverage",
-    "lint": "eslint src/**/*.{ts,tsx}",
-    "lint:fix": "eslint --fix src/**/*.{ts,tsx}"
+    "lint": "eslint 'src/**/*.{ts,tsx}'",
+    "lint:fix": "eslint --fix 'src/**/*.{ts,tsx}'"
   },
   "eslintConfig": {
     "extends": "react-app"

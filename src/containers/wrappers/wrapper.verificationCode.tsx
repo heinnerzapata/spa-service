@@ -17,5 +17,5 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, any>) => ({
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(withTranslation('translation')(withRouter(VerificationCode)));

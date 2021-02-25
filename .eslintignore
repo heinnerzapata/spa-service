@@ -2,6 +2,7 @@ node_modules/
 src/serviceWorker.js
 src/setupProxy.js
 src/uiComponents/
+src/react-app-env.d.ts
 config/
 public/
 scripts/
