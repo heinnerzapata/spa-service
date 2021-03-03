@@ -6,6 +6,7 @@ export interface IUserState {
   authenticated: boolean;
   token: string;
   userInfo: any;
+  avatar: string;
   error: any;
   companyId: string | null;
 }
@@ -14,6 +15,7 @@ const initState: IUserState = {
   isFetching: false,
   authenticated: false,
   token: '',
+  avatar: '',
   error: null,
   userInfo: {},
   companyId: null,

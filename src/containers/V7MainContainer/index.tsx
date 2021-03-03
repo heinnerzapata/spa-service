@@ -60,7 +60,7 @@ class V7MainContainer extends React.PureComponent<IV7MainProps, IV7MainState> {
     }
 
     if (
-      !this.props.userReducer.authenticated && this.props.location.pathname !== '/auth/login' && !this.props.shouldAuth
+      !this.props.userReducer.authenticated && this.props.location.pathname !== '/auth/login'
     ) {
       return <Redirect to="/auth/login" />;
     }

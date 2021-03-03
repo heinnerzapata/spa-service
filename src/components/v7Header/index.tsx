@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { WithTranslation, withTranslation } from 'react-i18next';
+import { WithTranslation } from 'react-i18next';
 
 import {
   Nav,
@@ -12,21 +12,21 @@ import {
   Collapse,
 } from 'reactstrap';
 
-import {
-  V7HeaderNotificator,
-  V7HeaderProfiler,
-} from 'components';
+import { V7HeaderNotificator, V7HeaderProfiler } from 'components';
+import { IUserState } from 'store/user/reducer';
 
 import { physicalPaths } from 'router/router.app';
 
 import logov7icon from '../../assets/images/logo-vol7er-icon.png';
 import logov7text from '../../assets/images/logo-vol7er-text.png';
 
-interface IV7HeaderProps extends WithTranslation {
-  data: any;
+interface IV7HeaderProps {
+  t: any;
+  stateLayout: any;
+  userReducer?: IUserState;
 }
 
-const V7Header: React.FC<IV7HeaderProps> = ({ t, data }) => {
+const V7Header: React.FC<IV7HeaderProps> = (props) => {
   const location = useLocation();
 
   const [stateHeader, setStateHeader] = useState({
@@ -48,7 +48,7 @@ const V7Header: React.FC<IV7HeaderProps> = ({ t, data }) => {
 
   const sidebarHandler = () => {
     const element = document.getElementById('main-wrapper');
-    switch (data.settings[0].sidebartype) {
+    switch (props.stateLayout.settings[0].sidebartype) {
       case 'full':
       case 'iconbar':
         element?.classList.toggle('mini-sidebar');
@@ -57,7 +57,7 @@ const V7Header: React.FC<IV7HeaderProps> = ({ t, data }) => {
         } else {
           element?.setAttribute(
             'data-sidebartype',
-            data.settings[0].sidebartype,
+            props.stateLayout.settings[0].sidebartype,
           );
         }
         break;
@@ -69,7 +69,7 @@ const V7Header: React.FC<IV7HeaderProps> = ({ t, data }) => {
         } else {
           element?.setAttribute(
             'data-sidebartype',
-            data.settings[0].sidebartype,
+            props.stateLayout.settings[0].sidebartype,
           );
         }
         break;
@@ -87,13 +87,21 @@ const V7Header: React.FC<IV7HeaderProps> = ({ t, data }) => {
   return (
     <header
       className="topbar navbarbg"
-      data-navbarbg={data.settings[0].navbarbg}
+      data-navbarbg={props.stateLayout.settings[0].navbarbg}
     >
       <Navbar
-        className={`top-navbar ${(data.settings[0].navbarbg === 'skin6' ? 'navbar-light' : 'navbar-dark')}`}
+        className={`top-navbar ${
+          props.stateLayout.settings[0].navbarbg === 'skin6'
+            ? 'navbar-light'
+            : 'navbar-dark'
+        }`}
         expand="md"
       >
-        <div className="navbar-header" id="logobg" data-logobg={data.settings[0].logobg}>
+        <div
+          className="navbar-header"
+          id="logobg"
+          data-logobg={props.stateLayout.settings[0].logobg}
+        >
           <span
             className="nav-toggler d-block d-md-none text-white"
             onClick={showMobilemenu}
@@ -105,18 +113,10 @@ const V7Header: React.FC<IV7HeaderProps> = ({ t, data }) => {
           </span>
           <NavbarBrand href="/">
             <b className="logo-icon">
-              <img
-                src={logov7icon}
-                alt="homepage"
-                className="light-logo"
-              />
+              <img src={logov7icon} alt="homepage" className="light-logo" />
             </b>
             <span className="logo-text">
-              <img
-                src={logov7text}
-                className="light-logo"
-                alt="homepage"
-              />
+              <img src={logov7text} className="light-logo" alt="homepage" />
             </span>
           </NavbarBrand>
           <span
@@ -133,7 +133,7 @@ const V7Header: React.FC<IV7HeaderProps> = ({ t, data }) => {
           className="navbarbg"
           isOpen={stateHeader.isOpen}
           navbar
-          data-navbarbg={data.settings[0].navbarbg}
+          data-navbarbg={props.stateLayout.settings[0].navbarbg}
         >
           <Nav className="float-left" navbar>
             <NavItem>
@@ -146,16 +146,14 @@ const V7Header: React.FC<IV7HeaderProps> = ({ t, data }) => {
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink
-                className="text-white d-none d-md-block"
-              >
-                {t(`appRouter.${stateNameActiveRoute}`)}
+              <NavLink className="text-white d-none d-md-block">
+                {props.t(`appRouter.${stateNameActiveRoute}`)}
               </NavLink>
             </NavItem>
           </Nav>
           <Nav className="ml-auto float-right" navbar>
             <V7HeaderNotificator />
-            {/* <V7HeaderProfiler /> */}
+            <V7HeaderProfiler t={props.t} userReducer={props.userReducer} />
           </Nav>
         </Collapse>
       </Navbar>
@@ -163,4 +161,4 @@ const V7Header: React.FC<IV7HeaderProps> = ({ t, data }) => {
   );
 };
 
-export default withTranslation('translation')(V7Header);
+export default V7Header;

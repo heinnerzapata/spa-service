@@ -2,36 +2,43 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
-
-import { V7Header, V7Sidebar } from 'components';
+import V7Header from 'containers/v7Header';
+import { V7Sidebar } from 'components';
 import RouterAppHelper from 'utilities/routerAppHelper';
 import { appRoutes } from 'router/router.app';
 import V7MainContainer from 'containers/V7MainContainer';
 
 interface IFullLayoutProps {
-  history: any
+  history: any;
 }
 
 const FullLayout: React.FC<IFullLayoutProps> = (props) => {
   const [stateLayout, setStateLayout] = useState({
     isOpen: false,
     width: window.innerWidth,
-    settings: [{
-      theme: 'dark',
-      layout: 'vertical',
-      dir: 'ltr',
-      sidebartype: 'mini-sidebar',
-      sidebarpos: 'fixed',
-      headerpos: 'fixed',
-      boxed: 'full',
-      navbarbg: 'skin1',
-      sidebarbg: 'skin1',
-      logobg: 'skin1',
-    }],
+    settings: [
+      {
+        theme: 'dark',
+        layout: 'vertical',
+        dir: 'ltr',
+        sidebartype: 'mini-sidebar',
+        sidebarpos: 'fixed',
+        headerpos: 'fixed',
+        boxed: 'full',
+        navbarbg: 'skin1',
+        sidebarbg: 'skin1',
+        logobg: 'skin1',
+      },
+    ],
   });
 
   props.history.listen((location: any, action: any) => {
-    if (window.innerWidth < 767 && document.getElementById('main-wrapper')?.className.indexOf('show-sidebar') !== -1) {
+    if (
+      window.innerWidth < 767
+      && document
+        .getElementById('main-wrapper')
+        ?.className.indexOf('show-sidebar') !== -1
+    ) {
       const mainWrapper = document.getElementById('main-wrapper');
       mainWrapper?.classList.toggle('show-sidebar');
     }
@@ -52,7 +59,10 @@ const FullLayout: React.FC<IFullLayoutProps> = (props) => {
           element?.setAttribute('data-sidebartype', 'mini-sidebar');
           element?.classList.add('mini-sidebar');
         } else {
-          element?.setAttribute('data-sidebartype', stateLayout.settings[0].sidebartype);
+          element?.setAttribute(
+            'data-sidebartype',
+            stateLayout.settings[0].sidebartype,
+          );
           element?.classList.remove('mini-sidebar');
         }
         break;
@@ -61,7 +71,10 @@ const FullLayout: React.FC<IFullLayoutProps> = (props) => {
         if (stateLayout.width < 767) {
           element?.setAttribute('data-sidebartype', 'mini-sidebar');
         } else {
-          element?.setAttribute('data-sidebartype', stateLayout.settings[0].sidebartype);
+          element?.setAttribute(
+            'data-sidebartype',
+            stateLayout.settings[0].sidebartype,
+          );
         }
         break;
 
@@ -86,7 +99,7 @@ const FullLayout: React.FC<IFullLayoutProps> = (props) => {
       data-boxed-layout={stateLayout.settings[0].boxed}
     >
       <V7MainContainer shouldAuth>
-        <V7Header data={stateLayout} />
+        <V7Header stateLayout={stateLayout} />
         <V7Sidebar data={stateLayout} {...props} appRoutes={appRoutes} />
         <div className="page-wrapper d-block">
           <div className="page-content container-fluid">
