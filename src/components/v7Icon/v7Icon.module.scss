@@ -1,5 +1,15 @@
 @import "../../variables/sass/variables.scss";
 
+.blinker {
+  animation: blinker 1s step-start infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
 .vol7erIcon.color {
   color: $vol7er-main;
 }

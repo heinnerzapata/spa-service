@@ -1,7 +1,4 @@
-export const LANGUAGES = [
-  { language: 'en' },
-  { language: 'es' },
-];
+export const LANGUAGES = [{ language: 'en' }, { language: 'es' }];
 
 export const COLORS = {
   white: '#FFFFFF',
@@ -20,6 +17,8 @@ export const COLORS = {
   vol7erMainLight: '#E01CE0',
   vol7erMain: '#0D003F',
   vol7erOrange: '#2aa726',
+  deviceConnected: '#58D68D',
+  deviceDisconnected: '#EC7063',
 };
 
 export const DEFAULT_CONFIG = {

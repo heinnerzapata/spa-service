@@ -1,5 +1,5 @@
 import DashboardMainWrapper from './wrapper.dashboard.main';
-import DeviceRegisterWrapper from './wrapper.deviceRegister';
+import MachineRegisterWrapper from './wrapper.machineRegister';
 import ProfileWrapper from './wrapper.profile';
 import RecoverWrapper from './wrapper.recover';
 import SignInWrapper from './wrapper.signin';
@@ -8,7 +8,7 @@ import VerificationCodeWrapper from './wrapper.verificationCode';
 import CompanyWrapper from './wrapper.company';
 
 export {
-  DeviceRegisterWrapper,
+  MachineRegisterWrapper,
   SignInWrapper,
   DashboardMainWrapper,
   SignUpWrapper,

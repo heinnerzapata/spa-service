@@ -102,7 +102,9 @@ const FullLayout: React.FC<IFullLayoutProps> = (props) => {
         <V7Header stateLayout={stateLayout} />
         <V7Sidebar data={stateLayout} {...props} appRoutes={appRoutes} />
         <div className="page-wrapper d-block">
-          <div className="page-content container-fluid">
+          <div
+            className="page-content container-fluid"
+          >
             <RouterAppHelper appRoutes={appRoutes} />
           </div>
         </div>

@@ -36,7 +36,9 @@ class V7MainContainer extends React.PureComponent<IV7MainProps, IV7MainState> {
 
   validateProtectedRoute = () => {
     if (
-      this.state.token && !_.isEmpty(getToken()) && this.props.onLoginFromToken
+      this.state.token
+      && !_.isEmpty(getToken())
+      && this.props.onLoginFromToken
     ) {
       const decodedToken: any = jwt.decode(this.state.token);
 
@@ -60,9 +62,17 @@ class V7MainContainer extends React.PureComponent<IV7MainProps, IV7MainState> {
     }
 
     if (
-      !this.props.userReducer.authenticated && this.props.location.pathname !== '/auth/login'
+      !this.props.userReducer.authenticated
+      && this.props.location.pathname !== '/auth/login'
     ) {
       return <Redirect to="/auth/login" />;
+    }
+
+    if (
+      this.props.userReducer.authenticated
+      && this.props.location.pathname === '/auth/login'
+    ) {
+      return <Redirect to="/dashboards/main-dashboard" />;
     }
 
     // if (this.props.shouldAuth) {

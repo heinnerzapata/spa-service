@@ -1,6 +1,6 @@
 import {
   DashboardMainWrapper,
-  DeviceRegisterWrapper,
+  MachineRegisterWrapper,
   ProfileWrapper,
 } from 'containers/wrappers';
 
@@ -16,11 +16,11 @@ export const physicalPaths: IPhysicalRoutes = {
     icon: 'mdi mdi-adjust',
     component: DashboardMainWrapper,
   },
-  '/device-register': {
-    path: '/device-register',
-    name: 'Device register',
+  '/machine-register': {
+    path: '/machine-register',
+    name: 'Machine register',
     icon: 'mdi mdi-book-open-variant',
-    component: DeviceRegisterWrapper,
+    component: MachineRegisterWrapper,
   },
   '/profile': {
     hide: true,
@@ -46,7 +46,7 @@ export const appRoutes = [
       physicalPaths['/dashboards/main-dashboard'],
     ],
   },
-  physicalPaths['/device-register'],
+  physicalPaths['/machine-register'],
   physicalPaths['/profile'],
   {
     path: '/',

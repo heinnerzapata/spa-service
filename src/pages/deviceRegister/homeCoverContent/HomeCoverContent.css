@@ -1,7 +1,0 @@
-.vol7er-home-cover {
-  padding-top: 70px; }
-  .vol7er-home-cover__main-row {
-    height: calc(100vh - 180px); }
-  @media screen and (min-width: 1045px) {
-    .vol7er-home-cover__main-row {
-      height: calc(100vh - 70px); } }

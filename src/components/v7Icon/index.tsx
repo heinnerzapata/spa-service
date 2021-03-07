@@ -9,6 +9,7 @@ interface v7IconProps {
   icon: any;
   size: any;
   className?: string;
+  blinker?: boolean;
 }
 
 const V7Icon: React.SFC<v7IconProps> = (props) => (
@@ -17,6 +18,7 @@ const V7Icon: React.SFC<v7IconProps> = (props) => (
       styles.vol7erIcon,
       _.isNil(props.color) ? styles.color : '',
       props.className,
+      { [styles.blinker]: props.blinker },
     )}
     icon={props.icon}
     size={props.size}
