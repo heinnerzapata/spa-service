@@ -2,14 +2,12 @@ import { combineReducers } from 'redux';
 
 import userReducer from 'store/user/reducer';
 import companyReducer from 'store/company/reducer';
-import messageReducer from './reducers/message';
-import subscriptionReducer from './reducers/subscription.reducer';
+import deviceReducer from 'store/device/reducer';
 
 const reducers = combineReducers({
-  messageReducer,
   userReducer,
   companyReducer,
-  subscriptionReducer,
+  deviceReducer,
 });
 
 export default reducers;

@@ -49,6 +49,8 @@ class V7MainContainer extends React.PureComponent<IV7MainProps, IV7MainState> {
           }
         }
       }
+    } else {
+      this.props.history.push('/auth/login');
     }
   };
 
@@ -57,12 +59,16 @@ class V7MainContainer extends React.PureComponent<IV7MainProps, IV7MainState> {
   }
 
   render() {
-    if (this.props.userReducer.isFetching) {
+    if (
+      this.props.userReducer.isFetching
+      && this.props.location.pathname !== '/auth/login'
+    ) {
       return <V7Preloader />;
     }
 
     if (
       !this.props.userReducer.authenticated
+      && this.props.userReducer.validated
       && this.props.location.pathname !== '/auth/login'
     ) {
       return <Redirect to="/auth/login" />;

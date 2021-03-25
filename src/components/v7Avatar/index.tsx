@@ -8,7 +8,7 @@ interface IV7AvatarProps {
   src?: string;
   alt?: string;
   className?: string;
-  size?: AVATAR_SIZES;
+  size?: any;
 }
 
 export enum AVATAR_SIZES {

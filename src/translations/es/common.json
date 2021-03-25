@@ -25,7 +25,8 @@
     },
     "dashboard": {
       "title": "Tablero de control",
-      "machinesList": "Maquinas"
+      "machinesList": "Maquinas",
+      "machine": "Maquina"
     },
     "machines": {
       "title": "Maquinas"

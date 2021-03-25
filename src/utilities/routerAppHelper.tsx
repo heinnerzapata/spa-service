@@ -44,6 +44,7 @@ const RouterAppHelper: React.FC<IAppRouteHelper> = ({ appRoutes }) => (
               );
             });
           }
+
           if (redirect && pathTo) {
             return (
               <Redirect from={path} to={pathTo} key={key} />

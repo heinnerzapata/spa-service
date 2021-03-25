@@ -4,6 +4,7 @@ import { userActionType } from './types';
 export interface IUserState {
   isFetching: boolean;
   authenticated: boolean;
+  validated: boolean;
   token: string;
   userInfo: any;
   avatar: string;
@@ -14,6 +15,7 @@ export interface IUserState {
 const initState: IUserState = {
   isFetching: false,
   authenticated: false,
+  validated: false,
   token: '',
   avatar: '',
   error: null,
@@ -30,7 +32,7 @@ const userReducer = (
     case userActionType.SIGNUP_STARTED:
     case userActionType.LOGIN_STARTED:
       return {
-        ...state, authenticated: false, isFetching: true, error: null,
+        ...state, authenticated: false, isFetching: true, error: null, validated: false,
       };
     case userActionType.RECOVER_SUCCESS:
       return {
@@ -66,6 +68,7 @@ const userReducer = (
         userInfo: action.userInfo,
         authenticated: true,
         isFetching: false,
+        validated: true,
         error: null,
         companyId: action.companyId,
       };
@@ -75,6 +78,7 @@ const userReducer = (
         ...state,
         userInfo: null,
         authenticated: false,
+        validated: true,
         error: initState.error,
         isFetching: false,
       };

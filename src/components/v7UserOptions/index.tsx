@@ -53,14 +53,14 @@ const V7UserOptions: React.SFC<v7LanguageSelectorProps> = (props) => {
     setAnchorEl(null);
   };
 
-  const classes = useStyles(props);
+  // const classes = useStyles(props);
 
   const items = MENU_OPTIONS.map((item: IMenuOptions, index: number) => (
     <MenuItem
       key={`item-language-${index}`}
       onClick={() => handleClose(item.type)}
     >
-      <V7Icon className={classes.v7Avatar} icon={faSignOutAlt} size="2x" />
+      <V7Icon icon={faSignOutAlt} size="2x" />
       {t(`components.header.menu.${item.label}`)}
     </MenuItem>
   ));

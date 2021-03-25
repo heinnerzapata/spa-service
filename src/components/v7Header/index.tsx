@@ -79,9 +79,11 @@ const V7Header: React.FC<IV7HeaderProps> = (props) => {
   };
 
   useEffect(() => {
-    const actualRoute: string = window.location.pathname;
+    const actualRoute: string = location.pathname;
 
-    setStateNameActiveRoute(physicalPaths[actualRoute].name);
+    if (physicalPaths[actualRoute]) {
+      setStateNameActiveRoute(physicalPaths[actualRoute].name);
+    }
   }, [location]);
 
   return (
