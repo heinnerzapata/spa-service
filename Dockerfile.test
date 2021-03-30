@@ -1,5 +1,5 @@
 # Extending image
-FROM mhart/alpine-node:12
+FROM mhart/alpine-node:14
 
 # app directory
 WORKDIR '/app'
