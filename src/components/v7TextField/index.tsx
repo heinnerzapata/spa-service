@@ -53,7 +53,7 @@ const Input: React.FC<IInputProps> = (props) => {
             type={showPassword ? type : 'text'}
             id={props.id}
             name={props.name}
-            helperText={props.errorText}
+            helpertext={props.errorText}
             defaultValue={props.default}
             onChange={props.onChange}
             onBlur={props.onBlur}

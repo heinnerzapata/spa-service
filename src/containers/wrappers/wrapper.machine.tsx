@@ -13,6 +13,7 @@ const mapStateToProps = (state: IAppState) => ({
   userReducer: state.userReducer,
   deviceHistory: state.deviceReducer.deviceHistory,
   deviceSummary: state.deviceReducer.deviceSummary,
+  error: state.deviceReducer.error,
 });
 
 export default connect(

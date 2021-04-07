@@ -60,8 +60,10 @@ class V7MainContainer extends React.PureComponent<IV7MainProps, IV7MainState> {
 
   render() {
     if (
-      this.props.userReducer.isFetching
-      && this.props.location.pathname !== '/auth/login'
+      (this.props.userReducer.isFetching
+        && this.props.location.pathname !== '/auth/login')
+      || (!this.props.userReducer.isFetching
+        && !this.props.userReducer.authenticated)
     ) {
       return <V7Preloader />;
     }

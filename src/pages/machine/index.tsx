@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useMemo } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import { V7Image, V7TextField, V7Icon } from 'components';
 import Moment from 'react-moment';
@@ -6,6 +6,7 @@ import {
   faTractor,
   faAd,
   faWifi,
+  faUser,
   faCalendar,
 } from '@fortawesome/free-solid-svg-icons';
 import { COLORS } from 'variables/constants/constants';
@@ -15,6 +16,7 @@ import styles from './machine.module.scss';
 interface v7MachineProps {
   deviceHistory: any;
   deviceSummary: any;
+  error: string | null;
   onGetDeviceInfo?: (machineId: string) => void;
 }
 
@@ -37,18 +39,22 @@ const getSignal = (connected: boolean) => (
 );
 
 const Machine: React.FC<v7MachineProps> = (props) => {
-  const checkDeviceInfo = useCallback(() => {
-    if (
-      props.onGetDeviceInfo
-      && (!props.deviceHistory || !props.deviceSummary)
-    ) {
-      props.onGetDeviceInfo('6b98388');
-    }
-  }, [props]);
+  const [deviceLastUpdatedAt, setDeviceLastUpdatedAt] = useState(
+    props.deviceHistory ? props.deviceHistory.updated_at : null,
+  );
+
+  const [deviceInfoRequested, setDeviceInfoRequested] = useState(false);
 
   useEffect(() => {
-    checkDeviceInfo();
-  }, [checkDeviceInfo, props]);
+    if (props.onGetDeviceInfo && !deviceLastUpdatedAt && !deviceInfoRequested) {
+      props.onGetDeviceInfo('6b98388');
+      setDeviceInfoRequested(true);
+    }
+
+    if (props.deviceHistory) {
+      setDeviceLastUpdatedAt(props.deviceHistory.updated_at);
+    }
+  }, [deviceInfoRequested, deviceLastUpdatedAt, props]);
 
   return (
     <Grid>
@@ -69,8 +75,8 @@ const Machine: React.FC<v7MachineProps> = (props) => {
               <V7TextField
                 disabled={false}
                 type="text"
-                id="machineName"
-                name="machineName"
+                id="name"
+                name="name"
                 value=""
                 onChange={() => null}
                 onBlur={() => null}
@@ -86,8 +92,8 @@ const Machine: React.FC<v7MachineProps> = (props) => {
               <V7TextField
                 disabled={false}
                 type="text"
-                id="machinePlate"
-                name="machinePlate"
+                id="plate"
+                name="plate"
                 value=""
                 onChange={() => null}
                 onBlur={() => null}
@@ -98,12 +104,61 @@ const Machine: React.FC<v7MachineProps> = (props) => {
               />
             </Col>
           </Row>
+          <Row middle="xs" start="xs">
+            <Col xs={12}>
+              <V7TextField
+                disabled={false}
+                type="text"
+                id="fisicalId"
+                name="fisicalId"
+                value=""
+                onChange={() => null}
+                onBlur={() => null}
+                placeholder="set fisical Id"
+                label="Fisical Id"
+                errorText="error"
+                icon={faAd}
+              />
+            </Col>
+          </Row>
+          <Row middle="xs" start="xs">
+            <Col xs={12}>
+              <V7TextField
+                disabled={false}
+                type="text"
+                id="user"
+                name="user"
+                value=""
+                onChange={() => null}
+                onBlur={() => null}
+                placeholder="set user assing"
+                label="User assing"
+                errorText="error"
+                icon={faUser}
+              />
+            </Col>
+          </Row>
+          <Row middle="xs" start="xs">
+            <Col xs={12}>
+              <V7TextField
+                disabled={false}
+                type="text"
+                id="operator"
+                name="user"
+                value=""
+                onChange={() => null}
+                onBlur={() => null}
+                placeholder="set operator"
+                label="Operator"
+                errorText="error"
+                icon={faUser}
+              />
+            </Col>
+          </Row>
           {props.deviceSummary && (
             <div
               className={cx(styles.connected, {
-                [styles.connected]: isDeviceConnected(
-                  props.deviceHistory.updated_at,
-                ),
+                [styles.connected]: isDeviceConnected(deviceLastUpdatedAt),
                 [styles.notConnected]: !isDeviceConnected(
                   props.deviceHistory.updated_at,
                 ),
@@ -111,7 +166,7 @@ const Machine: React.FC<v7MachineProps> = (props) => {
             >
               <Row middle="xs" start="xs">
                 <Col xs={2} lg={1}>
-                  {getSignal(isDeviceConnected(props.deviceHistory.updated_at))}
+                  {getSignal(isDeviceConnected(deviceLastUpdatedAt))}
                 </Col>
                 <Col xs={8}>
                   <h4 className={styles.deviceId}>
