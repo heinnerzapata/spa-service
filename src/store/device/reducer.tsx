@@ -25,8 +25,6 @@ const deviceReducer = (
         ...state,
         isFetching: true,
         error: null,
-        deviceHistory: null,
-        deviceSummary: null,
       };
     case deviceActionType.GET_DEVICE_HISTORY_SUCCESS:
       return {
@@ -37,7 +35,13 @@ const deviceReducer = (
         deviceSummary: action.deviceSummary,
       };
     case deviceActionType.GET_DEVICE_HISTORY_ERROR:
-      return { ...state, isFetching: false, error: action.error };
+      return {
+        ...state,
+        isFetching: false,
+        error: action.error,
+        deviceHistory: null,
+        deviceSummary: null,
+      };
     default:
       return state;
   }
