@@ -47,7 +47,7 @@ const Machine: React.FC<v7MachineProps> = (props) => {
 
   useEffect(() => {
     if (props.onGetDeviceInfo && !deviceLastUpdatedAt && !deviceInfoRequested) {
-      props.onGetDeviceInfo('75cde09');
+      props.onGetDeviceInfo('6b7771a');
       setDeviceInfoRequested(true);
     }
 
