@@ -83,17 +83,14 @@ class V7MainContainer extends React.PureComponent<IV7MainProps, IV7MainState> {
       return <Redirect to="/dashboards/main-dashboard" />;
     }
 
-    // if (this.props.shouldAuth) {
-    //   if (this.state.token) {
-    //     const { exp }: any = jwt.decode(this.state.token);
-
-    //     if (!exp || moment().unix() > exp) {
-    //       return <Redirect to="/auth/login" />;
-    //     }
-
-    //     return this.props.children;
-    //   }
-    // }
+    if (
+      !(
+        this.props.userReducer.authenticated
+        || this.props.location.pathname === '/auth/login'
+      )
+    ) {
+      return <V7Preloader />;
+    }
 
     return this.props.children;
   }
