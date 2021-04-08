@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import { V7Image, V7TextField, V7Icon } from 'components';
 import Moment from 'react-moment';
@@ -47,7 +47,7 @@ const Machine: React.FC<v7MachineProps> = (props) => {
 
   useEffect(() => {
     if (props.onGetDeviceInfo && !deviceLastUpdatedAt && !deviceInfoRequested) {
-      props.onGetDeviceInfo('6b98388');
+      props.onGetDeviceInfo('75cde09');
       setDeviceInfoRequested(true);
     }
 
@@ -160,7 +160,7 @@ const Machine: React.FC<v7MachineProps> = (props) => {
               className={cx(styles.connected, {
                 [styles.connected]: isDeviceConnected(deviceLastUpdatedAt),
                 [styles.notConnected]: !isDeviceConnected(
-                  props.deviceHistory.updated_at,
+                  props.deviceSummary.updated_at,
                 ),
               })}
             >
@@ -182,7 +182,7 @@ const Machine: React.FC<v7MachineProps> = (props) => {
                   <h4 className={styles.deviceId}>
                     {'Last update: '}
                     <Moment format="LLL" withTitle>
-                      {props.deviceHistory.updated_at}
+                      {props.deviceSummary.updated_at}
                     </Moment>
                   </h4>
                 </Col>
