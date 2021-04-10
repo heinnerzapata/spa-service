@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import { V7Image, V7TextField, V7Icon } from 'components';
+import { toast } from 'react-toastify';
 import Moment from 'react-moment';
 import {
   faTractor,
@@ -11,6 +12,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { COLORS } from 'variables/constants/constants';
 import cx from 'classnames';
+import sockets from 'sockets';
 import styles from './machine.module.scss';
 
 interface v7MachineProps {
@@ -21,12 +23,17 @@ interface v7MachineProps {
 }
 
 const isDeviceConnected = (updatedAt: string) => {
-  const startTime = new Date(updatedAt);
-  const endTime = new Date();
-  const difference = endTime.getTime() - startTime.getTime(); // This will give difference in milliseconds
-  const resultInMinutes = Math.round(difference / 60000);
+  let result = false;
 
-  return resultInMinutes < 10;
+  if (updatedAt) {
+    const startTime = new Date(updatedAt);
+    const endTime = new Date();
+    const difference = endTime.getTime() - startTime.getTime(); // This will give difference in milliseconds
+    const resultInMinutes = Math.round(difference / 60000);
+    result = resultInMinutes < 10;
+  }
+
+  return result;
 };
 
 const getSignal = (connected: boolean) => (
@@ -49,10 +56,20 @@ const Machine: React.FC<v7MachineProps> = (props) => {
     if (props.onGetDeviceInfo && !deviceLastUpdatedAt && !deviceInfoRequested) {
       props.onGetDeviceInfo('6b7771a');
       setDeviceInfoRequested(true);
+      // check device socket
+      sockets.machine.deviceRecordCreated((strData: string) => {
+        const data = JSON.parse(strData);
+        const newUpdatedAt = data.body.updated_at;
+        debugger;
+        setDeviceLastUpdatedAt(newUpdatedAt);
+        toast.success(`Device Record Created : ${data.device_id}`);
+      });
     }
 
-    if (props.deviceHistory) {
-      setDeviceLastUpdatedAt(props.deviceHistory.updated_at);
+    if (props.deviceHistory && !deviceLastUpdatedAt) {
+      const newUpdatedAt = props.deviceSummary.updated_at;
+      debugger;
+      setDeviceLastUpdatedAt(newUpdatedAt);
     }
   }, [deviceInfoRequested, deviceLastUpdatedAt, props]);
 
@@ -68,6 +85,38 @@ const Machine: React.FC<v7MachineProps> = (props) => {
             noShadow={false}
             flip={false}
           />
+          {props.deviceSummary && (
+            <div
+              className={cx(styles.deviceSummary, {
+                [styles.connected]: isDeviceConnected(deviceLastUpdatedAt),
+                [styles.notConnected]: !isDeviceConnected(deviceLastUpdatedAt),
+              })}
+            >
+              <Row middle="xs" start="xs">
+                <Col xs={2} lg={1}>
+                  {getSignal(isDeviceConnected(deviceLastUpdatedAt))}
+                </Col>
+                <Col xs={8}>
+                  <h4 className={styles.deviceId}>
+                    {props.deviceSummary?.device_id}
+                  </h4>
+                </Col>
+              </Row>
+              <Row middle="xs" start="xs">
+                <Col xs={2} lg={1}>
+                  <V7Icon icon={faCalendar} size="1x" blinker={false} />
+                </Col>
+                <Col xs={8}>
+                  <h4 className={styles.deviceId}>
+                    {'Last update: '}
+                    <Moment format="LLL" withTitle>
+                      {deviceLastUpdatedAt}
+                    </Moment>
+                  </h4>
+                </Col>
+              </Row>
+            </div>
+          )}
         </Col>
         <Col xs={12} md={7} lg={8}>
           <Row middle="xs" start="xs">
@@ -155,40 +204,6 @@ const Machine: React.FC<v7MachineProps> = (props) => {
               />
             </Col>
           </Row>
-          {props.deviceSummary && (
-            <div
-              className={cx(styles.connected, {
-                [styles.connected]: isDeviceConnected(deviceLastUpdatedAt),
-                [styles.notConnected]: !isDeviceConnected(
-                  props.deviceSummary.updated_at,
-                ),
-              })}
-            >
-              <Row middle="xs" start="xs">
-                <Col xs={2} lg={1}>
-                  {getSignal(isDeviceConnected(deviceLastUpdatedAt))}
-                </Col>
-                <Col xs={8}>
-                  <h4 className={styles.deviceId}>
-                    {props.deviceSummary?.device_id}
-                  </h4>
-                </Col>
-              </Row>
-              <Row middle="xs" start="xs">
-                <Col xs={2} lg={1}>
-                  <V7Icon icon={faCalendar} size="1x" blinker={false} />
-                </Col>
-                <Col xs={8}>
-                  <h4 className={styles.deviceId}>
-                    {'Last update: '}
-                    <Moment format="LLL" withTitle>
-                      {props.deviceSummary.updated_at}
-                    </Moment>
-                  </h4>
-                </Col>
-              </Row>
-            </div>
-          )}
         </Col>
       </Row>
     </Grid>

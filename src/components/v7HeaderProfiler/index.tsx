@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { RootStateOrAny, useSelector, useDispatch } from 'react-redux';
 import { IUserState } from 'store/user/reducer';
-
 import { WithTranslation, withTranslation } from 'react-i18next';
 
 import {
@@ -14,13 +12,11 @@ import {
 } from 'reactstrap';
 
 import { userLogOut } from 'store/user/actions';
-
-import { removeToken } from 'utilities/tokenHelper';
-
 import { Skeleton } from '@material-ui/lab';
 
 interface IV7HeaderProfilerProps {
   userReducer?: IUserState;
+  onLogOut: (hexId: string) => void;
   t: any;
 }
 
@@ -32,9 +28,7 @@ const V7HeaderProfiler: React.FC<IV7HeaderProfilerProps> = (props) => {
 
   const handlerLogout = (e: any) => {
     e.preventDefault();
-    removeToken('token');
-    // dispatch(userLogOut(props.userReducer.email));
-    history.push('/auth/login');
+    props.onLogOut(props.userReducer?.userInfo.email);
   };
 
   useEffect(() => {

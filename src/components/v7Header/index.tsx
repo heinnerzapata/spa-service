@@ -24,6 +24,7 @@ interface IV7HeaderProps {
   t: any;
   stateLayout: any;
   userReducer?: IUserState;
+  onLogOut: (hexId: string) => void;
 }
 
 const V7Header: React.FC<IV7HeaderProps> = (props) => {
@@ -155,7 +156,7 @@ const V7Header: React.FC<IV7HeaderProps> = (props) => {
           </Nav>
           <Nav className="ml-auto float-right" navbar>
             <V7HeaderNotificator />
-            <V7HeaderProfiler t={props.t} userReducer={props.userReducer} />
+            <V7HeaderProfiler t={props.t} userReducer={props.userReducer} onLogOut={props.onLogOut} />
           </Nav>
         </Collapse>
       </Navbar>

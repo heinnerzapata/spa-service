@@ -2,6 +2,7 @@ import { Dispatch } from 'redux';
 import { ICredentials } from 'models';
 import services from 'services';
 import { clearCompany } from 'store/company/actions';
+import { removeToken } from 'utilities/tokenHelper';
 import { userActionType } from './types';
 
 export interface ISignupStarted {
@@ -34,6 +35,10 @@ export interface ISignupError {
 
 export interface ILoginStarted {
   type: userActionType.LOGIN_STARTED;
+}
+
+export interface ILogoutStarted {
+  type: userActionType.LOGOUT_STARTED;
 }
 
 export interface ILoginSuccess {
@@ -99,6 +104,7 @@ export type IAction =
   | IRecoverError
   | IUpdateUserStarted
   | IUpdateUserSuccess
+  | ILogoutStarted
   | IUpdateUserError;
 
 export const cleanToken = () => (dispatch: Dispatch) => {
@@ -152,6 +158,10 @@ export const loginStarted = (): ILoginStarted => ({
   type: userActionType.LOGIN_STARTED,
 });
 
+export const logoutStarted = (): ILogoutStarted => ({
+  type: userActionType.LOGOUT_STARTED,
+});
+
 export const loginSuccess = (
   userInfo: any,
   companyId: string | null,
@@ -188,7 +198,9 @@ export const recoverError = (error: string): IRecoverError => ({
   error,
 });
 
-export const updateUser = (newUserInfo: any, hexId: string) => async (dispatch: Dispatch) => {
+export const updateUser = (newUserInfo: any, hexId: string) => async (
+  dispatch: Dispatch,
+) => {
   dispatch(updateUserStarted());
   try {
     const result = (await services.user.updateAccount(
@@ -207,10 +219,11 @@ export const updateUser = (newUserInfo: any, hexId: string) => async (dispatch: 
   }
 };
 
-export const userLogOut = (email: string) => async (dispatch: Dispatch) => {
-  dispatch(loginStarted());
+export const userLogOut = (hexId: string) => async (dispatch: Dispatch) => {
+  dispatch(logoutStarted());
   try {
-    await services.user.logout(email);
+    await services.user.logout(hexId);
+    removeToken();
     dispatch(logOutSuccess());
     dispatch(setToken(''));
 
@@ -266,7 +279,9 @@ export const loginFromToken = (token: string) => async (dispatch: Dispatch) => {
   }
 };
 
-export const loginFromCredentials = (credentials: ICredentials) => async (dispatch: Dispatch) => {
+export const loginFromCredentials = (credentials: ICredentials) => async (
+  dispatch: Dispatch,
+) => {
   dispatch(loginStarted());
   try {
     const result = (await services.user.login(credentials)) as any;
@@ -285,7 +300,9 @@ export const loginFromCredentials = (credentials: ICredentials) => async (dispat
   }
 };
 
-export const recoverPassword = (email: string) => async (dispatch: Dispatch) => {
+export const recoverPassword = (email: string) => async (
+  dispatch: Dispatch,
+) => {
   dispatch(recoverStarted());
   try {
     const result = (await services.user.recoverPassword(email)) as any;
@@ -300,7 +317,9 @@ export const recoverPassword = (email: string) => async (dispatch: Dispatch) => 
   }
 };
 
-export const checkRecoverHash = (hash: string) => async (dispatch: Dispatch) => {
+export const checkRecoverHash = (hash: string) => async (
+  dispatch: Dispatch,
+) => {
   dispatch(recoverStarted());
   try {
     const result = (await services.user.checkRecoverHash(hash)) as any;
@@ -315,13 +334,12 @@ export const checkRecoverHash = (hash: string) => async (dispatch: Dispatch) => 
   }
 };
 
-export const restorePassword = (password: string, hash: string) => async (dispatch: Dispatch) => {
+export const restorePassword = (password: string, hash: string) => async (
+  dispatch: Dispatch,
+) => {
   dispatch(recoverStarted());
   try {
-    const result = (await services.user.restorePassword(
-      password,
-      hash,
-    )) as any;
+    const result = (await services.user.restorePassword(password, hash)) as any;
     const userInfo = result.response.data.account;
 
     dispatch(recoverSuccess());

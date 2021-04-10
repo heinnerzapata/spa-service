@@ -72,16 +72,16 @@ class UserService {
     // });
   }
 
-  logout(email: string) {
-    // const logoutUrl = `logout`;
+  logout(hexId: string) {
+    const logoutUrl = '/cmms-gateway-ms/account/sign-out';
 
-    // return V7HttpRequest.post({ email }, logoutUrl);
+    return V7HttpRequest.post({ email: hexId }, logoutUrl);
 
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve({ email });
-      }, 500);
-    });
+    // return new Promise((resolve) => {
+    //   setTimeout(() => {
+    //     resolve({ hexId });
+    //   }, 500);
+    // });
   }
 
   signup(userInfo: any) {

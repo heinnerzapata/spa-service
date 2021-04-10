@@ -6,6 +6,7 @@ import RouterAuthHelper from 'utilities/routerAuthHelper';
 import { V7HeaderAuth } from 'components';
 
 import authBg from 'assets/images/big/v7-auth-bg.png';
+import styles from './layouts.module.scss';
 
 const AuthLayout: React.FC = () => {
   const { pathname } = useLocation();
@@ -14,10 +15,6 @@ const AuthLayout: React.FC = () => {
     <div
       className="authentications page-auth-wrapper-with-footer"
       style={{
-        backgroundImage: `url(${
-          physicalPaths[pathname]?.background || authBg
-        })`,
-        backgroundSize: 'cover',
         height: '100vh',
         flexDirection: 'column-reverse',
         justifyContent: 'center',
@@ -26,9 +23,20 @@ const AuthLayout: React.FC = () => {
         overflow: 'auto',
       }}
     >
+      <div
+        style={{
+          backgroundImage: `url(${
+            physicalPaths[pathname]?.background || authBg
+          })`,
+          backgroundSize: 'cover',
+        }}
+        className={styles.filter}
+      />
       <V7MainContainer shouldAuth={false}>
-        <V7HeaderAuth />
-        <RouterAuthHelper authRoutes={authRoutes} />
+        <div className={styles.content}>
+          <V7HeaderAuth />
+          <RouterAuthHelper authRoutes={authRoutes} />
+        </div>
       </V7MainContainer>
     </div>
   );

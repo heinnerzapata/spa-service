@@ -49,6 +49,7 @@ const Input: React.FC<IInputProps> = (props) => {
             </InputGroupText>
           </InputGroupAddon>
           <InputTrap
+            style={{ backgroundColor: 'white' }}
             disabled={props.disabled}
             type={showPassword ? type : 'text'}
             id={props.id}
