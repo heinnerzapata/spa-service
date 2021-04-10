@@ -19,7 +19,7 @@ pipeline {
         }
         stage ('CONTINUOUS DEPLOYMENT') {
            steps {
-            build job: 'cluster-cd-pipeline', parameters: [[$class: 'StringParameterValue', name: 'SERVICE', value: 'spa-service'], [$class: 'StringParameterValue', name: 'VERSION', value: 'develop']]
+            build job: 'spa-service-cd-pipeline', parameters: [[$class: 'StringParameterValue', name: 'SERVICE', value: 'spa-service'], [$class: 'StringParameterValue', name: 'VERSION', value: 'develop']]
            }
         }
     }

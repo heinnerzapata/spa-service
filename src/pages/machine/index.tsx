@@ -60,7 +60,6 @@ const Machine: React.FC<v7MachineProps> = (props) => {
       sockets.machine.deviceRecordCreated((strData: string) => {
         const data = JSON.parse(strData);
         const newUpdatedAt = data.body.updated_at;
-        debugger;
         setDeviceLastUpdatedAt(newUpdatedAt);
         toast.success(`Device Record Created : ${data.device_id}`);
       });
@@ -68,7 +67,6 @@ const Machine: React.FC<v7MachineProps> = (props) => {
 
     if (props.deviceHistory && !deviceLastUpdatedAt) {
       const newUpdatedAt = props.deviceSummary.updated_at;
-      debugger;
       setDeviceLastUpdatedAt(newUpdatedAt);
     }
   }, [deviceInfoRequested, deviceLastUpdatedAt, props]);
